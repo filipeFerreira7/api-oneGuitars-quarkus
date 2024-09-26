@@ -10,3 +10,12 @@ insert into faixa (nome, preco) values('Faixa Azul', 110.0);
 insert into faixa (nome, preco) values('Faixa Roxa', 120.0);
 insert into faixa (nome, preco) values('Faixa Marrom', 130.0);
 insert into faixa (nome, preco) values('Faixa Preta', 140.0);
+
+insert into estado (nome, sigla) values('Tocantins','TO');
+insert into estado (nome, sigla) values('Goiás','GO');
+insert into estado (nome, sigla) values('Paraná','PR');
+insert into estado (nome, sigla) values('São Paulo','SP');  
+
+insert into cidade (nome, id_estado) values('Palmas',1);  
+insert into cidade (nome, id_estado) values('Paraíso',1);  
+insert into cidade (nome, id_estado) values('Gurupi',1);  
