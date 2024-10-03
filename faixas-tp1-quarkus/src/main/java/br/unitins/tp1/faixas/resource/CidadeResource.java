@@ -1,17 +1,20 @@
 package br.unitins.tp1.faixas.resource;
 
-import br.unitins.tp1.faixas.model.Cidade;
-import br.unitins.tp1.faixas.service.CidadeService;
-
 import java.util.List;
 
+import br.unitins.tp1.faixas.DTO.CidadeRequestDTO;
+import br.unitins.tp1.faixas.DTO.CidadeResponseDTO;
+import br.unitins.tp1.faixas.service.CidadeService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 
 @Path("/cidades")
@@ -22,35 +25,48 @@ public class CidadeResource {
 
     @GET
     @Path("/{id}")
-    public Cidade findById(Long id){
-        return cidadeService.findById(id);
+    public Response findById(@PathParam("id") Long id){
+        
+        return Response.ok(CidadeResponseDTO.valueOf(cidadeService.findById(id))).build();
     }
 
     @GET
     @Path("/search/{nome}")
-    public List<Cidade> findByNome(String nome){
-        return cidadeService.findByNome(nome);
+    public List<CidadeResponseDTO> findByNome(@PathParam("nome")String nome){
+        return cidadeService.findByNome(nome).
+                     stream().
+                     map(o -> CidadeResponseDTO.valueOf(o))
+                    .toList();
     }
 
     @GET
-    public List<Cidade> findAll(){
-        return cidadeService.findAll();
+    public Response findAll(){
+        return Response.ok(cidadeService.
+                     findAll().
+                     stream().
+                     map(o -> CidadeResponseDTO.valueOf(o))
+                    .toList()).build();
+        
     }
 
     @POST
-    public Cidade create(Cidade cidade){
-        return cidadeService.create(cidade);
+    public Response create(@Valid CidadeRequestDTO dto){
+        return  Response.status(Status.CREATED).entity(
+            CidadeResponseDTO.valueOf(cidadeService.create(dto))
+            ).build();
     }
 
     @PUT
     @Path("/{id}")
-    public void update(@PathParam("id") Long id,Cidade cidade){
-        cidadeService.update(cidade);
+    public Response update(@Valid @PathParam("id") Long id, @Valid CidadeRequestDTO dto){
+        cidadeService.update(id, dto);
+       return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
-    public void delete(@PathParam("id") Long id){
+    public Response delete(@PathParam("id") Long id){
         cidadeService.delete(id);
+        return Response.noContent().build();
     }
 }
 

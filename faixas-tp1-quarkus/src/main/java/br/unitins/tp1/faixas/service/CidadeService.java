@@ -2,6 +2,7 @@ package br.unitins.tp1.faixas.service;
 
 import java.util.List;
 
+import br.unitins.tp1.faixas.DTO.CidadeRequestDTO;
 import br.unitins.tp1.faixas.model.Cidade;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -14,9 +15,9 @@ public interface CidadeService {
     
     List<Cidade> findAll();
 
-    Cidade create(Cidade estado); 
+    Cidade create(CidadeRequestDTO dto); 
     
-    Cidade update(Cidade estado);
+    Cidade update(Long id, CidadeRequestDTO dto);
 
     void delete(Long id);
 }

@@ -1,6 +1,6 @@
 package br.unitins.tp1.faixas.resource;
 
-import br.unitins.tp1.faixas.DTO.GuitarraDTO;
+import br.unitins.tp1.faixas.DTO.GuitarraDTORequest;
 import br.unitins.tp1.faixas.DTO.GuitarraDTOResponse;
 import br.unitins.tp1.faixas.model.Guitarra;
 import br.unitins.tp1.faixas.service.GuitarraService;
@@ -14,7 +14,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
-
+// controlador
 
 @Path("/guitarras")
 public class GuitarraResource {
@@ -40,7 +40,7 @@ public class GuitarraResource {
     }
 
     @POST
-    public GuitarraDTOResponse create(GuitarraDTO dto){
+    public GuitarraDTOResponse create(GuitarraDTORequest dto){
         return guitarraService.create(dto);
     }
 

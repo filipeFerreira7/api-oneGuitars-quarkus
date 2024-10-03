@@ -2,6 +2,7 @@ package br.unitins.tp1.faixas.service;
 // 
 import java.util.List;
 
+import br.unitins.tp1.faixas.DTO.CidadeRequestDTO;
 import br.unitins.tp1.faixas.model.Cidade;
 import br.unitins.tp1.faixas.repository.CidadeRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -37,19 +38,22 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Override
     @Transactional
-    public Cidade create(Cidade cidade) {
-      cidade.setEstado(estadoService.findById(cidade.getEstado().getId()));
-       cidadeRepository.persist(cidade);
+    public Cidade create(CidadeRequestDTO dto) {
+      Cidade cidade = new Cidade();
+      cidade.setEstado(estadoService.findById(dto.idEstado()));
+      cidade.setNome(dto.nome());
+
+      cidadeRepository.persist(cidade);
        return cidade;
     }
 
     @Override
-    public Cidade update(Cidade cidade) {
-       Cidade c = cidadeRepository.findById(cidade.getId());
-        c.setNome(cidade.getNome());
+    public Cidade update(Long id, CidadeRequestDTO dto) {
+       Cidade cidade = cidadeRepository.findById(id);
+        cidade.setNome(dto.nome());
 
         //buscando o estado a partir de um id do municipio
-        c.setEstado(estadoService.findById(cidade.getEstado().getId()));
+        cidade.setEstado(estadoService.findById(dto.idEstado()));
         return cidade;
     }
 

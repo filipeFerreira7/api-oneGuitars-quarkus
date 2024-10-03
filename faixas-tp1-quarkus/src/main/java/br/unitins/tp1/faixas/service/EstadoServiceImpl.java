@@ -2,7 +2,7 @@ package br.unitins.tp1.faixas.service;
 // 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.EstadoDTO;
+import br.unitins.tp1.faixas.DTO.EstadoDTORequest;
 import br.unitins.tp1.faixas.model.Estado;
 import br.unitins.tp1.faixas.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -35,16 +35,16 @@ public class EstadoServiceImpl implements EstadoService{
 
     @Override
     @Transactional
-    public Estado create(EstadoDTO dto) {
+    public Estado create(EstadoDTORequest dto) {
       Estado estado  = new Estado();
-      estado.setNome(dto.getNome());
-      estado.setSigla(dto.getSigla());
+      estado.setNome(dto.nome());
+      estado.setSigla(dto.sigla());
        estadoRepository.persist(estado);
        return estado;
     }
 
     @Override
-    public Estado update(long id, EstadoDTO dto) {
+    public Estado update(long id, EstadoDTORequest dto) {
       Estado estado = estadoRepository.findById(id);
       estado.setNome(estado.getNome());
       estado.setSigla(estado.getSigla());

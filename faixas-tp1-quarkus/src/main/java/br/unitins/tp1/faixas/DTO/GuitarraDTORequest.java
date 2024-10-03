@@ -1,6 +1,6 @@
 package br.unitins.tp1.faixas.DTO;
 
-public record GuitarraDTO(
+public record GuitarraDTORequest(
     String nome,
     String numeroSerie
 ) {
