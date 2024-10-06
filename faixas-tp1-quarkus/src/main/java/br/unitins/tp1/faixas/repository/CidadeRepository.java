@@ -9,6 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 // Tudo que tem haver com banco de dados se remete aqui
 @ApplicationScoped
 public class CidadeRepository implements PanacheRepository<Cidade>{
+
     public List<Cidade> findByNome(String nome) {    
        return find("SELECT m FROM Municipio m WHERE m.nome LIKE ?1","%"+ nome +"%").list();
     }

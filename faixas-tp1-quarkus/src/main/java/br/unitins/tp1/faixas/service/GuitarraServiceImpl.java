@@ -2,8 +2,7 @@ package br.unitins.tp1.faixas.service;
 // 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.GuitarraDTO;
-import br.unitins.tp1.faixas.DTO.GuitarraDTOResponse;
+import br.unitins.tp1.faixas.DTO.GuitarraDTORequest;
 import br.unitins.tp1.faixas.model.Guitarra;
 import br.unitins.tp1.faixas.repository.GuitarraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -37,26 +36,32 @@ public class GuitarraServiceImpl implements GuitarraService{
 
   @Override
   @Transactional
-  public GuitarraDTOResponse create(GuitarraDTO dto) {
+  public Guitarra create(GuitarraDTORequest dto) {
     Guitarra guitarra = new Guitarra();
     guitarra.setNome(dto.nome());
     guitarra.setNumeroSerie(dto.numeroSerie());
 
      guitarraRepository.persist(guitarra);
-     return GuitarraDTOResponse.valueOf(guitarra);
+     return guitarra;
   }
 
   @Override
-  public Guitarra update(Guitarra guitarra) {
-      Guitarra e = guitarraRepository.findById(guitarra.getId());
-      e.setNome(guitarra.getNome());
-      e.setNumeroSerie(guitarra.getNumeroSerie());
-      return guitarra;
-  }
+  @Transactional
+  public Guitarra update(Long id, GuitarraDTORequest dto) {
+        Guitarra guitarra = guitarraRepository.findById(id);
+        guitarra.setNome(dto.nome());
+        guitarra.setNumeroSerie(dto.numeroSerie());
+        
+        guitarraRepository.persist(guitarra);
+
+        return guitarra;
+    }
+  
 
   @Override
   @Transactional
   public void delete(Long id) {
       guitarraRepository.deleteById(id);
   }
+  
 }

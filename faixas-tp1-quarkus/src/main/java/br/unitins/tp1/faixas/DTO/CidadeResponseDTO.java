@@ -8,9 +8,10 @@ public record CidadeResponseDTO (
     EstadoDTOResponse estado
 ){
     public static CidadeResponseDTO valueOf(Cidade cidade){
-        return new CidadeResponseDTO(
-            cidade.getId(), cidade.getNome(),
-            EstadoDTOResponse.valueOf(cidade.getEstado())
+            return new CidadeResponseDTO(
+                        cidade.getId(),
+                         cidade.getNome(),
+                         EstadoDTOResponse.valueOf(cidade.getEstado())
             );
     }
 }

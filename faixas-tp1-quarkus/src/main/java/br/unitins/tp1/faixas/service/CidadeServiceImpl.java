@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.faixas.DTO.CidadeRequestDTO;
 import br.unitins.tp1.faixas.model.Cidade;
 import br.unitins.tp1.faixas.repository.CidadeRepository;
+import br.unitins.tp1.faixas.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -15,6 +16,9 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Inject
     public CidadeRepository cidadeRepository;
+
+    @Inject
+    public EstadoRepository repository;
   
     @Inject
     public EstadoService estadoService;
@@ -48,19 +52,24 @@ public class CidadeServiceImpl implements CidadeService {
     }
 
     @Override
-    public Cidade update(Long id, CidadeRequestDTO dto) {
-       Cidade cidade = cidadeRepository.findById(id);
-        cidade.setNome(dto.nome());
+    @Transactional
+    public Cidade update(Long id , CidadeRequestDTO dto) {
+      Cidade m = cidadeRepository.findById(id);
+      m.setNome(dto.nome());
+      // buscando o estado a partir de um id do municipio
+      m.setEstado(repository.findById(dto.idEstado()));
 
-        //buscando o estado a partir de um id do municipio
-        cidade.setEstado(estadoService.findById(dto.idEstado()));
-        return cidade;
-    }
+      cidadeRepository.persist(m);
+
+      return m; 
+  }
+  
 
     @Override
     @Transactional
     public void delete(Long id) {
         cidadeRepository.deleteById(id);
+        
     }
+  }
     
-}

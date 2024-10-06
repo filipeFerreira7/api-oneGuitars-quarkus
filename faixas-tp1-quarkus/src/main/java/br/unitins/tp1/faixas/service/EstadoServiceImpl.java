@@ -44,10 +44,13 @@ public class EstadoServiceImpl implements EstadoService{
     }
 
     @Override
+    @Transactional
     public Estado update(long id, EstadoDTORequest dto) {
       Estado estado = estadoRepository.findById(id);
-      estado.setNome(estado.getNome());
-      estado.setSigla(estado.getSigla());
+      estado.setNome(dto.nome());
+      estado.setSigla(dto.sigla());
+
+      estadoRepository.persist(estado);
       return estado;
     }
     

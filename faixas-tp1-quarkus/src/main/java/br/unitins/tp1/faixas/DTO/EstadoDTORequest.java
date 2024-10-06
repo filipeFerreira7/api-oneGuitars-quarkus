@@ -1,15 +1,14 @@
 package br.unitins.tp1.faixas.DTO;
 
-import br.unitins.tp1.faixas.model.Estado;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record EstadoDTORequest(
+    @NotBlank(message = "The field name must be filled")
+    @Size(max=60)
     String nome,
+    @NotBlank(message="idEstado not must be null")
     String sigla
 ) {
-     public static EstadoDTORequest valueOf(Estado estado){
-        return new EstadoDTORequest( estado.getNome(), 
-                                       estado.getSigla()
-                                      );
-    }
-    
+     
 }

@@ -7,7 +7,7 @@ public record GuitarraDTOResponse(
     String nome,
     String numeroSerie
 ) {
-    public static GuitarraDTOResponse valueOf(Guitarra guitarra){
+ public static GuitarraDTOResponse valueOf(Guitarra guitarra){
         return new GuitarraDTOResponse(guitarra.getId(), 
                                        guitarra.getNome(), 
                                        guitarra.getNumeroSerie()

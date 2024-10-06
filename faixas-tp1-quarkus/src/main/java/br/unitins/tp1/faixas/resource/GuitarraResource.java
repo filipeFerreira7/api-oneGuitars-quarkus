@@ -1,20 +1,24 @@
 package br.unitins.tp1.faixas.resource;
 
+import java.util.List;
+
+
 import br.unitins.tp1.faixas.DTO.GuitarraDTORequest;
 import br.unitins.tp1.faixas.DTO.GuitarraDTOResponse;
 import br.unitins.tp1.faixas.model.Guitarra;
 import br.unitins.tp1.faixas.service.GuitarraService;
-
-import java.util.List;
-
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+
 // controlador
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Path("/guitarras")
 public class GuitarraResource {
@@ -39,15 +43,18 @@ public class GuitarraResource {
         return guitarraService.findAll();
     }
 
-    @POST
-    public GuitarraDTOResponse create(GuitarraDTORequest dto){
-        return guitarraService.create(dto);
+     @POST
+    public Response create(@Valid GuitarraDTORequest dto){
+        return  Response.status(Status.CREATED).entity(
+            GuitarraDTOResponse.valueOf(guitarraService.create(dto))
+            ).build();
     }
 
     @PUT
     @Path("/{id}")
-    public void update(@PathParam("id") Long id,Guitarra guitarra){
-        guitarraService.update(guitarra);
+    public Response update(@Valid @PathParam("id") Long id ,@Valid GuitarraDTORequest dto){
+         guitarraService.update(id, dto);
+       return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
