@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CidadeRequestDTO(
-    @NotBlank(message= "The field name must be filled in")
+    @NotBlank(message= "The field name must be filled")
     @Size(max=60)
 String nome,
 @NotNull (message= "idEstado not must be null")

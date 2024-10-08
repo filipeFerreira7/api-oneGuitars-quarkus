@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.DTO.GuitarraDTORequest;
 import br.unitins.tp1.faixas.model.Guitarra;
+import br.unitins.tp1.faixas.repository.EspecificacaoRepository;
 import br.unitins.tp1.faixas.repository.GuitarraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,6 +18,11 @@ public class GuitarraServiceImpl implements GuitarraService{
   @Inject
   public GuitarraRepository guitarraRepository;
 
+    @Inject
+    public EspecificacaoRepository repository;
+  
+    @Inject
+    public EspecificacaoService especificacaoService;
 
   @Override
   public Guitarra findById(Long id) {
@@ -40,7 +46,7 @@ public class GuitarraServiceImpl implements GuitarraService{
     Guitarra guitarra = new Guitarra();
     guitarra.setNome(dto.nome());
     guitarra.setNumeroSerie(dto.numeroSerie());
-
+    guitarra.setEspecificacao(especificacaoService.findById(dto.idEspecificacao()));
      guitarraRepository.persist(guitarra);
      return guitarra;
   }
@@ -51,7 +57,7 @@ public class GuitarraServiceImpl implements GuitarraService{
         Guitarra guitarra = guitarraRepository.findById(id);
         guitarra.setNome(dto.nome());
         guitarra.setNumeroSerie(dto.numeroSerie());
-        
+        guitarra.setEspecificacao(repository.findById(dto.idEspecificacao()));
         guitarraRepository.persist(guitarra);
 
         return guitarra;

@@ -3,9 +3,15 @@ package br.unitins.tp1.faixas.model;
 // JPA NÃO É VALIDADOR, APENAS MAPEIA
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity 
 public class Guitarra extends DefaultEntity {
+
+    @ManyToOne
+    @JoinColumn(name ="id_especificacao")
+    private Especificacao especificacao;
 
     @Column(length = 60, nullable = false)
     private String nome;
@@ -27,6 +33,14 @@ public class Guitarra extends DefaultEntity {
 
     public void setNumeroSerie(String numeroSerie) {
         this.numeroSerie = numeroSerie;
+    }
+
+    public Especificacao getEspecificacao() {
+        return especificacao;
+    }
+
+    public void setEspecificacao(Especificacao especificacao) {
+        this.especificacao = especificacao;
     }
 
     

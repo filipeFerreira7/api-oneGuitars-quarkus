@@ -5,12 +5,14 @@ import br.unitins.tp1.faixas.model.Guitarra;
 public record GuitarraDTOResponse(
     Long id,
     String nome,
-    String numeroSerie
+    String numeroSerie,
+    EspecificacaoDTOResponse especificacao
 ) {
  public static GuitarraDTOResponse valueOf(Guitarra guitarra){
         return new GuitarraDTOResponse(guitarra.getId(), 
                                        guitarra.getNome(), 
-                                       guitarra.getNumeroSerie()
+                                       guitarra.getNumeroSerie(),
+                                       EspecificacaoDTOResponse.valueOf(guitarra.getEspecificacao())
                                       );
     }
 }
