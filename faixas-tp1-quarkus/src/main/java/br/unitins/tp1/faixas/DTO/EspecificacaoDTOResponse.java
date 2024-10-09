@@ -5,7 +5,7 @@ import br.unitins.tp1.faixas.model.Especificacao;
 public record EspecificacaoDTOResponse(
     Long id,
     String sku,
-    Integer comprimento,
+    Double comprimento,
     String tipoMadeira,
     String tipoCaptador,
     String tipoChave

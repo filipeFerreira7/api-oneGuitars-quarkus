@@ -13,7 +13,7 @@ public interface GuitarraService {
     Guitarra findById(Long id);
 
     List<Guitarra> findByNome(String nome);
-    
+
     List<Guitarra> findAll();
 
     Guitarra create(@Valid GuitarraDTORequest dto); 

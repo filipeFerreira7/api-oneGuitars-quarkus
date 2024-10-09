@@ -11,7 +11,7 @@ public interface EspecificacaoService {
 
     Especificacao findById(Long id);
 
-    List<Especificacao> findByNome(String nome);
+    List<Especificacao> findBySku(String sku);
     
     List<Especificacao> findAll();
 

@@ -10,7 +10,7 @@ public class Especificacao extends DefaultEntity {
         private String sku;
 
         @Column(nullable = false)
-        private Integer comprimento;
+        private Double comprimento;
         
         @Column(nullable = false)
         private String tipoMadeira;
@@ -29,11 +29,11 @@ public class Especificacao extends DefaultEntity {
             this.sku = sku;
         }
 
-        public Integer getComprimento() {
+        public Double getComprimento() {
             return comprimento;
         }
 
-        public void setComprimento(Integer comprimento) {
+        public void setComprimento(Double comprimento) {
             this.comprimento = comprimento;
         }
 

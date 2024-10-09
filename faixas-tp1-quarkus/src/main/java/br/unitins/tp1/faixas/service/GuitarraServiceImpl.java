@@ -29,6 +29,7 @@ public class GuitarraServiceImpl implements GuitarraService{
       return guitarraRepository.findById(id);
   }
 
+
   @Override
   public List<Guitarra> findByNome(String nome) {
     return guitarraRepository.findByNome(nome);
@@ -46,6 +47,8 @@ public class GuitarraServiceImpl implements GuitarraService{
     Guitarra guitarra = new Guitarra();
     guitarra.setNome(dto.nome());
     guitarra.setNumeroSerie(dto.numeroSerie());
+    guitarra.setCor(dto.cor());
+    guitarra.setPreco(dto.preco());
     guitarra.setEspecificacao(especificacaoService.findById(dto.idEspecificacao()));
      guitarraRepository.persist(guitarra);
      return guitarra;
@@ -57,6 +60,8 @@ public class GuitarraServiceImpl implements GuitarraService{
         Guitarra guitarra = guitarraRepository.findById(id);
         guitarra.setNome(dto.nome());
         guitarra.setNumeroSerie(dto.numeroSerie());
+        guitarra.setCor(dto.cor());
+        guitarra.setPreco(dto.preco());
         guitarra.setEspecificacao(repository.findById(dto.idEspecificacao()));
         guitarraRepository.persist(guitarra);
 

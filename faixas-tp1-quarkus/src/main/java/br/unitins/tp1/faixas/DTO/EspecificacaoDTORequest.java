@@ -9,13 +9,12 @@ public record EspecificacaoDTORequest(
     @Size(max=16)
     String sku,
     @NotNull()
-    Integer comprimento,
+    Double comprimento,
     @NotBlank(message = "The field tipo madeira must be filled")
     String tipoMadeira,
     @NotBlank(message="The field tipo captador must be filled")
     String tipoCaptador,
     @NotBlank(message = "The field tipo chave must be filled")
     String tipoChave
-) {
-     
-}
+) 
+{}

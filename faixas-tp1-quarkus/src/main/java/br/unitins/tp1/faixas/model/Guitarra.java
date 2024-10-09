@@ -19,6 +19,29 @@ public class Guitarra extends DefaultEntity {
     @Column(length = 20, nullable = false)
     private String numeroSerie;
 
+    @Column(nullable = false)
+    private String cor;
+
+    @Column(nullable = false)
+    private Double preco;
+ 
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
     public String getNome() {
         return nome;
     }

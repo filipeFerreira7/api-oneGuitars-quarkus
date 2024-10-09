@@ -28,7 +28,7 @@ public class EspecificacaoServiceImpl implements EspecificacaoService {
     }
 
     @Override
-    public List<Especificacao> findBySku(String sku) {
+    public List<Especificacao> findBySku(String sku){
       return especificacaoRepository.findBySku(sku);
     }
 

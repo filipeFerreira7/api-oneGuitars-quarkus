@@ -11,4 +11,8 @@ public class GuitarraRepository implements PanacheRepository<Guitarra>{
     public List<Guitarra> findByNome(String nome) {    
        return find("SELECT e FROM Estado e WHERE e.nome LIKE ?1","%"+nome+"%").list();
     }
+
+    public List<Guitarra> findBySku(String sku){
+        return find("SELECT g From Guitarra g WHERE g.especficacao.sku LIKE ?1", "%"+sku+"%").list();
+    }
 }
