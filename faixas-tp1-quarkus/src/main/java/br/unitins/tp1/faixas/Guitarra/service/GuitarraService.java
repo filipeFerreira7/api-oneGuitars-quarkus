@@ -1,9 +1,9 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Guitarra.service;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.GuitarraDTORequest;
-import br.unitins.tp1.faixas.model.Guitarra;
+import br.unitins.tp1.faixas.Guitarra.dto.GuitarraDTORequest;
+import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.Valid;
 
