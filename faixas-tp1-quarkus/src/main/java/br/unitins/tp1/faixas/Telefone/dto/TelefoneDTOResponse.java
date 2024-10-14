@@ -1,6 +1,6 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Telefone.dto;
 
-import br.unitins.tp1.faixas.model.Telefone;
+import br.unitins.tp1.faixas.Telefone.model.Telefone;
 
 public record TelefoneDTOResponse(
     String dd,

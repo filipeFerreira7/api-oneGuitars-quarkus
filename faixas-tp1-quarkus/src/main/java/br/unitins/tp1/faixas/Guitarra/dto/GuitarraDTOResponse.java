@@ -1,6 +1,7 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Guitarra.dto;
 
-import br.unitins.tp1.faixas.model.Guitarra;
+import br.unitins.tp1.faixas.Especificacao.dto.EspecificacaoDTOResponse;
+import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
 
 public record GuitarraDTOResponse(
     Long id,

@@ -1,5 +1,7 @@
-package br.unitins.tp1.faixas.model;
+package br.unitins.tp1.faixas.Especificacao.model;
 
+
+import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 

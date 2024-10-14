@@ -1,10 +1,10 @@
-package br.unitins.tp1.faixas.resource;
+package br.unitins.tp1.faixas.Estado.resource;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.EstadoDTORequest;
-import br.unitins.tp1.faixas.model.Estado;
-import br.unitins.tp1.faixas.service.EstadoService;
+import br.unitins.tp1.faixas.Estado.dto.EstadoDTORequest;
+import br.unitins.tp1.faixas.Estado.model.Estado;
+import br.unitins.tp1.faixas.Estado.service.EstadoService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;

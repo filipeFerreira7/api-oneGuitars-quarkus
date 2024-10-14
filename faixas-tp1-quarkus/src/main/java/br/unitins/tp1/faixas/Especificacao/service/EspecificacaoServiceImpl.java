@@ -1,11 +1,11 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Especificacao.service;
 // 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.EspecificacaoDTORequest;
-import br.unitins.tp1.faixas.model.Especificacao;
-import br.unitins.tp1.faixas.repository.EspecificacaoRepository;
-import br.unitins.tp1.faixas.repository.EstadoRepository;
+import br.unitins.tp1.faixas.Especificacao.dto.EspecificacaoDTORequest;
+import br.unitins.tp1.faixas.Especificacao.model.Especificacao;
+import br.unitins.tp1.faixas.Especificacao.repository.EspecificacaoRepository;
+import br.unitins.tp1.faixas.Estado.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

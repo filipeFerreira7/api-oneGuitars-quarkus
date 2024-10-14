@@ -1,9 +1,9 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Telefone.service;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.TelefoneDTORequest;
-import br.unitins.tp1.faixas.model.Telefone;
+import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTORequest;
+import br.unitins.tp1.faixas.Telefone.model.Telefone;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

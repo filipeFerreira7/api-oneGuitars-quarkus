@@ -1,5 +1,6 @@
-package br.unitins.tp1.faixas.model;
+package br.unitins.tp1.faixas.Usuario.model;
 
+import br.unitins.tp1.faixas.Telefone.model.Telefone;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,6 +20,9 @@ public class Cliente extends Pessoa {
     @ManyToOne
     @JoinColumn(name="id_telefone")
         private Telefone telefone;
+
+    @Column(nullable = false)
+    private String cpf;
 
 
     @Enumerated(EnumType.STRING) 
@@ -42,6 +46,12 @@ public class Cliente extends Pessoa {
     }
     public void setTelefone(Telefone telefone) {
         this.telefone = telefone;
+    }
+    public String getCpf() {
+        return cpf;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
         
     

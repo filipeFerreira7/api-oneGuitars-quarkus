@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Especificacao.dto;
 
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;

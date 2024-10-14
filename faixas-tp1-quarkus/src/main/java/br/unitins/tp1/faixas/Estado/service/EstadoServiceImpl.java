@@ -1,10 +1,10 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Estado.service;
 // 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.EstadoDTORequest;
-import br.unitins.tp1.faixas.model.Estado;
-import br.unitins.tp1.faixas.repository.EstadoRepository;
+import br.unitins.tp1.faixas.Estado.dto.EstadoDTORequest;
+import br.unitins.tp1.faixas.Estado.model.Estado;
+import br.unitins.tp1.faixas.Estado.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

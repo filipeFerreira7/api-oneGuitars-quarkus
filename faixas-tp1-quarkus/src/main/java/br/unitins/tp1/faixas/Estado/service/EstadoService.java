@@ -1,9 +1,9 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Estado.service;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.EstadoDTORequest;
-import br.unitins.tp1.faixas.model.Estado;
+import br.unitins.tp1.faixas.Estado.dto.EstadoDTORequest;
+import br.unitins.tp1.faixas.Estado.model.Estado;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

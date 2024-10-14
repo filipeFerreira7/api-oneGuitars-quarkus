@@ -1,9 +1,9 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Cidade.service;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.CidadeRequestDTO;
-import br.unitins.tp1.faixas.model.Cidade;
+import br.unitins.tp1.faixas.Cidade.dto.CidadeRequestDTO;
+import br.unitins.tp1.faixas.Cidade.model.Cidade;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

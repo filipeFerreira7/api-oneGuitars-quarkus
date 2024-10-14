@@ -1,6 +1,7 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Cidade.dto;
 
-import br.unitins.tp1.faixas.model.Cidade;
+import br.unitins.tp1.faixas.Estado.dto.EstadoDTOResponse;
+import br.unitins.tp1.faixas.Cidade.model.Cidade;
 
 public record CidadeResponseDTO (
     Long id,

@@ -1,6 +1,6 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Estado.dto;
 
-import br.unitins.tp1.faixas.model.Estado;
+import br.unitins.tp1.faixas.Estado.model.Estado;
 
 public record EstadoDTOResponse(
     Long id,

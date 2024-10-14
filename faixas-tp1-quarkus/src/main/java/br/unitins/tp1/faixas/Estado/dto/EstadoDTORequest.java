@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Estado.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

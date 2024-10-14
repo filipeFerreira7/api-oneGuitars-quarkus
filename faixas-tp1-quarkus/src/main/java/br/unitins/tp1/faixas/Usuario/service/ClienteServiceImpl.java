@@ -1,10 +1,11 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Usuario.service;
 // 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.ClienteDTORequest;
-import br.unitins.tp1.faixas.model.Cliente;
-import br.unitins.tp1.faixas.repository.ClienteRepository;
+import br.unitins.tp1.faixas.Telefone.service.TelefoneService;
+import br.unitins.tp1.faixas.Usuario.dto.ClienteDTORequest;
+import br.unitins.tp1.faixas.Usuario.model.Cliente;
+import br.unitins.tp1.faixas.Usuario.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

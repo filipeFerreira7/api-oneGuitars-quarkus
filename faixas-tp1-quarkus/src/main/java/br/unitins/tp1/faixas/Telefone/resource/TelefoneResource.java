@@ -1,10 +1,10 @@
-package br.unitins.tp1.faixas.resource;
+package br.unitins.tp1.faixas.Telefone.resource;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.TelefoneDTORequest;
-import br.unitins.tp1.faixas.model.Telefone;
-import br.unitins.tp1.faixas.service.TelefoneService;
+import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTORequest;
+import br.unitins.tp1.faixas.Telefone.model.Telefone;
+import br.unitins.tp1.faixas.Telefone.service.TelefoneService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;

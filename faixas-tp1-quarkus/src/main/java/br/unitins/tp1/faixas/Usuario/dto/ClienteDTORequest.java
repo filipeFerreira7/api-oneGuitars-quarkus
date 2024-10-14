@@ -1,6 +1,6 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Usuario.dto;
 
-import br.unitins.tp1.faixas.model.Sexo;
+import br.unitins.tp1.faixas.Usuario.model.Sexo;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

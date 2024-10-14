@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.model;
+package br.unitins.tp1.faixas.DefaultEntity.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

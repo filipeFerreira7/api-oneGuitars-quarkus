@@ -1,11 +1,12 @@
-package br.unitins.tp1.faixas.service;
+package br.unitins.tp1.faixas.Guitarra.service;
 // 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.GuitarraDTORequest;
-import br.unitins.tp1.faixas.model.Guitarra;
-import br.unitins.tp1.faixas.repository.EspecificacaoRepository;
-import br.unitins.tp1.faixas.repository.GuitarraRepository;
+import br.unitins.tp1.faixas.Especificacao.repository.EspecificacaoRepository;
+import br.unitins.tp1.faixas.Especificacao.service.EspecificacaoService;
+import br.unitins.tp1.faixas.Guitarra.dto.GuitarraDTORequest;
+import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
+import br.unitins.tp1.faixas.Guitarra.repository.GuitarraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

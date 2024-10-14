@@ -1,6 +1,6 @@
-package br.unitins.tp1.faixas.DTO;
+package br.unitins.tp1.faixas.Especificacao.dto;
 
-import br.unitins.tp1.faixas.model.Especificacao;
+import br.unitins.tp1.faixas.Especificacao.model.Especificacao;
 
 public record EspecificacaoDTOResponse(
     Long id,

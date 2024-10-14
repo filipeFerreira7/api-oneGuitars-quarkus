@@ -1,8 +1,8 @@
-package br.unitins.tp1.faixas.repository;
+package br.unitins.tp1.faixas.Guitarra.repository;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.model.Guitarra;
+import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 // Tudo que tem haver com banco de dados se remete aqui

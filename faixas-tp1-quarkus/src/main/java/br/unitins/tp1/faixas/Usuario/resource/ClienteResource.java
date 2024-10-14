@@ -1,10 +1,10 @@
-package br.unitins.tp1.faixas.resource;
+package br.unitins.tp1.faixas.Usuario.resource;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.DTO.ClienteDTORequest;
-import br.unitins.tp1.faixas.DTO.ClienteDTOResponse;
-import br.unitins.tp1.faixas.service.ClienteService;
+import br.unitins.tp1.faixas.Usuario.dto.ClienteDTORequest;
+import br.unitins.tp1.faixas.Usuario.dto.ClienteDTOResponse;
+import br.unitins.tp1.faixas.Usuario.service.ClienteService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;

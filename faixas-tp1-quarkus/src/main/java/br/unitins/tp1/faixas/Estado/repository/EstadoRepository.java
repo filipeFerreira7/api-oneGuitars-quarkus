@@ -1,8 +1,8 @@
-package br.unitins.tp1.faixas.repository;
+package br.unitins.tp1.faixas.Estado.repository;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.model.Estado;
+import br.unitins.tp1.faixas.Estado.model.Estado;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 // Tudo que tem haver com banco de dados se remete aqui

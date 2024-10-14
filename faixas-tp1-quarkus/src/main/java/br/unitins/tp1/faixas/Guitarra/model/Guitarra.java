@@ -1,4 +1,6 @@
-package br.unitins.tp1.faixas.model;
+package br.unitins.tp1.faixas.Guitarra.model;
+import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Especificacao.model.Especificacao;
 // ORM = Object Relational Map
 // JPA NÃO É VALIDADOR, APENAS MAPEIA
 import jakarta.persistence.Column;
