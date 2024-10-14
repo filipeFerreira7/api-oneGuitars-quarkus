@@ -13,10 +13,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class CidadeRepository implements PanacheRepository<Cidade>{
 
     public List<Cidade> findByNome(String nome) {    
-       return find("SELECT m FROM Municipio m WHERE m.nome LIKE ?1","%"+ nome +"%").list();
+       return find("SELECT c FROM Cidade c WHERE c.nome LIKE ?1","%"+ nome +"%").list();
     }
 
     public List<Cidade> findByEstado(Estado estado){
-        return find("SELECT m FROM Municipio m WHERE m.estado.id = ?1", estado.getId()).list();
+        return find("SELECT c FROM Cidade c WHERE c.estado.id = ?1", estado.getId()).list();
     }
 }
