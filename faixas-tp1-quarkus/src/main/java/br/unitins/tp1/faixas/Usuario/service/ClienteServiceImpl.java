@@ -5,7 +5,9 @@ import java.util.List;
 import br.unitins.tp1.faixas.Telefone.service.TelefoneService;
 import br.unitins.tp1.faixas.Usuario.dto.ClienteDTORequest;
 import br.unitins.tp1.faixas.Usuario.model.Cliente;
+import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
 import br.unitins.tp1.faixas.Usuario.repository.ClienteRepository;
+import br.unitins.tp1.faixas.Usuario.repository.PessoaFisicaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -17,8 +19,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Inject
     public ClienteRepository clienteRepository;
 
-   
-
+    @Inject
+    public PessoaFisicaRepository pessoaFisicaRepository;
     @Inject
     public TelefoneService telefoneService;
 
@@ -49,6 +51,13 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.setTelefone(telefoneService.findById(dto.idTelefone()));
         cliente.setSexo(dto.sexo());
         clienteRepository.persist(cliente);
+
+        PessoaFisica pF = new PessoaFisica();
+
+        pF.setCpf(dto.cpf());
+
+        pessoaFisicaRepository.persist(pF);
+    
         return cliente;
     }
 

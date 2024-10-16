@@ -15,7 +15,9 @@ public record GuitarraDTORequest(
     @NotNull(message = "The field preco must be filled")
     Double preco,
     @NotNull (message = "idEspecificacao not must be null")
-    Long idEspecificacao
+    Long idEspecificacao,
+    @NotNull(message = "idMarca not must be null")
+    Long idMarca
     
 ){
 

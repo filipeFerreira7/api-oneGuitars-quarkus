@@ -1,6 +1,8 @@
 package br.unitins.tp1.faixas.Guitarra.model;
+
 import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Especificacao.model.Especificacao;
+import br.unitins.tp1.faixas.Marca.model.Marca;
 // ORM = Object Relational Map
 // JPA NÃO É VALIDADOR, APENAS MAPEIA
 import jakarta.persistence.Column;
@@ -8,13 +10,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-@Entity 
+@Entity
 public class Guitarra extends DefaultEntity {
 
     @ManyToOne
-    @JoinColumn(name ="id_especificacao")
+    @JoinColumn(name = "id_especificacao")
     private Especificacao especificacao;
 
+    @ManyToOne
+    @JoinColumn(name = "id_marca")
+    private Marca marca;
     @Column(length = 60, nullable = false)
     private String nome;
 
@@ -26,7 +31,6 @@ public class Guitarra extends DefaultEntity {
 
     @Column(nullable = false)
     private Double preco;
- 
 
     public String getCor() {
         return cor;
@@ -68,7 +72,12 @@ public class Guitarra extends DefaultEntity {
         this.especificacao = especificacao;
     }
 
-    
+    public Marca getMarca() {
+        return marca;
+    }
 
-    
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
 }

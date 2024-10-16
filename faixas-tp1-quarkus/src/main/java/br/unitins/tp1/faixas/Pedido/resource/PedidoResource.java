@@ -30,8 +30,9 @@ public class PedidoResource {
 
     @GET
     @Path("/{id}")
-    public Response findById(Long id){
-       return Response.ok(PedidoDTOResponse.valueOf(pedidoService.findById(id))).build();
+    public Response findById(@PathParam("id") Long id){
+      
+        return Response.ok(PedidoDTOResponse.valueOf(pedidoService.findById(id))).build();
     }
 
     @GET

@@ -9,7 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class GuitarraRepository implements PanacheRepository<Guitarra>{
     public List<Guitarra> findByNome(String nome) {    
-       return find("SELECT e FROM Estado e WHERE e.nome LIKE ?1","%"+nome+"%").list();
+       return find("SELECT g FROM Guitarra g WHERE g.nome LIKE ?1","%"+nome+"%").list();
     }
 
     public List<Guitarra> findBySku(String sku){

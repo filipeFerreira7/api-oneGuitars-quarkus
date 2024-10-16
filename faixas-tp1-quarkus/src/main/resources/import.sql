@@ -5,12 +5,6 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
-insert into faixa (nome, preco) values('Faixa Branca', 100.0);
-insert into faixa (nome, preco) values('Faixa Azul', 110.0);
-insert into faixa (nome, preco) values('Faixa Roxa', 120.0);
-insert into faixa (nome, preco) values('Faixa Marrom', 130.0);
-insert into faixa (nome, preco) values('Faixa Preta', 140.0);
-
 insert into estado (nome, sigla) values('Tocantins','TO');
 insert into estado (nome, sigla) values('Goiás','GO');
 insert into estado (nome, sigla) values('Paraná','PR');
@@ -19,3 +13,22 @@ insert into estado (nome, sigla) values('São Paulo','SP');
 insert into cidade (nome, id_estado) values('Palmas',1);  
 insert into cidade (nome, id_estado) values('Paraíso',1);  
 insert into cidade (nome, id_estado) values('Gurupi',1);  
+
+insert into marca(nome) values ('Tagima');
+insert into marca(nome) values ('Fender');
+insert into marca(nome) values ('Gibson');
+
+insert into especificacao(sku,comprimento,tipoMadeira,tipoCaptador,tipoChave) values
+                         ('GTR01',1.20,'Mahogany','P90','3 posições');
+insert into especificacao(sku,comprimento,tipoMadeira,tipoCaptador,tipoChave) values
+                         ('GTR02',1.30,'Rosewood','Humbucker','3 posições');
+insert into especificacao(sku,comprimento,tipoMadeira,tipoCaptador,tipoChave) values
+                         ('GTR03',1.25,'Jacarandá','Single coil','5 posições');
+                
+insert into guitarra(id_especificacao,id_marca,nome,numeroSerie,cor,preco) values
+                    (1,1,'TW61','903842','Fuschia',1299.95);
+insert into guitarra(id_especificacao,id_marca,nome,numeroSerie,cor,preco) values
+                    (3,2,'American Standard','903831','Preto',12987.95); 
+insert into guitarra(id_especificacao,id_marca,nome,numeroSerie,cor,preco) values
+                    (3,2,'Les paul','903619','Vermelho Bordô',19977.15);                                       
+                

@@ -7,9 +7,11 @@ import br.unitins.tp1.faixas.Especificacao.service.EspecificacaoService;
 import br.unitins.tp1.faixas.Guitarra.dto.GuitarraDTORequest;
 import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
 import br.unitins.tp1.faixas.Guitarra.repository.GuitarraRepository;
+import br.unitins.tp1.faixas.Marca.service.MarcaService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Validator;
 
 
 @ApplicationScoped
@@ -24,6 +26,13 @@ public class GuitarraServiceImpl implements GuitarraService{
   
     @Inject
     public EspecificacaoService especificacaoService;
+    
+    @Inject
+    public MarcaService marcaService;
+
+    
+    @Inject 
+    Validator validator;
 
   @Override
   public Guitarra findById(Long id) {
@@ -45,12 +54,14 @@ public class GuitarraServiceImpl implements GuitarraService{
   @Override
   @Transactional
   public Guitarra create(GuitarraDTORequest dto) {
+  
     Guitarra guitarra = new Guitarra();
     guitarra.setNome(dto.nome());
     guitarra.setNumeroSerie(dto.numeroSerie());
     guitarra.setCor(dto.cor());
     guitarra.setPreco(dto.preco());
     guitarra.setEspecificacao(especificacaoService.findById(dto.idEspecificacao()));
+    guitarra.setMarca(marcaService.findById(dto.idMarca()));
      guitarraRepository.persist(guitarra);
      return guitarra;
   }
@@ -58,12 +69,15 @@ public class GuitarraServiceImpl implements GuitarraService{
   @Override
   @Transactional
   public Guitarra update(Long id, GuitarraDTORequest dto) {
+      
+
         Guitarra guitarra = guitarraRepository.findById(id);
         guitarra.setNome(dto.nome());
         guitarra.setNumeroSerie(dto.numeroSerie());
         guitarra.setCor(dto.cor());
         guitarra.setPreco(dto.preco());
         guitarra.setEspecificacao(repository.findById(dto.idEspecificacao()));
+        guitarra.setMarca(marcaService.findById(dto.idMarca()));
         guitarraRepository.persist(guitarra);
 
         return guitarra;

@@ -3,6 +3,7 @@ package br.unitins.tp1.faixas.Telefone.resource;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTORequest;
+import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTOResponse;
 import br.unitins.tp1.faixas.Telefone.model.Telefone;
 import br.unitins.tp1.faixas.Telefone.service.TelefoneService;
 import jakarta.inject.Inject;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 
 @Path("/telefones")
@@ -24,14 +26,15 @@ public class TelefoneResource {
 
     @GET
     @Path("/{id}")
-    public Telefone findById(Long id){
-        return telefoneService.findById(id);
+    public Response findById(@PathParam("id")Long id) {
+        return Response.ok(TelefoneDTOResponse.valueOf(telefoneService.findById(id))).build();
     }
-
     @GET
-    @Path("/search/{numero}")
-    public List<Telefone> findByNumero(String numero){
-        return telefoneService.findByNumero(numero);
+    @Path("/search/{nome}")
+    public List<TelefoneDTOResponse> findByNumero(@PathParam("numero") String numero){
+        return telefoneService.findByNumero(numero).stream()
+        .map(o -> TelefoneDTOResponse.valueOf(o))
+        .toList();
     }
 
     @GET
@@ -39,17 +42,18 @@ public class TelefoneResource {
         return telefoneService.findAll();
     }
 
-    @POST
-    public Telefone create(TelefoneDTORequest telefone){
-
-        return telefoneService.create(telefone);
+     @POST
+    public Response create(@Valid TelefoneDTORequest dto){
+        return  Response.status(Status.CREATED).entity(
+            TelefoneDTOResponse.valueOf(telefoneService.create(dto))
+            ).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response update(@Valid @PathParam("id") Long id,@Valid TelefoneDTORequest dto){
-        telefoneService.update(id,dto);
-        return Response.noContent().build();
+    public Response update(@Valid @PathParam("id") Long id ,@Valid TelefoneDTORequest dto){
+         telefoneService.update(id, dto);
+       return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
