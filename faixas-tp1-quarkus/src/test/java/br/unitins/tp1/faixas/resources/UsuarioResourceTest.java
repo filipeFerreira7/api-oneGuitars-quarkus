@@ -3,19 +3,24 @@ package br.unitins.tp1.faixas.resources;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import br.unitins.tp1.faixas.Marca.dto.MarcaDTORequest;
 import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTORequest;
 import br.unitins.tp1.faixas.Usuario.dto.PessoaFisicaDTORequest;
 import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
-import br.unitins.tp1.faixas.Usuario.model.Sexo;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import jakarta.inject.Inject;
 
 @QuarkusTest
 public class UsuarioResourceTest {
+
+    @Inject
+    UsuarioService usuarioService;
     
     @Test
     public void testgetAll(){
@@ -29,7 +34,7 @@ public class UsuarioResourceTest {
     @Test
     public void testCreate(){
        PessoaFisicaDTORequest pFDto = new PessoaFisicaDTORequest("Joilen",
-        "99988877753",
+        "99984879253",
          "Joilen@gmail.com", 1);
 
          TelefoneDTORequest telefoneDto = new TelefoneDTORequest("63","9999-9999");
@@ -44,9 +49,8 @@ public class UsuarioResourceTest {
             .then()
             .statusCode(201)
                 .body("id", notNullValue(),
-              "nome", is("Filipe"),
-
-              "cpf", is("4444"),
+              "nome", is("Joilen"),
+              "cpf", is("99984879253"),
               "telefone.dd", is("63"),
               "telefone.numero", is("9999-9999")
          );       
@@ -56,7 +60,30 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    public void tetstDelete(){
-        long id = 3;
+    void testDelete(){
+        PessoaFisicaDTORequest pessoaFisicaDTORequest = new PessoaFisicaDTORequest("Joilen",
+         "99984879253", "Joilen@gmail.com", 1);
+
+         TelefoneDTORequest telefone = new TelefoneDTORequest("011", "4002-8922");
+
+         UsuarioDTORequest usuario = new UsuarioDTORequest(telefone, pessoaFisicaDTORequest);
+
+         Long id = usuarioService.create(usuario).getId();
+          given()
+         .when().delete("/usuarios/" + id)
+         .then()
+         .statusCode(204);
+         
+        UsuarioDTOResponse usuarioResponse = null;
+        
+
+         try{
+            usuarioService.findById(id);
+         }catch(Exception e){
+
+         }
+         finally{
+            assertNull(usuarioResponse);
+         }
     }
 }

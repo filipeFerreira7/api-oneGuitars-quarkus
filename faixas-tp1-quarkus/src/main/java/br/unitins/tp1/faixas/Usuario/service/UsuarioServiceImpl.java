@@ -10,6 +10,7 @@ import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class UsuarioServiceImpl implements UsuarioService {
@@ -23,7 +24,7 @@ public class UsuarioServiceImpl implements UsuarioService {
   PessoaFisicaService pessoaFisicaService;
 
   @Override
-  public Usuario findById(Long id) {
+  public Usuario findById(Long id) throws NotFoundException{
     return usuarioRepository.findById(id);
   }
 
@@ -65,8 +66,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 
   @Override
   @Transactional
-  public void delete(Long id) {
-    usuarioRepository.deleteById(id);
+  public void delete(Long id) throws IllegalArgumentException, NotFoundException {
+  
+    if(id==null)  
+      throw new IllegalArgumentException("Numero inválido");
+
+      Usuario usuario = usuarioRepository.findById(id);
+
+      if(usuarioRepository.isPersistent(usuario))
+            usuarioRepository.delete(usuario);
+
+      else
+      throw new NotFoundException("Nenhum usuário encontrado");
 
   }
 }
