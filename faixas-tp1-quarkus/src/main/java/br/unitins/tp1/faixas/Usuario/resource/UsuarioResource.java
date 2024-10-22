@@ -2,9 +2,9 @@ package br.unitins.tp1.faixas.Usuario.resource;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.Usuario.dto.ClienteDTORequest;
-import br.unitins.tp1.faixas.Usuario.dto.ClienteDTOResponse;
-import br.unitins.tp1.faixas.Usuario.service.ClienteService;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
@@ -17,55 +17,55 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 
-@Path("/clientes")
-public class ClienteResource {
+@Path("/usuarios")
+public class UsuarioResource {
     
     @Inject
-    public ClienteService clienteService;
+    public UsuarioService usuarioService;
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
         
-        return Response.ok(ClienteDTOResponse.valueOf(clienteService.findById(id))).build();
+        return Response.ok(UsuarioDTOResponse.valueOf(usuarioService.findById(id))).build();
     }
 
     @GET
     @Path("/search/{nome}")
-    public List<ClienteDTOResponse> findByNome(@PathParam("nome")String nome){
-        return clienteService.findByNome(nome).
+    public List<UsuarioDTOResponse> findByNome(@PathParam("nome")String nome){
+        return usuarioService.findByNome(nome).
                      stream().
-                     map(o -> ClienteDTOResponse.valueOf(o))
+                     map(o -> UsuarioDTOResponse.valueOf(o))
                     .toList();
     }
 
     @GET
     public Response findAll(){
-        return Response.ok(clienteService.
+        return Response.ok(usuarioService.
                      findAll().
                      stream().
-                     map(o -> ClienteDTOResponse.valueOf(o))
+                     map(o -> UsuarioDTOResponse.valueOf(o))
                     .toList()).build();
         
     }
 
     @POST
-    public Response create(@Valid ClienteDTORequest dto){
+    public Response create(@Valid UsuarioDTORequest dto){
         return  Response.status(Status.CREATED).entity(
-            ClienteDTOResponse.valueOf(clienteService.create(dto))
+            UsuarioDTOResponse.valueOf(usuarioService.create(dto))
             ).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response update(@Valid @PathParam("id") Long id, @Valid ClienteDTORequest dto){
-        clienteService.update(id, dto);
+    public Response update(@Valid @PathParam("id") Long id, @Valid UsuarioDTORequest dto){
+        usuarioService.update(id, dto);
        return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id){
-        clienteService.delete(id);
+        usuarioService.delete(id);
         return Response.noContent().build();
     }
 }
