@@ -1,7 +1,7 @@
 # OneGuitars - E-commerce de Guitarras
 
 
-<img src="https://github.com/user-attachments/assets/82ce7947-d850-43d9-b66b-c4caab5c403d" alt="Descrição da imagem" width="400" height="400">
+<img src="https://github.com/user-attachments/assets/58d825a9-437a-4ebe-b2e5-6831aa537a3a" alt="OneGuitars" width="400"/>
 
 ## Resumo do Projeto
 Este projeto foi desenvolvido como parte da disciplina de Tópicos em Programação. O objetivo era criar um e-commerce especializado em guitarras, chamado OneGuitars.
