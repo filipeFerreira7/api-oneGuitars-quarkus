@@ -6,4 +6,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 // Tudo que tem haver com banco de dados se remete aqui
 @ApplicationScoped
 public class PessoaFisicaRepository implements PanacheRepository<PessoaFisica>{
+    
 }

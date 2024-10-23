@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
 import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -26,13 +27,29 @@ public class UsuarioResource {
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
+         Usuario usuario = usuarioService.findById(id);
+        if(usuario ==null){
+            return Response.status(Status.NOT_FOUND).build();
+        }
         
         return Response.ok(UsuarioDTOResponse.valueOf(usuarioService.findById(id))).build();
     }
 
     @GET
+    @Path("/{cpf}")
+    public Response findByCpf(@PathParam("cpf") String cpf){
+         Usuario usuarioCpf = usuarioService.findByCpf(cpf);
+        if(usuarioCpf ==null){
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        
+        return Response.ok(UsuarioDTOResponse.valueOf(usuarioService.findByCpf(cpf))).build();
+    }
+
+    @GET
     @Path("/search/{nome}")
     public List<UsuarioDTOResponse> findByNome(@PathParam("nome")String nome){
+
         return usuarioService.findByNome(nome).
                      stream().
                      map(o -> UsuarioDTOResponse.valueOf(o))

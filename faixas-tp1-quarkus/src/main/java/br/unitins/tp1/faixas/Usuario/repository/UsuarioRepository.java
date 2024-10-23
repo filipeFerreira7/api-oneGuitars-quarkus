@@ -1,5 +1,6 @@
 package br.unitins.tp1.faixas.Usuario.repository;
 
+import java.util.Collections;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Usuario.model.Usuario;
@@ -9,13 +10,18 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class UsuarioRepository implements PanacheRepository<Usuario>{
 
-    public List<Usuario> findByNome(String nomePessoaFisica) {  
-        
-        if(nomePessoaFisica == null){
-            return null;
+    public List<Usuario> findByNome(String nomePessoaFisica) {
+        if (nomePessoaFisica == null || nomePessoaFisica.isEmpty()) {
+            return Collections.emptyList(); // Retorna uma lista vazia se o nome for nulo ou vazio
         }
-        return find("FROM usuario WHERE UNACCENT(UPPER(pessoaFisica.nome)) LIKE UNACCENT(?1)",
-        "%"+ nomePessoaFisica.toUpperCase() + "%").list();
+        return find("FROM Usuario WHERE UPPER(pessoaFisica.nome) LIKE ?1",
+            "%" + nomePessoaFisica.toUpperCase() + "%").list();
+    }
+
+    
+    public Usuario findByCpf(String cpf){
+        return find("SELECT u FROM Usuario u WHERE u.pessoaFisica.cpf = ?1", cpf).firstResult();
+
     }
 
 }

@@ -11,6 +11,8 @@ public interface UsuarioService {
 
     Usuario findById(Long id);
 
+    Usuario findByCpf(String cpf);
+
     List<Usuario> findByNome(String nome);
 
     List<Usuario> findAll();
@@ -20,5 +22,7 @@ public interface UsuarioService {
     Usuario update(Long id, UsuarioDTORequest dto);
 
     void delete(Long id);
+
+
 
 }

@@ -29,6 +29,11 @@ public class UsuarioServiceImpl implements UsuarioService {
   }
 
   @Override
+  public Usuario findByCpf(String cpf){
+    return usuarioRepository.findByCpf(cpf);
+  }
+
+  @Override
   public List<Usuario> findByNome(String nome) {
     return usuarioRepository.findByNome(nome);
   }
