@@ -2,8 +2,8 @@ package br.unitins.tp1.faixas.Cidade.resource;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.Cidade.dto.CidadeRequestDTO;
-import br.unitins.tp1.faixas.Cidade.dto.CidadeResponseDTO;
+import br.unitins.tp1.faixas.Cidade.dto.CidadeDTORequest;
+import br.unitins.tp1.faixas.Cidade.dto.CidadeDTOResponse;
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -27,15 +27,15 @@ public class CidadeResource {
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
         
-        return Response.ok(CidadeResponseDTO.valueOf(cidadeService.findById(id))).build();
+        return Response.ok(CidadeDTOResponse.valueOf(cidadeService.findById(id))).build();
     }
 
     @GET
     @Path("/search/{nome}")
-    public List<CidadeResponseDTO> findByNome(@PathParam("nome")String nome){
+    public List<CidadeDTOResponse> findByNome(@PathParam("nome")String nome){
         return cidadeService.findByNome(nome).
                      stream().
-                     map(o -> CidadeResponseDTO.valueOf(o))
+                     map(o -> CidadeDTOResponse.valueOf(o))
                     .toList();
     }
 
@@ -44,21 +44,21 @@ public class CidadeResource {
         return Response.ok(cidadeService.
                      findAll().
                      stream().
-                     map(o -> CidadeResponseDTO.valueOf(o))
+                     map(o -> CidadeDTOResponse.valueOf(o))
                     .toList()).build();
         
     }
 
     @POST
-    public Response create(@Valid CidadeRequestDTO dto){
+    public Response create(@Valid CidadeDTORequest dto){
         return  Response.status(Status.CREATED).entity(
-            CidadeResponseDTO.valueOf(cidadeService.create(dto))
+            CidadeDTOResponse.valueOf(cidadeService.create(dto))
             ).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response update(@Valid @PathParam("id") Long id, @Valid CidadeRequestDTO dto){
+    public Response update(@Valid @PathParam("id") Long id, @Valid CidadeDTORequest dto){
         cidadeService.update(id, dto);
        return Response.noContent().build();
     }

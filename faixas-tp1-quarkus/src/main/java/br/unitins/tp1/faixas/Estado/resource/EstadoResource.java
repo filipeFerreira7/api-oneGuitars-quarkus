@@ -3,7 +3,7 @@ package br.unitins.tp1.faixas.Estado.resource;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Estado.dto.EstadoDTORequest;
-import br.unitins.tp1.faixas.Estado.model.Estado;
+import br.unitins.tp1.faixas.Estado.dto.EstadoDTOResponse;
 import br.unitins.tp1.faixas.Estado.service.EstadoService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -14,6 +14,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 
 @Path("/estados")
@@ -24,25 +25,29 @@ public class EstadoResource {
 
     @GET
     @Path("/{id}")
-    public Estado findById(Long id){
-        return estadoService.findById(id);
+    public Response findById(@PathParam("id") Long id){
+        return Response.ok(EstadoDTOResponse.valueOf(estadoService.findById(id))).build();
     }
 
-    @GET
+      @GET
     @Path("/search/{nome}")
-    public List<Estado> findByNome(String nome){
-        return estadoService.findByNome(nome);
+    public List<EstadoDTOResponse> findByNome(@PathParam("nome")String nome){
+
+        return estadoService.findByNome(nome).
+                     stream().
+                     map(o -> EstadoDTOResponse.valueOf(o))
+                    .toList();
     }
 
     @GET
-    public List<Estado> findAll(){
-        return estadoService.findAll();
+    public Response findAll(){
+        return Response.ok(estadoService.findAll().stream().map(o -> EstadoDTOResponse.valueOf(o)).toList()).build();
     }
 
     @POST
-    public Estado create(EstadoDTORequest estado){
-
-        return estadoService.create(estado);
+    public Response create(@Valid EstadoDTORequest estado){
+        return Response.status(Status.CREATED)
+        .entity(EstadoDTOResponse.valueOf(estadoService.create(estado))).build();
     }
 
     @PUT
