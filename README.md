@@ -15,8 +15,10 @@ All the concepts of OOP were implemented.
 
 ## 📝 UML
 
-![Imagem do WhatsApp de 2024-10-09 à(s) 09 04 15_1c9e7d05](https://github.com/user-attachments/assets/b31bac89-0944-41a0-9dbe-a90781d1178f)
+![Imagem do WhatsApp de 2024-10-23 à(s) 11 39 52_38abf514](https://github.com/user-attachments/assets/9fd1a98c-0cd8-4c01-aa97-91a63678eb4b)
 
+## Autor
+<h3>Filipe Batista Ferreira 🎸 </h3> 
 
 ## ✔️ Técnicas e Tecnologias Utilizadas / Framework and Technologies
 
@@ -24,4 +26,4 @@ All the concepts of OOP were implemented.
 - **Visual Studio Code**
 - **Quarkus Framework**
 - **PostgreSQL**
-- **Programação Orientada a Objetos**
+- **Programação Orientada a Objetos  OO**
