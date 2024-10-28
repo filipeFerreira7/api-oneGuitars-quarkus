@@ -10,6 +10,9 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Usuario extends DefaultEntity {
 
+    private String username;
+    private String senha;
+
     @OneToOne
     @JoinColumn(name = "id_pessoa_fisica", unique = true, nullable = false)
     private PessoaFisica pessoaFisica;
@@ -32,6 +35,22 @@ public class Usuario extends DefaultEntity {
 
     public void setPessoaFisica(PessoaFisica pessoaFisica) {
         this.pessoaFisica = pessoaFisica;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

@@ -7,14 +7,12 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTOResponse;
-import br.unitins.tp1.faixas.Pedido.model.Pedido;
 import br.unitins.tp1.faixas.Pedido.service.PedidoService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.WebApplicationException;
@@ -55,24 +53,11 @@ public class PedidoResource {
             .map(o -> PedidoDTOResponse.valueOf(o))
             .toList();
     }
-
-    @GET
-    public List<Pedido> findAll(){
-        return pedidoService.findAll();
-    }
-
      @POST
     public Response create(@Valid PedidoDTORequest dto){
         return  Response.status(Status.CREATED).entity(
             PedidoDTOResponse.valueOf(pedidoService.create(dto))
             ).build();
-    }
-
-    @PUT
-    @Path("/{id}")
-    public Response update(@Valid @PathParam("id") Long id ,@Valid PedidoDTORequest dto){
-         pedidoService.update(id, dto);
-       return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")

@@ -20,7 +20,7 @@ public class UsuarioRepository implements PanacheRepository<Usuario>{
 
     
     public Usuario findByCpf(String cpf){
-        return find("SELECT u FROM Usuario u WHERE u.pessoaFisica.cpf = ?1", cpf).firstResult();
+        return find("SELECT u FROM Usuario u WHERE u.pessoaFisica.cpf = ?1", cpf).singleResult();
 
     }
 
