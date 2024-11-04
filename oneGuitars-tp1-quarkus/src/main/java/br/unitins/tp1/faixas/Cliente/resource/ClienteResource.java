@@ -58,6 +58,7 @@ public class ClienteResource {
 
     @POST
     public Response create(@Valid ClienteDTORequest dto) {
+        clienteService.create(dto);
         return Response.status(Response.Status.CREATED).entity(dto).build();
     }
     

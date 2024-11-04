@@ -1,6 +1,5 @@
 package br.unitins.tp1.faixas.Pedido.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
@@ -14,11 +13,11 @@ public interface PedidoService {
     Pedido findById(Long id);
 
     
-    List<Pedido> findByDataCompra(LocalDateTime dataCompra);
+    List<Pedido> findByUsername(String username);
 
     Pedido create(@Valid PedidoDTORequest dto); 
     
     //implementar os patchs
 
-    void delete(Long id);
+   //pensar no cancelar
 }

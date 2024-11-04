@@ -41,9 +41,14 @@ public class PedidoServiceImpl implements PedidoService{
   public Pedido findById(Long id) {
       return pedidoRepository.findById(id);
   }
+
   @Override   
-  public List<Pedido> findByDataCompra(LocalDateTime dataCompra){
-      return pedidoRepository.findByDataCompra(dataCompra);
+  public List<Pedido> findByUsername(String username){
+     // return pedidoRepository.findByUsername(username);
+
+     return null;
+
+     //Pausa em pedidos
   }
   
 
@@ -78,11 +83,5 @@ public class PedidoServiceImpl implements PedidoService{
      return pedido;
   }
 
-
-  @Override
-  @Transactional
-  public void delete(Long id) {
-      pedidoRepository.deleteById(id);
-  }
   
 }

@@ -1,6 +1,6 @@
 package br.unitins.tp1.faixas.Cliente.model;
 
-import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

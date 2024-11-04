@@ -1,6 +1,6 @@
 package br.unitins.tp1.faixas.Guitarra.model;
 
-import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Especificacao.model.Especificacao;
 import br.unitins.tp1.faixas.Marca.model.Marca;
 // ORM = Object Relational Map

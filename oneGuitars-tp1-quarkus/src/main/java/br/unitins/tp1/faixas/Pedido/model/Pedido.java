@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Cliente.model.Cliente;
-import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.ItemPedido.model.ItemPedido;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

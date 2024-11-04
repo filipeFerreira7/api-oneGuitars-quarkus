@@ -1,5 +1,5 @@
 package br.unitins.tp1.faixas.Cidade.model;
-import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Estado.model.Estado;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

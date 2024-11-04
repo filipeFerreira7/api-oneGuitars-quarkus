@@ -1,6 +1,6 @@
 package br.unitins.tp1.faixas.Estado.model;
 
-import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 // ORM = Object Relational Map
 // JPA NÃO É VALIDADOR, APENAS MAPEIA
 import jakarta.persistence.Column;

@@ -2,7 +2,7 @@ package br.unitins.tp1.faixas.Usuario.model;
 
 import java.time.LocalDate;
 
-import br.unitins.tp1.faixas.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Telefone.model.Telefone;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
