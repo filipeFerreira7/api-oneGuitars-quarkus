@@ -47,8 +47,7 @@ public class LoteResource {
     @GET
     @Path("/search/{codigo}")
         public Response findByCodigo(@QueryParam("codigo")String codigo){
-            List<Lote> lotes = loteService.findByCodigo(codigo);
-            return Response.ok(lotes.stream().map(LoteDTOResponse::valueOf).toList()).build();
+            return Response.ok(LoteDTOResponse.valueOf(loteService.findByCodigo(codigo))).build();
         }
     
 

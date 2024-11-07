@@ -23,7 +23,7 @@ public class UsuarioServiceImpl implements UsuarioService {
       return repository.findByUsernameAndSenha(username, senha);
   }
 
-
+ 
 
   @Override
   public Usuario findById(Long id) {

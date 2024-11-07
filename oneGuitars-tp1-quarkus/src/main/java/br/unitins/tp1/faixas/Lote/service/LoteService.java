@@ -12,11 +12,11 @@ public interface LoteService {
 
     Lote findById(Long id);
 
-    List<Lote> findByCodigo(String codigo);
+    Lote findByCodigo(String codigo);
 
     List<Lote> findAll();
 
-
+    Lote findByIdGuitarra(Long idGuitarra);
     
     Lote create(@Valid LoteDTORequest dto); 
     

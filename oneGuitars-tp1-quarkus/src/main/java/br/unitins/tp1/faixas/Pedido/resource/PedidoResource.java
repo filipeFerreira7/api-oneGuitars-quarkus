@@ -2,9 +2,12 @@ package br.unitins.tp1.faixas.Pedido.resource;
 
 import java.util.List;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTOResponse;
 import br.unitins.tp1.faixas.Pedido.service.PedidoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
@@ -13,7 +16,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 // controlador
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.Status;
 
 @Path("/pedidos")
 public class PedidoResource {
@@ -21,6 +23,8 @@ public class PedidoResource {
     @Inject
     public PedidoService pedidoService;
 
+    @Inject
+    public JsonWebToken jsonWebToken;
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
@@ -40,10 +44,9 @@ public class PedidoResource {
     }
     
      @POST
+     @RolesAllowed("User")
     public Response create(@Valid PedidoDTORequest dto){
-        return  Response.status(Status.CREATED).entity(
-            PedidoDTOResponse.valueOf(pedidoService.create(dto))
-            ).build();
+        return Response.ok(pedidoService.create(dto)).build();
     }
 }
 

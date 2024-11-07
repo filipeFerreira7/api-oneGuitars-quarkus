@@ -50,7 +50,7 @@ public class ClienteResourceTest {
         TelefoneDTORequest telefone = new TelefoneDTORequest("62", "9998844");
         String username = "fGije"+System.currentTimeMillis();
         String cpf = "07480" + System.currentTimeMillis();
-       ClienteDTORequest dto = new ClienteDTORequest("Ontario",1,telefone,1,1,2001,cpf,username,"filipinho12");
+       ClienteDTORequest dto = new ClienteDTORequest("Ontario",1,telefone,1,1,2001,1,cpf,username,"filipinho12");
 
         given()
         .contentType(ContentType.JSON)
@@ -72,11 +72,11 @@ public class ClienteResourceTest {
     void testUpdate(){
         TelefoneDTORequest telefone = new TelefoneDTORequest("62", "9998843");
         
-       ClienteDTORequest dto = new ClienteDTORequest("Filipe ",1,telefone,1,3,2001,"95272811","deucerto","filipinho12");
+       ClienteDTORequest dto = new ClienteDTORequest("Filipe",1,telefone,1,3,2001,1,"95272811","deucerto","filipinho12");
         
         Long id = clienteService.create(dto).id();
 
-        ClienteDTORequest newCliente = new ClienteDTORequest("Filipe Atualizado ",1,telefone,1,2,2001,"9847282","fFilipe155552","filipinho12");
+        ClienteDTORequest newCliente = new ClienteDTORequest("Filipe Atualizado ",1,telefone,1,2,2001,1,"9847282","fFilipe155552","filipinho12");
 
          given()
             .contentType(ContentType.JSON)
@@ -97,7 +97,7 @@ public class ClienteResourceTest {
     @Test
     void testDelete() {
         TelefoneDTORequest telefone = new TelefoneDTORequest("62", "9998843");
-        ClienteDTORequest dto = new ClienteDTORequest("Olegário ",1,telefone,1,3,2001,"34212","ffoe1120","filipinho12");
+        ClienteDTORequest dto = new ClienteDTORequest("Olegário ",1,telefone,1,3,2001,1,"34212","ffoe1120","filipinho12");
 
         Long id = clienteService.create(dto).id();
         given()

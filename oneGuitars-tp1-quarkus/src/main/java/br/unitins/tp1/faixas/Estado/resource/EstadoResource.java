@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.faixas.Estado.dto.EstadoDTORequest;
 import br.unitins.tp1.faixas.Estado.dto.EstadoDTOResponse;
 import br.unitins.tp1.faixas.Estado.service.EstadoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
@@ -25,12 +26,14 @@ public class EstadoResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Adm", "User"})
     public Response findById(@PathParam("id") Long id){
         return Response.ok(EstadoDTOResponse.valueOf(estadoService.findById(id))).build();
     }
 
       @GET
     @Path("/search/{nome}")
+    @RolesAllowed("Adm")
     public List<EstadoDTOResponse> findByNome(@PathParam("nome")String nome){
 
         return estadoService.findByNome(nome).

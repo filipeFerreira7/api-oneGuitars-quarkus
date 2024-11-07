@@ -82,7 +82,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     usuario.setUsername(dto.username());
     usuario.setSenha(hash.getHashSenha(dto.senha()));
-    usuario.setPerfil(Perfil.ADMIN);
+    usuario.setPerfil(Perfil.valueOf(dto.idPerfil()));
 
     usuarioRepository.persist(usuario);
 
@@ -124,10 +124,12 @@ public class ClienteServiceImpl implements ClienteService {
   @Transactional
   public ClienteDTOResponse update(Long id, ClienteDTORequest dto) throws ValidationException {
     Usuario usuario = repository.findById(id).getPessoaFisica().getUsuario();
+    HashService hash = new HashServiceImpl();
 
     if (usuario != null) {
       usuario.setUsername(dto.username());
-      usuario.setSenha(dto.senha());
+      usuario.setSenha(hash.getHashSenha(dto.senha()));
+      usuario.setPerfil(Perfil.valueOf(dto.idPerfil()));
     } else {
       throw new ValidationException("Cliente inexistente");
     }

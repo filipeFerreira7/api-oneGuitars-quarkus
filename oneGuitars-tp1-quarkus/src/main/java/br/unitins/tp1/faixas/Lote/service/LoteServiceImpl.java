@@ -25,6 +25,11 @@ public class LoteServiceImpl implements LoteService{
   public Lote findById(Long id) {
       return loteRepository.findById(id);
   }
+
+  @Override
+  public Lote findByIdGuitarra(Long idGuitarra) {
+      return loteRepository.findByIdGuitarra(idGuitarra);
+  }
   
   @Override
   public List<Lote> findAll() {
@@ -76,7 +81,7 @@ public class LoteServiceImpl implements LoteService{
   }
 
   @Override
-  public List<Lote> findByCodigo(String codigo){
+  public Lote findByCodigo(String codigo){
       return loteRepository.findByCodigo(codigo);
   }
 

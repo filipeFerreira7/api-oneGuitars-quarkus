@@ -20,6 +20,9 @@ public record ClienteDTORequest(
         int diaNasc,
         int mesNasc,
         int anoNasc,
+        @NotNull
+        @Min(1)
+        Integer idPerfil,
 
         @NotBlank
         String cpf,

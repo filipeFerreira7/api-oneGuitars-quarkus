@@ -79,6 +79,3 @@ insert into pessoafisica(sexo,id,id_usuario, cpf)
 insert into pessoafisica(sexo,id,id_usuario,cpf)
     VALUES(2,1,2,'223');
 
-insert into cliente(id_pessoa_fisica) values (1);
-
-insert into pedido(valortotal,datacompra,id_cliente) values(10000.78,'2024-10-12T12:17:55',1);

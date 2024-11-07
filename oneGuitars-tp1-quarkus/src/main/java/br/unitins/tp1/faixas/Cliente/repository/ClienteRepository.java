@@ -19,5 +19,4 @@ public class ClienteRepository implements PanacheRepository<Cliente>{
     return find("pessoaFisica.cpf = ?1",cpf).firstResult();
 
     }
-
 }
