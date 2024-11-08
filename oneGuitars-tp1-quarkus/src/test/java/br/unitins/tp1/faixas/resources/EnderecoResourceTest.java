@@ -15,6 +15,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 
+
 @QuarkusTest
 public class EnderecoResourceTest {
     
@@ -22,6 +23,7 @@ public class EnderecoResourceTest {
     EnderecoService service;
 
     @Test
+  
     public void testFindAll(){
         given()
             .when().get("/enderecos")
@@ -30,25 +32,28 @@ public class EnderecoResourceTest {
     }
 
     @Test
+
     void testFindById(){
         given()
-                .when().get("/enderecos/" + 2)
+                .when().get("/enderecos/" + 1)
                 .then().statusCode(200);
 
     }
 
     @Test
+
     void testFindByCep(){
         given()
-            .when().get("/enderecos/search/"+"77006450")
+            .when().get("/enderecos/search/"+"77006")
             .then().statusCode(200);
     }
 
 
 
     @Test
+
     public void testCreate(){
-       EnderecoDTORequest dto = new EnderecoDTORequest("404 N al 28 lt 07","plano Diretor norte","77006450",1L);
+       EnderecoDTORequest dto = new EnderecoDTORequest("404 N al lt 07","plano norte","77006452",1L);
         given()
         .contentType(ContentType.JSON)
         .body(dto)
@@ -58,7 +63,7 @@ public class EnderecoResourceTest {
         .log().all()
         .statusCode(201)
          .body(
-        "cep", is("77006450")
+        "cep", is("77006452")
          );       
          
         
@@ -69,13 +74,14 @@ public class EnderecoResourceTest {
         
         EnderecoDTORequest enderecoDTO = 
         new EnderecoDTORequest(
-            "404 N al 28 lt 07","plano Diretor norte","77006450",1L);
+            "404 N al 28 lt 07","plano Diretor norte","6626041",1L);
 
         Long id = service.create(enderecoDTO).id();
 
+
         EnderecoDTORequest newEndereco = 
         new EnderecoDTORequest(
-            "404 N al 28 lt 07","plano Diretor norte novo","77006450",1L);
+            "404 N Atualizado","plano Diretor norte novo","6626031",1L);
 
          given()
             .contentType(ContentType.JSON)
@@ -88,7 +94,7 @@ public class EnderecoResourceTest {
         
         Endereco endereco = service.findyById(id);
 
-        assertEquals(endereco.getCep(), ("77006450"));
+        assertEquals(endereco.getCep(), ("770001"));
 
         service.delete(service.findyById(id).getId());
         
@@ -99,7 +105,7 @@ public class EnderecoResourceTest {
     void testDelete() {
          EnderecoDTORequest endereco = 
         new EnderecoDTORequest(
-            "106 N al 12 lt 07","plano Diretor norte novo","77006060",1L);
+            "106 N al 12 lt 07","plano Diretor norte novo","7702039",1L);
 
         Long id = service.create(endereco).id();
         given()

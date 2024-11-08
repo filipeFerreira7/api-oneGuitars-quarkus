@@ -37,10 +37,14 @@ public class EnderecoServiceImpl implements EnderecoService {
     }
 
     @Override
-    public List<EnderecoDTOResponse> findByCep(String cep) {
-         return repository.findByCep(cep)
-                      .stream()
-                      .map(o -> EnderecoDTOResponse.valueOf(o)).toList();
+    public Endereco findByCep(String cep) throws NotFoundException
+     {
+         Endereco e = repository.findByCep(cep);
+
+         if(e==null)
+         throw new NotFoundException("CEP não pode ser encontrado");
+
+         return repository.findByCep(cep);
   }
         
     @Transactional

@@ -12,7 +12,7 @@ public interface EnderecoService {
    
     Endereco findyById(Long id);
 
-    List<EnderecoDTOResponse> findByCep(String cep);
+    Endereco findByCep(String cep);
 
     List<EnderecoDTOResponse> findAll();
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.Cliente.model.Cliente;
 import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.EnderecoEntrega.model.EnderecoEntrega;
 import br.unitins.tp1.faixas.ItemPedido.model.ItemPedido;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Pedido extends DefaultEntity {
@@ -24,11 +26,18 @@ public class Pedido extends DefaultEntity {
     @JoinColumn(name = "id_pedido", nullable = false)
     private List<ItemPedido> listaItemPedido;
 
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_endereco_entrega", nullable = false)
+    private EnderecoEntrega endereco;
+
     @Column
     private LocalDateTime dataCompra;
 
     @Column
     private Double valorTotal;
+
+    
 
     public LocalDateTime getDataCompra() {
         return dataCompra;
@@ -60,6 +69,14 @@ public class Pedido extends DefaultEntity {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public EnderecoEntrega getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoEntrega endereco) {
+        this.endereco = endereco;
     }
 
 }

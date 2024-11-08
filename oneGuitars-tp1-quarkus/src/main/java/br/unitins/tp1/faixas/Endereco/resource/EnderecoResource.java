@@ -42,6 +42,7 @@ public Response findAll(){
 
 @POST
 public Response create(@Valid EnderecoDTORequest dto){
+    service.create(dto);
     return Response.status(Response.Status.CREATED).entity(dto).build();
 }
 

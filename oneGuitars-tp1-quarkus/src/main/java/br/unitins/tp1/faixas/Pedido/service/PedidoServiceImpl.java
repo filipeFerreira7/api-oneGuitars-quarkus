@@ -5,8 +5,11 @@ import java.util.ArrayList;
 // 
 import java.util.List;
 
+import br.unitins.tp1.faixas.Cidade.service.CidadeService;
 import br.unitins.tp1.faixas.Cliente.repository.ClienteRepository;
 import br.unitins.tp1.faixas.Cliente.service.ClienteService;
+import br.unitins.tp1.faixas.EnderecoEntrega.model.EnderecoEntrega;
+import br.unitins.tp1.faixas.EnderecoEntrega.service.EnderecoEntregaService;
 import br.unitins.tp1.faixas.Guitarra.repository.GuitarraRepository;
 import br.unitins.tp1.faixas.ItemPedido.dto.ItemPedidoDTORequest;
 import br.unitins.tp1.faixas.ItemPedido.model.ItemPedido;
@@ -30,6 +33,10 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Inject
   public ClienteService clienteService;
+  
+
+  @Inject
+  public EnderecoEntregaService enderecoEntregaService;
 
   @Inject
   public LoteRepository loteRepository;
@@ -39,6 +46,9 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Inject
   public LoteService loteService;
+
+  @Inject
+  public CidadeService cidadeService;
 
   @Override
   public Pedido findById(Long id) {
@@ -56,11 +66,21 @@ public class PedidoServiceImpl implements PedidoService {
   @Override
   @Transactional
   public Pedido create(PedidoDTORequest dto) {
+        
+    EnderecoEntrega end = new EnderecoEntrega();
+    end.setBairro(dto.endereco().bairro());
+    end.setCep(dto.endereco().cep());
+    end.setCidade(cidadeService.findById(dto.endereco().idCidade()));
+    end.setLogradouro(dto.endereco().logradouro());
+
     Pedido pedido = new Pedido();
+  
 
     pedido.setDataCompra(LocalDateTime.now());
     pedido.setCliente(clienteRepository.findById(dto.idCliente()));
-    pedido.setValorTotal(0d);
+    pedido.setValorTotal(dto.valorTotal());
+    pedido.setEndereco(end);
+
 
     List<ItemPedido> item = new ArrayList<ItemPedido>();
 

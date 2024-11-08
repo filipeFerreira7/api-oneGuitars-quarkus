@@ -19,6 +19,7 @@ public class PedidoRepository implements PanacheRepository<Pedido> {
       public List<Pedido> findByUsername(String username){
         return find("SELECT p FROM Pedido p WHERE p.cliente.pessoaFisica.usuario.username = ?1", username).list();
 }
+
 }
 
 
