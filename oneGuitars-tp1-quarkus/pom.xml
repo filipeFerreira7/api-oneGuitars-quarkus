@@ -83,6 +83,10 @@
       </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-multipart</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
         </dependency>
@@ -103,7 +107,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>build</goal>
+                            <goal>build</goal>  <!-- Developer mode-->
                             <goal>generate-code</goal>
                             <goal>generate-code-tests</goal>
                             <goal>native-image-agent</goal>
