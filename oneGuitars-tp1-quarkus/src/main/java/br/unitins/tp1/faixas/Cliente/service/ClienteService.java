@@ -3,6 +3,7 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.Cliente.dto.ClienteDTORequest;
 import br.unitins.tp1.faixas.Cliente.dto.ClienteDTOResponse;
+import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -21,6 +22,8 @@ public interface ClienteService {
     ClienteDTOResponse update(Long id, ClienteDTORequest dto);
 
     void delete(Long id);
+
+    PessoaFisica updateNomeImagem(Long id, String nomeImagem);
 
 
 

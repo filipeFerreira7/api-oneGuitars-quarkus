@@ -17,6 +17,8 @@ public class PessoaFisica extends Pessoa {
     @JoinColumn(name = "id_usuario", unique = true)
     private Usuario usuario;
 
+    private String nomeImagem;
+
     Sexo sexo;
 
     public String getCpf() {
@@ -41,6 +43,14 @@ public class PessoaFisica extends Pessoa {
 
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
+    }
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
     }
 
 }

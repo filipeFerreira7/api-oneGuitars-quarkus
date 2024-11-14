@@ -157,4 +157,14 @@ public class ClienteServiceImpl implements ClienteService {
 
     return ClienteDTOResponse.valueOf(cliente);
   }
+
+  @Override
+  @Transactional
+  public PessoaFisica updateNomeImagem(Long id, String nomeImagem) {
+     PessoaFisica pessoafisica =  pessoaFisicaRepository.findById(id);
+      
+     pessoafisica.setNomeImagem(nomeImagem);
+      
+      return pessoafisica;
+  }
 }

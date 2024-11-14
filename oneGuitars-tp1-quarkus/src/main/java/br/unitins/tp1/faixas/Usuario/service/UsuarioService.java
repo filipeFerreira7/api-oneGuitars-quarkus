@@ -19,5 +19,4 @@ public interface UsuarioService {
     List<Usuario> findAll();
 
     void delete(Long id);
-
 }
