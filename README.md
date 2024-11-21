@@ -10,12 +10,13 @@ O projeto foi construído utilizando a linguagem Java, com o framework Quarkus p
 
 
 ## Abstract
-Project : eCommerce OneGuitars - Guitar Store
+Project: eCommerce OneGuitars - Guitar Store
 <br>This project was created for a subject from my college, the Quarkus framework was used for back-end and PostgreSQL database to persist data.
 All the concepts of OOP were implemented.
 
 ## 📝 UML
-![uml_v1_oneGuitars](https://github.com/user-attachments/assets/3333176e-19a9-44c5-ac46-c651c0b61ee6)
+![uml_v1_oneGuitars](https://github.com/user-attachments/assets/0f9298f8-5bca-49b2-8d0c-094d6e700b9c)
+
 
 
 ## Autor / Author
