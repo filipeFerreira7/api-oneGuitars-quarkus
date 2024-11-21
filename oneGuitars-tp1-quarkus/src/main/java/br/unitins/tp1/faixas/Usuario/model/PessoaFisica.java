@@ -37,20 +37,20 @@ public class PessoaFisica extends Pessoa {
         this.usuario = usuario;
     }
 
-    public Sexo getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
-    }
-
     public String getNomeImagem() {
         return nomeImagem;
     }
 
     public void setNomeImagem(String nomeImagem) {
         this.nomeImagem = nomeImagem;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 
 }

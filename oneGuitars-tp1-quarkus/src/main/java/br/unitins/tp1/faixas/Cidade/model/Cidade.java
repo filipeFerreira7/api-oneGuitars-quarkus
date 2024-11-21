@@ -1,13 +1,14 @@
 package br.unitins.tp1.faixas.Cidade.model;
 import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Estado.model.Estado;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Cidade extends DefaultEntity {
- 
+        @Column
         private String nome;
 
         @ManyToOne

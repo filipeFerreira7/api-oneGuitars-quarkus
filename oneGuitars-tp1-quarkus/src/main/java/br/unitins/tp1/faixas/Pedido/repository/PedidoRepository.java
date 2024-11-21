@@ -1,6 +1,7 @@
 package br.unitins.tp1.faixas.Pedido.repository;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
@@ -19,6 +20,10 @@ public class PedidoRepository implements PanacheRepository<Pedido> {
       public List<Pedido> findByUsername(String username){
         return find("SELECT p FROM Pedido p WHERE p.cliente.pessoaFisica.usuario.username = ?1", username).list();
 }
+
+  public List<Pedido> findPedidosExpirados(LocalDateTime data){
+    return find ("WHERE ?1 > tempoPagamento AND pagamento is NULL",data).list();
+  }
 
 }
 

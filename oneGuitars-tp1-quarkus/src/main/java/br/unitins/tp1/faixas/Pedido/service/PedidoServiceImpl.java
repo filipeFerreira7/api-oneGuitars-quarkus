@@ -5,6 +5,8 @@ import java.util.ArrayList;
 // 
 import java.util.List;
 
+import java.util.UUID;
+
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
 import br.unitins.tp1.faixas.Cliente.repository.ClienteRepository;
 import br.unitins.tp1.faixas.Cliente.service.ClienteService;
@@ -15,6 +17,12 @@ import br.unitins.tp1.faixas.ItemPedido.dto.ItemPedidoDTORequest;
 import br.unitins.tp1.faixas.ItemPedido.model.ItemPedido;
 import br.unitins.tp1.faixas.Lote.repository.LoteRepository;
 import br.unitins.tp1.faixas.Lote.service.LoteService;
+import br.unitins.tp1.faixas.Pagamento.dto.BoletoDTOResponse;
+import br.unitins.tp1.faixas.Pagamento.dto.CartaoCreditoDTORequest;
+import br.unitins.tp1.faixas.Pagamento.dto.CartaoCreditoDTOResponse;
+import br.unitins.tp1.faixas.Pagamento.model.Boleto;
+import br.unitins.tp1.faixas.Pagamento.model.CartaoCredito;
+import br.unitins.tp1.faixas.Pagamento.repository.PagamentoRepository;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
 import br.unitins.tp1.faixas.Pedido.repository.PedidoRepository;
@@ -24,6 +32,9 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class PedidoServiceImpl implements PedidoService {
+  
+  @Inject
+  public PagamentoRepository pagamentoRepository;
 
   @Inject
   public PedidoRepository pedidoRepository;
@@ -99,5 +110,34 @@ public class PedidoServiceImpl implements PedidoService {
     pedidoRepository.persist(pedido);
     return pedido;
   }
+
+  @Override
+  @Transactional
+  public BoletoDTOResponse gerarInfoBoleto(Long idPedido) {
+    Double value = pedidoRepository.findById(idPedido).getValorTotal();
+
+    Boleto boleto = new Boleto();
+    boleto.setValue(value);
+    boleto.setCodigo(UUID.randomUUID().toString());
+    pagamentoRepository.persist(boleto);
+    return BoletoDTOResponse.valueOf(boleto);
+    
+  }
+
+  @Override
+  public void pagamentoBoleto(Long idPedido, Long idBoleto) {
+      Pedido p = pedidoRepository.findById(idPedido);
+      p.setPagamento(pagamentoRepository.findById(idBoleto));
+  }
+
+  @Override
+  public void pagamentoCartao(Long id, CartaoCreditoDTORequest cartao) {
+      Pedido p = pedidoRepository.findById(id);
+
+      CartaoCredito c = Ca
+   
+  }
+
+  
 
 }

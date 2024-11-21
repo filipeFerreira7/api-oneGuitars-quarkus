@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.EnderecoEntrega.dto.EnderecoEntregaDTOResponse;
 import br.unitins.tp1.faixas.ItemPedido.dto.ItemPedidoDTOResponse;
+import br.unitins.tp1.faixas.Pagamento.model.Pagamento;
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
 public record PedidoDTOResponse(
     Long id,
@@ -12,6 +13,8 @@ public record PedidoDTOResponse(
     LocalDateTime dataCompra,
     Double valorTotal,
     List<ItemPedidoDTOResponse> listaItemPedido,
+    LocalDateTime tempoPagamento,
+    Pagamento pagamento,
     EnderecoEntregaDTOResponse endereco
 ) {
  public static PedidoDTOResponse valueOf(Pedido pedido){
@@ -20,6 +23,8 @@ public record PedidoDTOResponse(
                                        pedido.getDataCompra(),
                                        pedido.getValorTotal(),
                                        pedido.getListaItemPedido().stream().map(i -> ItemPedidoDTOResponse.valueOf(i)).toList(),
+                                       pedido.getTempoPagamento(),
+                                       pedido.getPagamento(),
                                        EnderecoEntregaDTOResponse.valueOf(pedido.getEndereco())
                                       );
     }

@@ -4,32 +4,30 @@ import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTORequest;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record ClienteDTORequest(
 
-        @NotBlank
-         String nome,
-         
-        @NotNull
-        @Min(1)
-       Integer idSexo,
+                @NotBlank(message = "O campo nome deve ser preenchido") String nome,
 
-        @NotNull
-        TelefoneDTORequest telefone,
+                @NotNull @Size(min = 1, max = 2, message = "escolha as opções disponíveis") Integer idSexo,
 
-        int diaNasc,
-        int mesNasc,
-        int anoNasc,
-        @NotNull
-        @Min(1)
-        Integer idPerfil,
+                @NotNull TelefoneDTORequest telefone,
 
-        @NotBlank
-        String cpf,
+                @NotNull int diaNasc,
+                @NotNull int mesNasc,
+                @NotNull int anoNasc,
+                
+                @NotNull @Min(1) Integer idPerfil,
 
-        @NotBlank String username,
+                @NotBlank (message = "O campo cpf deve ser preenchido")
+                String cpf,
 
-        @NotBlank String senha
+                @NotBlank (message = "O campo username deve ser preenchido")
+                 String username,
+
+                @NotBlank(message = "O campo senha deve ser preenchido")
+                 String senha
 
 ) {
 }
