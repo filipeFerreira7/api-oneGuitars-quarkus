@@ -15,7 +15,9 @@ Project: eCommerce OneGuitars - Guitar Store
 All the concepts of OOP were implemented.
 
 ## 📝 UML
-![uml_v1_oneGuitars](https://github.com/user-attachments/assets/0f9298f8-5bca-49b2-8d0c-094d6e700b9c)
+![uml_v1_oneGuitars](https://github.com/user-attachments/assets/e0544ab2-b7c1-45ca-81f7-20403e6efbc3)
+
+
 
 
 
