@@ -18,7 +18,7 @@ All the concepts of OOP were implemented.
 ![uml_v1_oneGuitars](https://github.com/user-attachments/assets/3333176e-19a9-44c5-ac46-c651c0b61ee6)
 
 
-## Autor
+## Autor / Author
 <h3>Filipe Batista Ferreira 🎸 </h3> 
 
 ## ✔️ Técnicas e Tecnologias Utilizadas / Framework and Technologies
