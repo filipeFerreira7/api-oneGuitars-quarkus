@@ -14,6 +14,8 @@ public record PedidoDTORequest (
       EnderecoEntregaDTORequest endereco,
 
       LocalDateTime data,
+
+      LocalDateTime tempoPagamento,
      
      List<ItemPedidoDTORequest> listaItemPedido,
 

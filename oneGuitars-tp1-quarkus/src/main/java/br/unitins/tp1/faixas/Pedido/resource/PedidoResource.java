@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import br.unitins.tp1.faixas.Pagamento.dto.BoletoDTORequest;
+import br.unitins.tp1.faixas.Pagamento.dto.CartaoCreditoDTORequest;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTOResponse;
 import br.unitins.tp1.faixas.Pedido.service.PedidoService;
@@ -48,6 +50,25 @@ public class PedidoResource {
     public Response create(@Valid PedidoDTORequest dto){
         return Response.ok(pedidoService.create(dto)).build();
     }
+
+      @POST
+    @Path("/{id}/pagamento-cartao")
+    @RolesAllowed("User")
+    public Response pagamentoCartao(@PathParam("id") Long idPedido, @Valid CartaoCreditoDTORequest cartaoDTO) {
+        pedidoService.pagamentoCartao(idPedido, cartaoDTO);
+        return Response.ok().build();
+    }
+
+    // **Endpoint para pagamento via Pix**
+    @POST
+    @Path("/{id}/pagamento-")
+    @RolesAllowed("User")
+    public Response pagamentoBoleto(@PathParam("id") Long idPedido, @Valid Long idBoleto) {
+        pedidoService.pagamentoBoleto(idPedido, idBoleto);
+        return Response.ok().build();
+    }
+
+    
 }
 
 // Views = Swagger and Browser

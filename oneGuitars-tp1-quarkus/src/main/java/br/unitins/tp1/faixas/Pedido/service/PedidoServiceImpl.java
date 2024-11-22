@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 // 
 import java.util.List;
-
 import java.util.UUID;
 
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
@@ -19,7 +18,6 @@ import br.unitins.tp1.faixas.Lote.repository.LoteRepository;
 import br.unitins.tp1.faixas.Lote.service.LoteService;
 import br.unitins.tp1.faixas.Pagamento.dto.BoletoDTOResponse;
 import br.unitins.tp1.faixas.Pagamento.dto.CartaoCreditoDTORequest;
-import br.unitins.tp1.faixas.Pagamento.dto.CartaoCreditoDTOResponse;
 import br.unitins.tp1.faixas.Pagamento.model.Boleto;
 import br.unitins.tp1.faixas.Pagamento.model.CartaoCredito;
 import br.unitins.tp1.faixas.Pagamento.repository.PagamentoRepository;
@@ -84,6 +82,7 @@ public class PedidoServiceImpl implements PedidoService {
     end.setCidade(cidadeService.findById(dto.endereco().idCidade()));
     end.setLogradouro(dto.endereco().logradouro());
 
+
     Pedido pedido = new Pedido();
   
 
@@ -91,6 +90,9 @@ public class PedidoServiceImpl implements PedidoService {
     pedido.setCliente(clienteRepository.findById(dto.idCliente()));
     pedido.setValorTotal(dto.valorTotal());
     pedido.setEndereco(end);
+    pedido.setTempoPagamento(dto.tempoPagamento());
+   
+    
 
 
     List<ItemPedido> item = new ArrayList<ItemPedido>();
@@ -125,17 +127,43 @@ public class PedidoServiceImpl implements PedidoService {
   }
 
   @Override
+  @Transactional
   public void pagamentoBoleto(Long idPedido, Long idBoleto) {
       Pedido p = pedidoRepository.findById(idPedido);
-      p.setPagamento(pagamentoRepository.findById(idBoleto));
+
+      if(p ==null)
+        throw new IllegalArgumentException("Não foi encontrado o pedido");
+
+      
+     p.setPagamento(pagamentoRepository.findById(idBoleto));
   }
 
   @Override
-  public void pagamentoCartao(Long id, CartaoCreditoDTORequest cartao) {
-      Pedido p = pedidoRepository.findById(id);
+  @Transactional
+  public void pagamentoCartao(Long idPedido, CartaoCreditoDTORequest cartaoDTO) {
+      Pedido p = pedidoRepository.findById(idPedido);
 
-      CartaoCredito c = Ca
-   
+      if(p == null)
+        throw new IllegalArgumentException("Não foi encontrado o pedido");
+      
+      CartaoCredito c = new CartaoCredito();
+      c.setNameOwner(cartaoDTO.nameOwner());
+      c.setNumber(cartaoDTO.number());
+      c.setCpf(cartaoDTO.cpf());
+      c.setCvv(cartaoDTO.cvv());
+      c.setValidade(cartaoDTO.validade());
+      c.setBandeiraCartao(cartaoDTO.bandeira());
+      c.setDatePayment(LocalDateTime.now());
+      c.setValue(cartaoDTO.value());
+     
+
+      pagamentoRepository.persist(c);
+
+      p.setPagamento(c);
+
+      pedidoRepository.persist(p);
+
+      
   }
 
   

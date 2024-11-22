@@ -76,6 +76,4 @@ insert into pessoafisica(sexo,id,id_usuario, cpf)
 insert into pessoafisica(sexo,id,id_usuario, cpf)
 	VALUES (1,2, 1, '2223');
 
-insert into pessoafisica(sexo,id,id_usuario,cpf)
-    VALUES(2,1,2,'223');
 

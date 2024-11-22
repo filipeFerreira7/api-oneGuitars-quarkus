@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
@@ -20,8 +22,7 @@ public class CartaoCredito extends Pagamento {
     @Column(name = "data_validade",nullable = false)
     private LocalDate validade;
 
-    @OneToOne
-    @JoinColumn(name = "id_bandeira")
+  
     private BandeiraCartao bandeiraCartao;
 
     public String getNameOwner() {

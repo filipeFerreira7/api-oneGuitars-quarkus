@@ -15,10 +15,10 @@ public record CartaoCreditoDTORequest (
     String number,
     @NotBlank(message = "The field cvv is required")
     String cvv,
-    @NotBlank(message = "The field validade is required")
     LocalDate validade,
     @NotBlank(message = "The field cpf is required")
     String cpf,
+    Double value,
     @NotNull()
     BandeiraCartao bandeira
 

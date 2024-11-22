@@ -75,8 +75,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-jwt-build</artifactId>
-    </dependency>
-    
+    </dependency>    
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-jdbc-h2</artifactId>

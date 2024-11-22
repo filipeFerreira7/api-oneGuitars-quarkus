@@ -10,7 +10,8 @@ public class Usuario extends DefaultEntity {
     private String username;
     @Column(name = "password")
     private String senha;
-
+    
+    @Column(name="id_perfil")
     private Perfil perfil;
 
     public String getSenha() {
