@@ -1,5 +1,7 @@
 package br.unitins.tp1.faixas.Cliente.dto;
 
+import java.time.LocalDateTime;
+
 import br.unitins.tp1.faixas.Cliente.model.Cliente;
 import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTOResponse;
 import br.unitins.tp1.faixas.Usuario.model.Perfil;
@@ -9,7 +11,7 @@ public record ClienteDTOResponse(
     Long id,
     String nome,
     String cpf,
-    Sexo sexo,
+    String sexo,
     String username,
     String senha,
     Perfil perfil,
@@ -20,7 +22,7 @@ public record ClienteDTOResponse(
             cliente.getId(),
             cliente.getPessoaFisica().getNome(),
             cliente.getPessoaFisica().getCpf(),
-            cliente.getPessoaFisica().getSexo(),
+            Sexo.valueOf(cliente.getPessoaFisica().getSexo().getId()).getDescricao(),
             cliente.getPessoaFisica().getUsuario().getUsername(),
             cliente.getPessoaFisica().getUsuario().getSenha(),
             cliente.getPessoaFisica().getUsuario().getPerfil(),

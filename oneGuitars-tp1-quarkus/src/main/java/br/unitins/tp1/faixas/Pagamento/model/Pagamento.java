@@ -12,34 +12,34 @@ import jakarta.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento extends DefaultEntity {
 
-    private boolean isPaid;
+    private boolean estaPago;
  
-    private LocalDateTime datePayment;
+    private LocalDateTime dataPagamento;
 
-    private Double value;
+    private Double valor;
 
-    public boolean isPaid() {
-        return isPaid;
+    public boolean estaPago() {
+        return estaPago;
     }
 
-    public void setPaid(boolean isPaid) {
-        this.isPaid = isPaid;
+    public void setEstaPago(boolean estaPago) {
+        this.estaPago = estaPago;
     }
 
-    public LocalDateTime getDatePayment() {
-        return datePayment;
+    public LocalDateTime getDataPagamento() {
+        return dataPagamento;
     }
 
-    public void setDatePayment(LocalDateTime datePayment) {
-        this.datePayment = datePayment;
+    public void setDataPagamento(LocalDateTime dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
 }

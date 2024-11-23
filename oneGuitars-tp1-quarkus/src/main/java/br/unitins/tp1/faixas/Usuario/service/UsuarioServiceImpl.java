@@ -59,4 +59,13 @@ public class UsuarioServiceImpl implements UsuarioService {
   
   }
 
+
+
+  @Override
+  public void update(Usuario usuario) {
+    em.merge(usuario);
+  }
+
+
+
 }

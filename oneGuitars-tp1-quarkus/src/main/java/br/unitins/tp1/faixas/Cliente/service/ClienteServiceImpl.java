@@ -4,13 +4,18 @@ import java.time.LocalDate;
 // 
 import java.util.List;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 import br.unitins.tp1.faixas.Cliente.dto.ClienteDTORequest;
 import br.unitins.tp1.faixas.Cliente.dto.ClienteDTOResponse;
+import br.unitins.tp1.faixas.Cliente.dto.PasswordUpdateDTO;
+import br.unitins.tp1.faixas.Cliente.dto.UsernameUpdateDTO;
 import br.unitins.tp1.faixas.Cliente.model.Cliente;
 import br.unitins.tp1.faixas.Cliente.repository.ClienteRepository;
 import br.unitins.tp1.faixas.Hash.service.HashService;
 import br.unitins.tp1.faixas.Hash.service.HashServiceImpl;
 import br.unitins.tp1.faixas.Telefone.service.TelefoneService;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
 import br.unitins.tp1.faixas.Usuario.model.Perfil;
 import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
 import br.unitins.tp1.faixas.Usuario.model.Sexo;
@@ -26,6 +31,12 @@ import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class ClienteServiceImpl implements ClienteService {
+
+  @Inject
+  HashService hashService;
+
+  @Inject
+  JsonWebToken jwt;
 
   @Inject
   public ClienteRepository repository;
@@ -161,10 +172,46 @@ public class ClienteServiceImpl implements ClienteService {
   @Override
   @Transactional
   public PessoaFisica updateNomeImagem(Long id, String nomeImagem) {
-     PessoaFisica pessoafisica =  pessoaFisicaRepository.findById(id);
-      
-     pessoafisica.setNomeImagem(nomeImagem);
-      
-      return pessoafisica;
+    PessoaFisica pessoafisica = pessoaFisicaRepository.findById(id);
+
+    pessoafisica.setNomeImagem(nomeImagem);
+
+    return pessoafisica;
   }
+
+  @Override
+  public void updatePassword(PasswordUpdateDTO passwordUpdateDTO) {
+    Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+    Cliente cliente = repository.findByIdUsuario(usuario.getId());
+    if (usuario == null || cliente == null) {
+      throw new InternalError();
+    }
+    if (usuario.getSenha().equals(hashService.getHashSenha(passwordUpdateDTO.senhaAntiga()))) {
+        usuario.setSenha(hashService.getHashSenha(passwordUpdateDTO.senhaNova()));
+        usuarioService.update(usuario);
+    }
+  }
+
+  @Override
+  @Transactional
+  public void updateUsername(UsernameUpdateDTO usernameUpdateDTO) {
+    Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+    Cliente cliente = repository.findByIdUsuario(usuario.getId());
+    if (usuario == null || cliente == null) {
+      throw new InternalError();
+    }
+
+    cliente.getPessoaFisica().getUsuario().setUsername(usernameUpdateDTO.novoUsername());
+    usuarioService.update(cliente.getPessoaFisica().getUsuario());
+    repository.persist(cliente);
+  }
+
+  @Override
+    public UsuarioDTOResponse login(String username, String senha) {
+        Cliente cliente = repository.findByUsernameAndSenha(username, senha);
+        // verificar se existe ou não
+        if(cliente != null)
+            return UsuarioDTOResponse.valueOf(cliente.getPessoaFisica().getUsuario());
+        return null;
+    }
 }

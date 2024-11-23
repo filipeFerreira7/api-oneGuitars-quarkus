@@ -5,11 +5,14 @@ import java.io.IOException;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import br.unitins.tp1.faixas.Cliente.dto.ClienteDTORequest;
+import br.unitins.tp1.faixas.Cliente.dto.PasswordUpdateDTO;
+import br.unitins.tp1.faixas.Cliente.dto.UsernameUpdateDTO;
 import br.unitins.tp1.faixas.Cliente.service.ClienteService;
 import br.unitins.tp1.faixas.File.service.FileService;
 import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import br.unitins.tp1.faixas.form.PessoaFisicaImageForm;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -78,6 +81,22 @@ public class ClienteResource {
     public Response update(@Valid @PathParam("id") Long id, @Valid ClienteDTORequest dto) {
         clienteService.update(id, dto);
         return Response.noContent().build();
+    }
+
+     @PATCH
+    @RolesAllowed("User")
+    @Path("/update-password")
+    public Response updateUsuarioPassword(PasswordUpdateDTO passwordUpdateDTO){
+        clienteService.updatePassword(passwordUpdateDTO);
+        return Response.status(Status.NO_CONTENT).build();
+    }
+
+    @PATCH
+    @RolesAllowed("User")
+    @Path("/update-username")
+    public Response updateUsuarioUsername(UsernameUpdateDTO usernameUpdateDTO){
+        clienteService.updateUsername(usernameUpdateDTO);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @DELETE

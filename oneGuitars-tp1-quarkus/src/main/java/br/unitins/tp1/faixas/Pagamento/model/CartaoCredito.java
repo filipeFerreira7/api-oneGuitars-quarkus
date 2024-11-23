@@ -4,41 +4,43 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class CartaoCredito extends Pagamento {
-    @Column(name="titular",nullable = false)
-    private String nameOwner;
-    @Column(name = "numero_cartao",nullable = false)
-    private String number;
-    @Column(name = "codigo_seguranca",nullable = false)
+    @Column(name = "titular", nullable = false)
+    private String nomeTitular;
+
+    @Column(name = "numero_cartao", nullable = false)
+    private String numeroCartao;
+
+    @Column(name = "codigo_seguranca", nullable = false)
     private String cvv;
-    @Column(name = "cpf_titular",nullable = false)
-    private String cpf;
-    @Column(name = "data_validade",nullable = false)
+
+    @Column(name = "cpftitular_titular", nullable = false)
+    private String cpfTitular;
+    
+    @Column(name = "data_validade", nullable = false)
     private LocalDate validade;
 
-  
+    @Column(name = "saldo_cartao", nullable = false)
+    private Double saldoCartao;
+
     private BandeiraCartao bandeiraCartao;
 
-    public String getNameOwner() {
-        return nameOwner;
+    public String getNomeTitular() {
+        return nomeTitular;
     }
 
-    public void setNameOwner(String nameOwner) {
-        this.nameOwner = nameOwner;
+    public void setNomeTitular(String nomeTitular) {
+        this.nomeTitular = nomeTitular;
     }
 
-    public String getNumber() {
-        return number;
+    public String getNumeroCartao() {
+        return numeroCartao;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setNumeroCartao(String numerocartao) {
+        this.numeroCartao = numerocartao;
     }
 
     public String getCvv() {
@@ -49,12 +51,12 @@ public class CartaoCredito extends Pagamento {
         this.cvv = cvv;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getCpfTitular() {
+        return cpfTitular;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpfTitular(String cpftitular) {
+        this.cpfTitular = cpftitular;
     }
 
     public LocalDate getValidade() {
@@ -71,6 +73,14 @@ public class CartaoCredito extends Pagamento {
 
     public void setBandeiraCartao(BandeiraCartao bandeiraCartao) {
         this.bandeiraCartao = bandeiraCartao;
+    }
+
+    public Double getSaldoCartao() {
+        return saldoCartao;
+    }
+
+    public void setSaldoCartao(Double saldoCartao) {
+        this.saldoCartao = saldoCartao;
     }
 
 }

@@ -12,6 +12,8 @@ public interface UsuarioService {
 
     Usuario findByUsernameAndSenha(String username, String senha);
 
+    public void update(Usuario usuario);
+
     List<Usuario> findByNome(String nome);
 
     List<Usuario> findByCpf(String cpf);

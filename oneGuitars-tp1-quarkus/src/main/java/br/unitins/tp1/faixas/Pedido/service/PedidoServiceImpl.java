@@ -88,13 +88,18 @@ public class PedidoServiceImpl implements PedidoService {
 
     pedido.setDataCompra(LocalDateTime.now());
     pedido.setCliente(clienteRepository.findById(dto.idCliente()));
-    pedido.setValorTotal(dto.valorTotal());
+    //caclc valor total
+    //todos os itens estão nessa variável
+    pedido.setValorTotal(0d); // valor vai ser calculado 
+    List<ItemPedidoDTORequest> valorItens = dto.listaItemPedido();
+    valorItens.forEach(t -> {
+      pedido.setValorTotal(pedido.getValorTotal() + (t.quantidade() * t.preco()));
+    });
+
     pedido.setEndereco(end);
-    pedido.setTempoPagamento(dto.tempoPagamento());
+    // prazo para efetuar o pagamento
+    pedido.setTempoPagamento(LocalDateTime.now().plusMinutes(5));
    
-    
-
-
     List<ItemPedido> item = new ArrayList<ItemPedido>();
 
     for (ItemPedidoDTORequest itemDTO : dto.listaItemPedido()) {
@@ -119,7 +124,7 @@ public class PedidoServiceImpl implements PedidoService {
     Double value = pedidoRepository.findById(idPedido).getValorTotal();
 
     Boleto boleto = new Boleto();
-    boleto.setValue(value);
+    boleto.setValor(value);
     boleto.setCodigo(UUID.randomUUID().toString());
     pagamentoRepository.persist(boleto);
     return BoletoDTOResponse.valueOf(boleto);
@@ -146,8 +151,25 @@ public class PedidoServiceImpl implements PedidoService {
       if(p == null)
         throw new IllegalArgumentException("Não foi encontrado o pedido");
 
+    
     CartaoCredito c = CartaoCreditoDTORequest.converteCartaoCredito(cartaoDTO);
-    c.setValue(p.getValorTotal());
+    
+    if(c.getSaldoCartao() >= p.getValorTotal()){
+      c.setEstaPago(true);
+
+      //logica para descontar o saldo
+      c.setSaldoCartao(c.getSaldoCartao()-p.getValorTotal());
+      c.setValor(p.getValorTotal());
+      c.setDataPagamento(LocalDateTime.now());
+      //verificando se o tempo não foi ultrapassado
+      if(c.getDataPagamento().isAfter(p.getTempoPagamento())){
+          throw new IllegalArgumentException("Tempo esgotado. Tente novamente");
+      }
+      p.setPagamento(c);
+    }
+    else{
+      c.setEstaPago(false);
+    }
  
 
       pagamentoRepository.persist(c);

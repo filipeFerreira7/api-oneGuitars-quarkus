@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import br.unitins.tp1.faixas.Pagamento.model.Boleto;
 
 public record BoletoDTOResponse(
-      Long id,
+    Long id,
     String codigo,
     String cpf,
     LocalDate dataFabricacao,

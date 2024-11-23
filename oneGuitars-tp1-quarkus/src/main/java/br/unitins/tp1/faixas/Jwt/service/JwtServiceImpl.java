@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import br.unitins.tp1.faixas.Auth.dto.AuthDTORequest;
 import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -14,14 +15,17 @@ public class JwtServiceImpl implements JwtService {
     private static final Duration EXPIRATION_TIME = Duration.ofHours(24);
 
     @Override
-    public String generateJwt(UsuarioDTOResponse dto){
+    public String generateJwt(AuthDTORequest authDTO,UsuarioDTOResponse dto){
         Instant now = Instant.now();
         Instant expiryDate = now.plus(EXPIRATION_TIME);
 
         Set<String> roles = new HashSet<String>();
-        roles.add(dto.perfil().getDescricao());
+        if(authDTO.perfil() == 1){
+            roles.add("Adm");
+        }
 
         return Jwt.issuer("unitins-jwt")
+        .claim("userId", dto.id())
         .subject(dto.username())
         .groups(roles)
         .expiresAt(expiryDate)

@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.validation;
+package br.unitins.tp1.faixas.util;
 
 public class Error {
     private String code;

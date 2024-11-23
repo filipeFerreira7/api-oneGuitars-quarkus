@@ -12,6 +12,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -51,7 +52,7 @@ public class PedidoResource {
         return Response.ok(pedidoService.create(dto)).build();
     }
 
-      @POST
+      @PATCH
     @Path("/{id}/pagamento-cartao")
     @RolesAllowed("User")
     public Response pagamentoCartao(@PathParam("id") Long id, @Valid CartaoCreditoDTORequest cartaoDTO) {

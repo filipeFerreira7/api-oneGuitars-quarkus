@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.EnderecoEntrega.dto.EnderecoEntregaDTORequest;
 import br.unitins.tp1.faixas.ItemPedido.dto.ItemPedidoDTORequest;
-import jakarta.validation.constraints.NotNull;
 
 public record PedidoDTORequest (
 
@@ -17,10 +16,7 @@ public record PedidoDTORequest (
 
       LocalDateTime tempoPagamento,
      
-     List<ItemPedidoDTORequest> listaItemPedido,
-
-    @NotNull (message = "valor total not must be null") 
-     Double valorTotal
+     List<ItemPedidoDTORequest> listaItemPedido
     
 )
 {}

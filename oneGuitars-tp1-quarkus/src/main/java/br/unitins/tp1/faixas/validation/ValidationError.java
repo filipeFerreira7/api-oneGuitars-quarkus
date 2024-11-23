@@ -3,6 +3,8 @@ package br.unitins.tp1.faixas.validation;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.unitins.tp1.faixas.util.Error;
+
 public class ValidationError extends Error {
 
     private record FieldError(String fieldName, String message) {
