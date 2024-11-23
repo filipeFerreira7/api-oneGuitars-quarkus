@@ -3,6 +3,7 @@ package br.unitins.tp1.faixas.Pagamento.dto;
 import java.time.LocalDate;
 
 import br.unitins.tp1.faixas.Pagamento.model.BandeiraCartao;
+import br.unitins.tp1.faixas.Pagamento.model.CartaoCredito;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -23,5 +24,18 @@ public record CartaoCreditoDTORequest (
     BandeiraCartao bandeira
 
 ) {
+
+    public static CartaoCredito converteCartaoCredito(CartaoCreditoDTORequest dto){
+        CartaoCredito c = new CartaoCredito();
+
+        c.setNameOwner(dto.nameOwner());
+        c.setCpf(dto.cpf);
+        c.setNumber(dto.number());
+        c.setValidade(dto.validade());
+        c.setCvv(dto.cvv());
+        c.setBandeiraCartao(dto.bandeira());
+
+        return c;
+    }
     
 }

@@ -145,23 +145,14 @@ public class PedidoServiceImpl implements PedidoService {
 
       if(p == null)
         throw new IllegalArgumentException("Não foi encontrado o pedido");
-      
-      CartaoCredito c = new CartaoCredito();
-      c.setNameOwner(cartaoDTO.nameOwner());
-      c.setNumber(cartaoDTO.number());
-      c.setCpf(cartaoDTO.cpf());
-      c.setCvv(cartaoDTO.cvv());
-      c.setValidade(cartaoDTO.validade());
-      c.setBandeiraCartao(cartaoDTO.bandeira());
-      c.setDatePayment(LocalDateTime.now());
-      c.setValue(cartaoDTO.value());
-     
+
+    CartaoCredito c = CartaoCreditoDTORequest.converteCartaoCredito(cartaoDTO);
+    c.setValue(p.getValorTotal());
+ 
 
       pagamentoRepository.persist(c);
 
       p.setPagamento(c);
-
-      pedidoRepository.persist(p);
 
       
   }

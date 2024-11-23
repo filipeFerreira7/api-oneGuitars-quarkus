@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
-import br.unitins.tp1.faixas.Pagamento.dto.BoletoDTORequest;
 import br.unitins.tp1.faixas.Pagamento.dto.CartaoCreditoDTORequest;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTOResponse;
@@ -18,6 +17,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 // controlador
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Path("/pedidos")
 public class PedidoResource {
@@ -54,18 +54,24 @@ public class PedidoResource {
       @POST
     @Path("/{id}/pagamento-cartao")
     @RolesAllowed("User")
-    public Response pagamentoCartao(@PathParam("id") Long idPedido, @Valid CartaoCreditoDTORequest cartaoDTO) {
-        pedidoService.pagamentoCartao(idPedido, cartaoDTO);
-        return Response.ok().build();
+    public Response pagamentoCartao(@PathParam("id") Long id, @Valid CartaoCreditoDTORequest cartaoDTO) {
+        pedidoService.pagamentoCartao(id, cartaoDTO);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
-    // **Endpoint para pagamento via Pix**
+    @POST
+    @Path("/{id}/pagamento/info/pix")
+    @RolesAllowed("User")
+    public Response gerarInfoBoleto(@PathParam("id") Long id){
+        return Response.status(201).entity(pedidoService.gerarInfoBoleto(id)).build();
+    }
+    
     @POST
     @Path("/{id}/pagamento-")
     @RolesAllowed("User")
-    public Response pagamentoBoleto(@PathParam("id") Long idPedido, @Valid Long idBoleto) {
-        pedidoService.pagamentoBoleto(idPedido, idBoleto);
-        return Response.ok().build();
+    public Response pagamentoBoleto(@PathParam("id") Long idPedido, @PathParam("id-boleto") Long idBoleto) {
+       pedidoService.pagamentoBoleto(idPedido, idBoleto);
+       return Response.status(Status.NO_CONTENT).build();
     }
 
     
