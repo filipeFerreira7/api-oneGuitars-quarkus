@@ -2,6 +2,7 @@ package br.unitins.tp1.faixas.Administrador.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -48,14 +49,12 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     @Transactional
     public AdministradorDTOResponse create(@Valid AdministradorDTORequest dto) {
-        
+        // usuario
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.username());
         usuario.setSenha(hashService.getHashSenha(dto.senha()));
-
         usuarioRepository.persist(usuario);
-
-
+        // pessoaFisica
         PessoaFisica pf = new PessoaFisica();
         pf.setNome(dto.nome());
         pf.setTelefone(dto.telefone());
@@ -65,13 +64,13 @@ public class AdministradorServiceImpl implements AdministradorService {
 
         pessoaFisicaRepository.persist(pf);
 
-
+        //Administrador
         Administrador administrador = new Administrador();
 
-        administrador.setCodigoContrato(dto.codigoContrato());
-        LocalDate dataAdmissao = LocalDate.of(dto.anoAdmissao(), dto.mesAdmissao(), dto.diaAdmissao());
-        administrador.setDataAdmissao(dataAdmissao);
+        administrador.setCodigoAdm(dto.codigoAdm());
         administrador.setPessoaFisica(pf);
+         //Setando um codigo unico de adm
+         administrador.setCodigoAdm(UUID.randomUUID().toString());
 
         repository.persist(administrador);
         
@@ -110,9 +109,7 @@ public class AdministradorServiceImpl implements AdministradorService {
         Administrador administrador = repository.findById(id);
 
         if(administrador != null){
-            administrador.setCodigoContrato(dto.codigoContrato());
-            LocalDate dataAdmissao = LocalDate.of(dto.anoAdmissao(), dto.mesAdmissao(), dto.diaAdmissao());
-            administrador.setDataAdmissao(dataAdmissao);
+           
             administrador.setPessoaFisica(pf);
         } else {
             throw new ValidationException("Administrador inexistente");

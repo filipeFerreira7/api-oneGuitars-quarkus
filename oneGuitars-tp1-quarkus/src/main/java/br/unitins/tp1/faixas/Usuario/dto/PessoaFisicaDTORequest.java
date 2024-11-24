@@ -1,7 +1,5 @@
 package br.unitins.tp1.faixas.Usuario.dto;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

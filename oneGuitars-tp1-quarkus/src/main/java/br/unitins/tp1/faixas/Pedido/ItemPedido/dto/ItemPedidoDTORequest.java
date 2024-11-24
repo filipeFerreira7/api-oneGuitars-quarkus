@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.ItemPedido.dto;
+package br.unitins.tp1.faixas.Pedido.ItemPedido.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

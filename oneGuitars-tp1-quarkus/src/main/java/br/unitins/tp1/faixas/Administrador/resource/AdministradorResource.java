@@ -47,9 +47,9 @@ public class AdministradorResource {
     @Path("/{id}")
     @RolesAllowed("Adm")
     public Response delete( @PathParam("id") Long id){
-        if(service.delete(id))
-            return Response.status(Status.NO_CONTENT).build();
-        return Response.status(Status.NOT_FOUND).build();
+       service.delete(id);
+     return Response.status(Status.NO_CONTENT).build();
+     
     }
 
     @PUT

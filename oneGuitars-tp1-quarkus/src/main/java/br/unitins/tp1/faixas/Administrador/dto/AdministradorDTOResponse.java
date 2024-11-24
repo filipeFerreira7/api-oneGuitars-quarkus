@@ -1,7 +1,6 @@
 package br.unitins.tp1.faixas.Administrador.dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import br.unitins.tp1.faixas.Administrador.model.Administrador;
 
@@ -12,8 +11,7 @@ public record AdministradorDTOResponse(
         String telefone,
         LocalDate dataNascimento,
         String cpf,
-        String codigoContrato,
-        LocalDate dataAdmissao,
+        String codigoAdm,
         String username,
         String senha) {
     public static AdministradorDTOResponse valueof(Administrador administrador) {
@@ -24,8 +22,7 @@ public record AdministradorDTOResponse(
                 administrador.getPessoaFisica().getTelefone().getNumero(),
                 administrador.getPessoaFisica().getDataNascimento(),
                 administrador.getPessoaFisica().getCpf(),
-                administrador.getCodigoContrato(),
-                administrador.getDataAdmissao(),
+                administrador.getCodigoAdm(),
                 administrador.getPessoaFisica().getUsuario().getUsername(),
                 administrador.getPessoaFisica().getUsuario().getSenha()
         );

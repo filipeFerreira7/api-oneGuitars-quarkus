@@ -11,11 +11,11 @@ import jakarta.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento extends DefaultEntity {
-
+    @Column()
     private boolean estaPago;
- 
+    @Column()
     private LocalDateTime dataPagamento;
-
+    @Column(nullable = false)
     private Double valor;
 
     public boolean estaPago() {

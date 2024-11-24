@@ -1,7 +1,5 @@
 package br.unitins.tp1.faixas.Cliente.dto;
 
-import java.time.LocalDateTime;
-
 import br.unitins.tp1.faixas.Cliente.model.Cliente;
 import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTOResponse;
 import br.unitins.tp1.faixas.Usuario.model.Perfil;

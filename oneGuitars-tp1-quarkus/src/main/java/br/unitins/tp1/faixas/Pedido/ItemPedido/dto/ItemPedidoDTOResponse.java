@@ -1,6 +1,6 @@
-package br.unitins.tp1.faixas.ItemPedido.dto;
+package br.unitins.tp1.faixas.Pedido.ItemPedido.dto;
 
-import br.unitins.tp1.faixas.ItemPedido.model.ItemPedido;
+import br.unitins.tp1.faixas.Pedido.ItemPedido.model.ItemPedido;
 public record ItemPedidoDTOResponse(
     Long id,
     String codigoLoteItemPedido,
