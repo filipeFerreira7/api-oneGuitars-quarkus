@@ -3,7 +3,7 @@ package br.unitins.tp1.faixas.Conta.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record UsuarioDTORequest(
+public record ContaDTORequest(
 
         @NotBlank(message = "O nome não pode ser nulo ou vazio") @Size(min = 4, max = 60, message = "O tamanho deve ser entre 4 e 60 caracteres") String username,
 

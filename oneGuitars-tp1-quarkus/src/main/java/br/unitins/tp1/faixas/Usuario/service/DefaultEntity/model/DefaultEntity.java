@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model;
+package br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

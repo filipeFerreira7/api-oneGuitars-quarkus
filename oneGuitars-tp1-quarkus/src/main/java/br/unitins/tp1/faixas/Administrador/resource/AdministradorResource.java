@@ -32,7 +32,7 @@ public class AdministradorResource {
     public AdministradorService service;
 
     @Inject
-    ContaRepository usuarioRepository;
+    ContaRepository contaRepository;
 
     @Inject
     JsonWebToken jwt;
@@ -69,16 +69,16 @@ public class AdministradorResource {
     @PATCH
     @RolesAllowed("Adm")
     @Path("/update-password")
-    public Response updateUsuarioPassword(AdministradorPasswordUpdateDTO passwordUpdateDTO){
-        service.updateUsuarioPassword(passwordUpdateDTO);
+    public Response updateContaPassword(AdministradorPasswordUpdateDTO passwordUpdateDTO){
+        service.updateContaPassword(passwordUpdateDTO);
         return Response.status(Status.NO_CONTENT).build();
     }
 
     @PATCH
     @RolesAllowed("Adm")
     @Path("/update-username")
-    public Response updateUsuarioUsername(AdministradorUsernameUpdateDTO usernameUpdateDTO){
-        service.updateUsuarioUsername(usernameUpdateDTO);
+    public Response updateContaUsername(AdministradorUsernameUpdateDTO usernameUpdateDTO){
+        service.updateContaUsername(usernameUpdateDTO);
         return Response.status(Status.NO_CONTENT).build();
     }
 

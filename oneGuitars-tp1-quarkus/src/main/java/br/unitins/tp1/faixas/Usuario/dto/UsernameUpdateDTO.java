@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.Cliente.dto;
+package br.unitins.tp1.faixas.Usuario.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

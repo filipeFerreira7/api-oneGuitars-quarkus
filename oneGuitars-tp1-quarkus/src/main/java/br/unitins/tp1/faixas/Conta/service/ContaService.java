@@ -6,13 +6,13 @@ import br.unitins.tp1.faixas.Conta.model.Conta;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public interface UsuarioService {
+public interface ContaService {
 
     Conta findById(Long id);
 
     Conta findByUsernameAndSenha(String username, String senha);
 
-    public void update(Conta usuario);
+    public void update(Conta conta);
 
     List<Conta> findByNome(String nome);
 

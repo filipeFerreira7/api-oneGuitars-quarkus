@@ -2,9 +2,9 @@ package br.unitins.tp1.faixas.PessoaFisica.model;
 
 import java.time.LocalDate;
 
-import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Conta.model.Conta;
 import br.unitins.tp1.faixas.Telefone.model.Telefone;
+import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -31,7 +31,7 @@ public class PessoaFisica extends DefaultEntity {
 
     @OneToOne()
     @JoinColumn(name = "id_usuario", unique = true)
-    private Conta usuario;
+    private Conta conta;
 
     private String nomeImagem;
 
@@ -45,12 +45,12 @@ public class PessoaFisica extends DefaultEntity {
         this.cpf = cpf;
     }
 
-    public Conta getUsuario() {
-        return usuario;
+    public Conta getConta() {
+        return conta;
     }
 
-    public void setUsuario(Conta usuario) {
-        this.usuario = usuario;
+    public void setConta(Conta conta) {
+        this.conta = conta;
     }
 
     public String getNomeImagem() {

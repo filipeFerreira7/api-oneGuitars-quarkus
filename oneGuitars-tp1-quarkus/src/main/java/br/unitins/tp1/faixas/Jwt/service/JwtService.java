@@ -1,10 +1,10 @@
 package br.unitins.tp1.faixas.Jwt.service;
 
 import br.unitins.tp1.faixas.Auth.dto.AuthDTORequest;
-import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.dto.ContaDTOResponse;
 
 public interface JwtService {
 
-    public String generateJwt(AuthDTORequest authDTO,UsuarioDTOResponse dto);
+    public String generateJwt(AuthDTORequest authDTO,ContaDTOResponse dto);
 
 }

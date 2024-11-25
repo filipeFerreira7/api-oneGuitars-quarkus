@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
-import br.unitins.tp1.faixas.Cliente.repository.ClienteRepository;
-import br.unitins.tp1.faixas.Cliente.service.ClienteService;
 import br.unitins.tp1.faixas.EnderecoEntrega.model.EnderecoEntrega;
 import br.unitins.tp1.faixas.EnderecoEntrega.service.EnderecoEntregaService;
 import br.unitins.tp1.faixas.Guitarra.repository.GuitarraRepository;
@@ -24,6 +22,8 @@ import br.unitins.tp1.faixas.Pedido.ItemPedido.model.ItemPedido;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
 import br.unitins.tp1.faixas.Pedido.repository.PedidoRepository;
+import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
+import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -38,10 +38,10 @@ public class PedidoServiceImpl implements PedidoService {
   public PedidoRepository pedidoRepository;
 
   @Inject
-  public ClienteRepository clienteRepository;
+  public UsuarioRepository usuarioRepository;
 
   @Inject
-  public ClienteService clienteService;
+  public UsuarioService usuarioService;
   
 
   @Inject
@@ -87,7 +87,7 @@ public class PedidoServiceImpl implements PedidoService {
   
 
     pedido.setDataCompra(LocalDateTime.now());
-    pedido.setCliente(clienteRepository.findById(dto.idCliente()));
+    pedido.setCliente(usuarioRepository.findById(dto.idCliente()));
     //caclc valor total
     //todos os itens estão nessa variável
     pedido.setValorTotal(0d); // valor vai ser calculado 

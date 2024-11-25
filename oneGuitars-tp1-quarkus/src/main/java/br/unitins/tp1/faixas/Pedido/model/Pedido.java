@@ -3,11 +3,11 @@ package br.unitins.tp1.faixas.Pedido.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.unitins.tp1.faixas.Cliente.model.Cliente;
-import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.EnderecoEntrega.model.EnderecoEntrega;
 import br.unitins.tp1.faixas.Pagamento.model.Pagamento;
 import br.unitins.tp1.faixas.Pedido.ItemPedido.model.ItemPedido;
+import br.unitins.tp1.faixas.Usuario.model.Usuario;
+import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ public class Pedido extends DefaultEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente cliente;
+    private Usuario cliente;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_pedido", nullable = false)
@@ -69,11 +69,11 @@ public class Pedido extends DefaultEntity {
         this.listaItemPedido = listaItemPedido;
     }
 
-    public Cliente getCliente() {
+    public Usuario getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
 

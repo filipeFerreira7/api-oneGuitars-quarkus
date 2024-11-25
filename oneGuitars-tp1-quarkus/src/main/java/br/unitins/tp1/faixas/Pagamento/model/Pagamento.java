@@ -2,7 +2,7 @@ package br.unitins.tp1.faixas.Pagamento.model;
 
 import java.time.LocalDateTime;
 
-import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
+import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;

@@ -1,7 +1,7 @@
 package br.unitins.tp1.faixas.Pedido.ItemPedido.model;
 
-import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Lote.model.Lote;
+import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

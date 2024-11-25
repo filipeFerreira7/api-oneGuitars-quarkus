@@ -23,8 +23,8 @@ public record AdministradorDTOResponse(
                 administrador.getPessoaFisica().getDataNascimento(),
                 administrador.getPessoaFisica().getCpf(),
                 administrador.getCodigoAdm(),
-                administrador.getPessoaFisica().getUsuario().getUsername(),
-                administrador.getPessoaFisica().getUsuario().getSenha()
+                administrador.getPessoaFisica().getConta().getUsername(),
+                administrador.getPessoaFisica().getConta().getSenha()
         );
 
                

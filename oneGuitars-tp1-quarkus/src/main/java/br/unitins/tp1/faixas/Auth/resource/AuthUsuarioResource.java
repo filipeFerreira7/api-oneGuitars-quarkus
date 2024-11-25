@@ -2,10 +2,10 @@ package br.unitins.tp1.faixas.Auth.resource;
 
 import br.unitins.tp1.faixas.Administrador.service.AdministradorService;
 import br.unitins.tp1.faixas.Auth.dto.AuthDTORequest;
-import br.unitins.tp1.faixas.Cliente.service.ClienteService;
-import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.dto.ContaDTOResponse;
 import br.unitins.tp1.faixas.Hash.service.HashService;
 import br.unitins.tp1.faixas.Jwt.service.JwtService;
+import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -21,7 +21,7 @@ import jakarta.ws.rs.core.Response.Status;
 public class AuthUsuarioResource {
     
     @Inject
-    public ClienteService clienteService;
+    public UsuarioService clienteService;
 
     @Inject
     public AdministradorService admService;
@@ -36,7 +36,7 @@ public class AuthUsuarioResource {
     public Response login(AuthDTORequest dto){
         String hashSenha = hashService.getHashSenha(dto.senha());
 
-        UsuarioDTOResponse usuario = null;
+        ContaDTOResponse usuario = null;
 
         if(dto.perfil() == 1){
             // cliente

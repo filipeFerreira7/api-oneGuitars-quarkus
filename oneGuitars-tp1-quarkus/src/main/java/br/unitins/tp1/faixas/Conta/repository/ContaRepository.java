@@ -30,7 +30,7 @@ public class ContaRepository implements PanacheRepository<Conta>{
     }
 
     public Conta findByUsername(String username){
-        return find("SELECT u FROM Usuario u WHERE u.username = ?1",
+        return find("SELECT c FROM Conta u WHERE c.username = ?1",
         username).firstResult();
 }
     }

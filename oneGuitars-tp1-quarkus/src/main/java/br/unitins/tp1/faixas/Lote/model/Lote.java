@@ -2,8 +2,8 @@ package br.unitins.tp1.faixas.Lote.model;
 
 import java.time.LocalDate;
 
-import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
+import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

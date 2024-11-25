@@ -9,7 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 
 @ApplicationScoped
-public class UsuarioServiceImpl implements UsuarioService {
+public class ContaServiceImpl implements ContaService {
 
   @Inject
   EntityManager em;
@@ -62,8 +62,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
   @Override
-  public void update(Conta usuario) {
-    em.merge(usuario);
+  public void update(Conta conta) {
+    em.merge(conta);
   }
 
 

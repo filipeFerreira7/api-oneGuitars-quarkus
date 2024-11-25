@@ -12,10 +12,10 @@ import br.unitins.tp1.faixas.Administrador.dto.AdministradorPasswordUpdateDTO;
 import br.unitins.tp1.faixas.Administrador.dto.AdministradorUsernameUpdateDTO;
 import br.unitins.tp1.faixas.Administrador.model.Administrador;
 import br.unitins.tp1.faixas.Administrador.repository.AdministradorRepository;
-import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.dto.ContaDTOResponse;
 import br.unitins.tp1.faixas.Conta.model.Conta;
 import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
-import br.unitins.tp1.faixas.Conta.service.UsuarioService;
+import br.unitins.tp1.faixas.Conta.service.ContaService;
 import br.unitins.tp1.faixas.Hash.service.HashService;
 import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
 import br.unitins.tp1.faixas.PessoaFisica.repository.PessoaFisicaRepository;
@@ -35,10 +35,10 @@ public class AdministradorServiceImpl implements AdministradorService {
     PessoaFisicaRepository pessoaFisicaRepository;
 
     @Inject
-    ContaRepository usuarioRepository;
+    ContaRepository contaRepository;
 
     @Inject
-    UsuarioService usuarioService;
+    ContaService contaService;
 
     @Inject
     HashService hashService;
@@ -49,18 +49,18 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     @Transactional
     public AdministradorDTOResponse create(@Valid AdministradorDTORequest dto) {
-        // usuario
-        Conta usuario = new Conta();
-        usuario.setUsername(dto.username());
-        usuario.setSenha(hashService.getHashSenha(dto.senha()));
-        usuarioRepository.persist(usuario);
+        // conta
+        Conta conta = new Conta();
+        conta.setUsername(dto.username());
+        conta.setSenha(hashService.getHashSenha(dto.senha()));
+        contaRepository.persist(conta);
         // pessoaFisica
         PessoaFisica pf = new PessoaFisica();
         pf.setNome(dto.nome());
         pf.setTelefone(dto.telefone());
         pf.setDataNascimento(LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc()));
         pf.setCpf(dto.cpf());
-        pf.setUsuario(usuario);
+        pf.setConta(conta);
 
         pessoaFisicaRepository.persist(pf);
 
@@ -85,11 +85,11 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     @Transactional
     public void update(Long id, AdministradorDTORequest dto) throws ValidationException {
-        Conta usuario = repository.findById(id).getPessoaFisica().getUsuario();
-        if(usuario != null){
-            usuario.setUsername(dto.username());
+        Conta conta = repository.findById(id).getPessoaFisica().getConta();
+        if(conta != null){
+            conta.setUsername(dto.username());
             // fazer hash da nova senha
-            usuario.setSenha(hashService.getHashSenha(dto.senha()));
+            conta.setSenha(hashService.getHashSenha(dto.senha()));
         } else {
             throw new ValidationException("Administrador inexistente");
         }
@@ -100,7 +100,7 @@ public class AdministradorServiceImpl implements AdministradorService {
             pf.setTelefone(dto.telefone());
             pf.setDataNascimento(LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc()));
             pf.setCpf(dto.cpf());
-            pf.setUsuario(usuario);
+            pf.setConta(conta);
         } else {
             throw new ValidationException("Administrador inexistente");
         }
@@ -117,30 +117,30 @@ public class AdministradorServiceImpl implements AdministradorService {
 
     @Override
     @Transactional
-    public void updateUsuarioPassword(AdministradorPasswordUpdateDTO passwordUpdateDTO) {
+    public void updateContaPassword(AdministradorPasswordUpdateDTO passwordUpdateDTO) {
 
-        Conta usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
-        Administrador administrador = repository.findByIdUsuario(usuario.getId());
-        if (usuario == null || administrador == null) {
+        Conta conta = contaRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+        Administrador administrador = repository.findByIdUsuario(conta.getId());
+        if (conta == null || administrador == null) {
             throw new InternalError();
         }
 
-        if(usuario.getSenha().equals(hashService.getHashSenha(passwordUpdateDTO.oldPassword()))){
-            usuario.setSenha(hashService.getHashSenha(passwordUpdateDTO.newPassword()));
-            usuarioService.update(usuario);
+        if(conta.getSenha().equals(hashService.getHashSenha(passwordUpdateDTO.oldPassword()))){
+            conta.setSenha(hashService.getHashSenha(passwordUpdateDTO.newPassword()));
+            contaService.update(conta);
         }
     }
 
     @Override
     @Transactional
-    public void updateUsuarioUsername(AdministradorUsernameUpdateDTO usernameUpdateDTO) {
-        Conta usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
-        Administrador administrador = repository.findByIdUsuario(usuario.getId());
-        if (usuario == null || administrador == null) {
+    public void updateContaUsername(AdministradorUsernameUpdateDTO usernameUpdateDTO) {
+        Conta conta = contaRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+        Administrador administrador = repository.findByIdUsuario(conta.getId());
+        if (conta == null || administrador == null) {
             throw new InternalError();
         }
-        administrador.getPessoaFisica().getUsuario().setUsername(usernameUpdateDTO.newUsername());
-        usuarioService.update(administrador.getPessoaFisica().getUsuario());
+        administrador.getPessoaFisica().getConta().setUsername(usernameUpdateDTO.newUsername());
+        contaService.update(administrador.getPessoaFisica().getConta());
         repository.persist(administrador);
     }
 
@@ -189,11 +189,11 @@ public class AdministradorServiceImpl implements AdministradorService {
     }
 
     @Override
-    public UsuarioDTOResponse login(String username, String senha) {
+    public ContaDTOResponse login(String username, String senha) {
         Administrador administrador = repository.findByUsernameAndSenha(username, senha);
         // verificar se existe ou não
         if(administrador != null)
-            return UsuarioDTOResponse.valueOf(administrador.getPessoaFisica().getUsuario());
+            return ContaDTOResponse.valueOf(administrador.getPessoaFisica().getConta());
         return null;
     }
 
