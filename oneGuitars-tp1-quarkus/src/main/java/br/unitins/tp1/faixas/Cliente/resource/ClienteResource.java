@@ -8,9 +8,9 @@ import br.unitins.tp1.faixas.Cliente.dto.ClienteDTORequest;
 import br.unitins.tp1.faixas.Cliente.dto.PasswordUpdateDTO;
 import br.unitins.tp1.faixas.Cliente.dto.UsernameUpdateDTO;
 import br.unitins.tp1.faixas.Cliente.service.ClienteService;
+import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
+import br.unitins.tp1.faixas.Conta.service.UsuarioService;
 import br.unitins.tp1.faixas.File.service.FileService;
-import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
-import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import br.unitins.tp1.faixas.form.PessoaFisicaImageForm;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -41,7 +41,7 @@ public class ClienteResource {
     UsuarioService usuarioService;
 
     @Inject
-    UsuarioRepository usuarioRepository;
+    ContaRepository usuarioRepository;
 
     @Inject
     public FileService pessoafisicaFileService;

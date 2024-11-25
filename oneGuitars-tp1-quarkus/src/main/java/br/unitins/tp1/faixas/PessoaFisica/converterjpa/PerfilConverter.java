@@ -1,6 +1,6 @@
-package br.unitins.tp1.faixas.Usuario.model.converterjpa;
+package br.unitins.tp1.faixas.PessoaFisica.converterjpa;
 
-import br.unitins.tp1.faixas.Usuario.model.Perfil;
+import br.unitins.tp1.faixas.Conta.model.Perfil;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

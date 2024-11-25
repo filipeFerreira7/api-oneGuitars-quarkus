@@ -12,17 +12,17 @@ import br.unitins.tp1.faixas.Cliente.dto.PasswordUpdateDTO;
 import br.unitins.tp1.faixas.Cliente.dto.UsernameUpdateDTO;
 import br.unitins.tp1.faixas.Cliente.model.Cliente;
 import br.unitins.tp1.faixas.Cliente.repository.ClienteRepository;
+import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.model.Perfil;
+import br.unitins.tp1.faixas.Conta.model.Conta;
+import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
+import br.unitins.tp1.faixas.Conta.service.UsuarioService;
 import br.unitins.tp1.faixas.Hash.service.HashService;
 import br.unitins.tp1.faixas.Hash.service.HashServiceImpl;
+import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
+import br.unitins.tp1.faixas.PessoaFisica.model.Sexo;
+import br.unitins.tp1.faixas.PessoaFisica.repository.PessoaFisicaRepository;
 import br.unitins.tp1.faixas.Telefone.service.TelefoneService;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
-import br.unitins.tp1.faixas.Usuario.model.Perfil;
-import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
-import br.unitins.tp1.faixas.Usuario.model.Sexo;
-import br.unitins.tp1.faixas.Usuario.model.Usuario;
-import br.unitins.tp1.faixas.Usuario.repository.PessoaFisicaRepository;
-import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
-import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -48,7 +48,7 @@ public class ClienteServiceImpl implements ClienteService {
   PessoaFisicaRepository pessoaFisicaRepository;
 
   @Inject
-  public UsuarioRepository usuarioRepository;
+  public ContaRepository usuarioRepository;
   @Inject
   public UsuarioService usuarioService;
 
@@ -88,7 +88,7 @@ public class ClienteServiceImpl implements ClienteService {
   @Override
   @Transactional
   public ClienteDTOResponse create(ClienteDTORequest dto) {
-    Usuario usuario = new Usuario();
+    Conta usuario = new Conta();
     HashService hash = new HashServiceImpl();
 
     usuario.setUsername(dto.username());
@@ -134,7 +134,7 @@ public class ClienteServiceImpl implements ClienteService {
   @Override
   @Transactional
   public ClienteDTOResponse update(Long id, ClienteDTORequest dto) throws ValidationException {
-    Usuario usuario = repository.findById(id).getPessoaFisica().getUsuario();
+    Conta usuario = repository.findById(id).getPessoaFisica().getUsuario();
     HashService hash = new HashServiceImpl();
 
     if (usuario != null) {
@@ -181,7 +181,7 @@ public class ClienteServiceImpl implements ClienteService {
 
   @Override
   public void updatePassword(PasswordUpdateDTO passwordUpdateDTO) {
-    Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+    Conta usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
     Cliente cliente = repository.findByIdUsuario(usuario.getId());
     if (usuario == null || cliente == null) {
       throw new InternalError();
@@ -195,7 +195,7 @@ public class ClienteServiceImpl implements ClienteService {
   @Override
   @Transactional
   public void updateUsername(UsernameUpdateDTO usernameUpdateDTO) {
-    Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+    Conta usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
     Cliente cliente = repository.findByIdUsuario(usuario.getId());
     if (usuario == null || cliente == null) {
       throw new InternalError();

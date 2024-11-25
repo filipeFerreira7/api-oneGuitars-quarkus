@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.Usuario.dto;
+package br.unitins.tp1.faixas.Conta.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

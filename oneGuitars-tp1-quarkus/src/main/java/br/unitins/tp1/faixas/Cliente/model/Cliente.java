@@ -1,7 +1,7 @@
 package br.unitins.tp1.faixas.Cliente.model;
 
 import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
-import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
+import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

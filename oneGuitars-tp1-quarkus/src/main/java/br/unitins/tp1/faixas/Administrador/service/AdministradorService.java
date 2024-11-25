@@ -6,7 +6,7 @@ import br.unitins.tp1.faixas.Administrador.dto.AdministradorDTORequest;
 import br.unitins.tp1.faixas.Administrador.dto.AdministradorDTOResponse;
 import br.unitins.tp1.faixas.Administrador.dto.AdministradorPasswordUpdateDTO;
 import br.unitins.tp1.faixas.Administrador.dto.AdministradorUsernameUpdateDTO;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
 import jakarta.validation.Valid;
 import jakarta.xml.bind.ValidationException;
 

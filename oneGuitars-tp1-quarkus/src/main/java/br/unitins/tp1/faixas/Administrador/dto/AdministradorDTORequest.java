@@ -19,8 +19,6 @@ public record AdministradorDTORequest(
     String username,
 
     @NotBlank
-    String senha,
-
-    String codigoAdm
+    String senha
  
 ) {}

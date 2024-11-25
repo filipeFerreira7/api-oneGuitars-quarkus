@@ -1,9 +1,9 @@
-package br.unitins.tp1.faixas.Usuario.service;
+package br.unitins.tp1.faixas.Conta.service;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.Usuario.model.Usuario;
-import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
+import br.unitins.tp1.faixas.Conta.model.Conta;
+import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -15,39 +15,39 @@ public class UsuarioServiceImpl implements UsuarioService {
   EntityManager em;
 
   @Inject
-  UsuarioRepository repository;
+  ContaRepository repository;
 
   
   @Override
-  public Usuario findByUsernameAndSenha(String username, String senha) {
+  public Conta findByUsernameAndSenha(String username, String senha) {
       return repository.findByUsernameAndSenha(username, senha);
   }
 
  
 
   @Override
-  public Usuario findById(Long id) {
+  public Conta findById(Long id) {
    return repository.findById(id);
   }
 
 
 
   @Override
-  public List<Usuario> findByNome(String nome) {
+  public List<Conta> findByNome(String nome) {
       return null;
   }
 
 
 
   @Override
-  public List<Usuario> findByCpf(String cpf) {
+  public List<Conta> findByCpf(String cpf) {
    return null;
   }
 
 
 
   @Override
-  public List<Usuario> findAll() {
+  public List<Conta> findAll() {
    
    return repository.findAll().list();
   }
@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
   @Override
-  public void update(Usuario usuario) {
+  public void update(Conta usuario) {
     em.merge(usuario);
   }
 

@@ -1,9 +1,9 @@
 package br.unitins.tp1.faixas.Cliente.dto;
 
 import br.unitins.tp1.faixas.Cliente.model.Cliente;
+import br.unitins.tp1.faixas.Conta.model.Perfil;
+import br.unitins.tp1.faixas.PessoaFisica.model.Sexo;
 import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTOResponse;
-import br.unitins.tp1.faixas.Usuario.model.Perfil;
-import br.unitins.tp1.faixas.Usuario.model.Sexo;
 
 public record ClienteDTOResponse(
     Long id,

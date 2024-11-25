@@ -12,13 +12,13 @@ import br.unitins.tp1.faixas.Administrador.dto.AdministradorPasswordUpdateDTO;
 import br.unitins.tp1.faixas.Administrador.dto.AdministradorUsernameUpdateDTO;
 import br.unitins.tp1.faixas.Administrador.model.Administrador;
 import br.unitins.tp1.faixas.Administrador.repository.AdministradorRepository;
+import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.model.Conta;
+import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
+import br.unitins.tp1.faixas.Conta.service.UsuarioService;
 import br.unitins.tp1.faixas.Hash.service.HashService;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
-import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
-import br.unitins.tp1.faixas.Usuario.model.Usuario;
-import br.unitins.tp1.faixas.Usuario.repository.PessoaFisicaRepository;
-import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
-import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
+import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
+import br.unitins.tp1.faixas.PessoaFisica.repository.PessoaFisicaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -35,7 +35,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     PessoaFisicaRepository pessoaFisicaRepository;
 
     @Inject
-    UsuarioRepository usuarioRepository;
+    ContaRepository usuarioRepository;
 
     @Inject
     UsuarioService usuarioService;
@@ -50,7 +50,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Transactional
     public AdministradorDTOResponse create(@Valid AdministradorDTORequest dto) {
         // usuario
-        Usuario usuario = new Usuario();
+        Conta usuario = new Conta();
         usuario.setUsername(dto.username());
         usuario.setSenha(hashService.getHashSenha(dto.senha()));
         usuarioRepository.persist(usuario);
@@ -67,7 +67,6 @@ public class AdministradorServiceImpl implements AdministradorService {
         //Administrador
         Administrador administrador = new Administrador();
 
-        administrador.setCodigoAdm(dto.codigoAdm());
         administrador.setPessoaFisica(pf);
          //Setando um codigo unico de adm
          administrador.setCodigoAdm(UUID.randomUUID().toString());
@@ -86,7 +85,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     @Transactional
     public void update(Long id, AdministradorDTORequest dto) throws ValidationException {
-        Usuario usuario = repository.findById(id).getPessoaFisica().getUsuario();
+        Conta usuario = repository.findById(id).getPessoaFisica().getUsuario();
         if(usuario != null){
             usuario.setUsername(dto.username());
             // fazer hash da nova senha
@@ -120,7 +119,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Transactional
     public void updateUsuarioPassword(AdministradorPasswordUpdateDTO passwordUpdateDTO) {
 
-        Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+        Conta usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
         Administrador administrador = repository.findByIdUsuario(usuario.getId());
         if (usuario == null || administrador == null) {
             throw new InternalError();
@@ -135,7 +134,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     @Transactional
     public void updateUsuarioUsername(AdministradorUsernameUpdateDTO usernameUpdateDTO) {
-        Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+        Conta usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
         Administrador administrador = repository.findByIdUsuario(usuario.getId());
         if (usuario == null || administrador == null) {
             throw new InternalError();

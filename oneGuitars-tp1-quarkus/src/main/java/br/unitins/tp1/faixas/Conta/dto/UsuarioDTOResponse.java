@@ -1,7 +1,7 @@
-package br.unitins.tp1.faixas.Usuario.dto;
+package br.unitins.tp1.faixas.Conta.dto;
 
-import br.unitins.tp1.faixas.Usuario.model.Perfil;
-import br.unitins.tp1.faixas.Usuario.model.Usuario;
+import br.unitins.tp1.faixas.Conta.model.Perfil;
+import br.unitins.tp1.faixas.Conta.model.Conta;
 
 public record UsuarioDTOResponse(
     Long id,
@@ -10,7 +10,7 @@ public record UsuarioDTOResponse(
     Perfil perfil
    
 ) {
-    public static UsuarioDTOResponse valueOf(Usuario usuario) {
+    public static UsuarioDTOResponse valueOf(Conta usuario) {
         return new UsuarioDTOResponse(
             usuario.getId(),
             usuario.getUsername(),

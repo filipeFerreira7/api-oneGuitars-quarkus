@@ -1,7 +1,7 @@
 package br.unitins.tp1.faixas.Jwt.service;
 
 import br.unitins.tp1.faixas.Auth.dto.AuthDTORequest;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
 
 public interface JwtService {
 

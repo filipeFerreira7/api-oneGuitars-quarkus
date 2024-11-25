@@ -5,8 +5,8 @@ import br.unitins.tp1.faixas.Cliente.dto.ClienteDTORequest;
 import br.unitins.tp1.faixas.Cliente.dto.ClienteDTOResponse;
 import br.unitins.tp1.faixas.Cliente.dto.PasswordUpdateDTO;
 import br.unitins.tp1.faixas.Cliente.dto.UsernameUpdateDTO;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
-import br.unitins.tp1.faixas.Usuario.model.PessoaFisica;
+import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

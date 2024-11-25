@@ -1,11 +1,11 @@
-package br.unitins.tp1.faixas.Usuario.model;
+package br.unitins.tp1.faixas.Conta.model;
 
 import br.unitins.tp1.faixas.Cliente.service.DefaultEntity.model.DefaultEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Usuario extends DefaultEntity {
+public class Conta extends DefaultEntity {
     @Column(name = "username", unique = true)
     private String username;
     @Column(name = "password")

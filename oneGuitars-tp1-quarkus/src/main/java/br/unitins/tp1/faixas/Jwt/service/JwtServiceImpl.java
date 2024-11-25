@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.unitins.tp1.faixas.Auth.dto.AuthDTORequest;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Conta.dto.UsuarioDTOResponse;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
 

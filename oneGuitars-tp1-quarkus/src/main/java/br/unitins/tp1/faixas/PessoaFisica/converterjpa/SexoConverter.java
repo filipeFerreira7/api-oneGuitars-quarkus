@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.Usuario.model.converterjpa;
+package br.unitins.tp1.faixas.PessoaFisica.converterjpa;
 
 import br.unitins.tp1.faixas.Pagamento.model.BandeiraCartao;
 import jakarta.persistence.AttributeConverter;

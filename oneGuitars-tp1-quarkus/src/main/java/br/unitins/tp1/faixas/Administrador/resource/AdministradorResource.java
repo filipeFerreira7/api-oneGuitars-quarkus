@@ -6,7 +6,7 @@ import br.unitins.tp1.faixas.Administrador.dto.AdministradorDTORequest;
 import br.unitins.tp1.faixas.Administrador.dto.AdministradorPasswordUpdateDTO;
 import br.unitins.tp1.faixas.Administrador.dto.AdministradorUsernameUpdateDTO;
 import br.unitins.tp1.faixas.Administrador.service.AdministradorService;
-import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
+import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
 import br.unitins.tp1.faixas.validation.ValidationException;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -32,7 +32,7 @@ public class AdministradorResource {
     public AdministradorService service;
 
     @Inject
-    UsuarioRepository usuarioRepository;
+    ContaRepository usuarioRepository;
 
     @Inject
     JsonWebToken jwt;
