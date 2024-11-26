@@ -1,4 +1,4 @@
-![uml_v4_OneGuitars](https://github.com/user-attachments/assets/522e4eab-8ba6-4ed7-81a6-f7be0d8397ca)# OneGuitars - E-commerce de Guitarras
+# OneGuitars - E-commerce de Guitarras
 
 
 <img src="https://github.com/user-attachments/assets/58d825a9-437a-4ebe-b2e5-6831aa537a3a" alt="OneGuitars" width="400"/>
