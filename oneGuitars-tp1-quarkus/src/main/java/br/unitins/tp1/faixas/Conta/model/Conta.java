@@ -3,10 +3,13 @@ package br.unitins.tp1.faixas.Conta.model;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Conta extends DefaultEntity {
@@ -15,8 +18,11 @@ public class Conta extends DefaultEntity {
     @Column(name = "password")
     private String senha;
     
-    @OneToMany // uma conta tem varios perfis(podendo ser adm ou client)
-    @JoinColumn(name="id_perfil")
+   @ElementCollection(targetClass = Perfil.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "conta_perfis", joinColumns = @JoinColumn(name = "conta_id"))
+    @Column(name = "perfil")
+
     private List<Perfil> perfis;
 
     public String getSenha() {

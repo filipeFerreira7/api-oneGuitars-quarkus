@@ -1,0 +1,157 @@
+@startuml
+class Telefone {
+    id: Long
+    dd: String
+    numero: String
+}
+
+class Guitarra {
+    id: Long
+    nome: String
+    cor: String
+    preco: Double
+}
+
+class Marca {
+    nome: String
+}
+
+class Especificacao {
+    id: Long
+    sku: String
+    comprimento: Double
+    tipoMadeira: String
+    tipoCaptador: String
+    tipoChave: String
+}
+
+class Conta {
+    id: Long
+    login: String
+    senha: String
+}
+
+class PessoaFisica {
+    id: Long
+    nome: String
+    dataNascimento: LocalDate
+    cpf: String
+    email: String
+}
+
+enum Sexo {
+    MASCULINO: int
+    FEMININO: int
+}
+
+class Endereco {
+    id: Long
+    logradouro: String
+    bairro: String
+    cep: String
+}
+
+class EnderecoEntrega {
+    id: Long
+    logradouro: String
+    bairro: String
+    cep: String
+}
+
+class Cidade {
+    id: Long
+    nome: String
+    estado: Estado
+}
+
+class Estado {
+    id: Long
+    nome: String
+    sigla: String
+}
+
+class Pedido {
+    id: Long
+    dataCompra: LocalDateTime
+    valorTotal: Double
+}
+
+class ItemPedido {
+    id: Long
+    quantidade: int
+    preco: Double
+}
+
+abstract class Pagamento {
+    id: Long
+    confirmacaoPagamento: Boolean
+    dataConfirmacaoPagamento: LocalDateTime
+    valor: Double
+}
+
+class CartaoCredito {
+    nomeProprietario: String
+    numero: String
+    cvv: String
+    validade: LocalDate
+    cpfTitular: String
+}
+
+enum BandeiraCartao {
+    VISA: int
+    MASTERCARD: int
+    ELO: int
+    HIPERCARD: int
+    DINERS: int
+    DISCOVER: int
+    JCB: int
+    AMERICAN_EXPRESS: int
+}
+
+class Boleto {
+    nome: String
+    cpf: String
+    dataFabricacao: LocalDate
+    dataValidade: LocalDate
+}
+
+class Lote {
+    codigo: String
+    data: LocalDate
+    estoque: Integer
+}
+
+class Usuario{
+    id: Long
+    
+}
+enum PERFIL {
+    USER: int
+    ADMIN: int
+}
+
+Pedido "*" --> "1" Usuario
+Pedido "*" --> "1" Pagamento
+Pedido "1" --> "1" EnderecoEntrega
+Pedido "1" o--> "*" ItemPedido
+ItemPedido "*" --> "1" Lote
+
+Usuario "1" --> "*" Endereco
+
+Guitarra "*" --> "1" Especificacao
+Guitarra "*" --> "1" Marca
+Lote "*" --> "1" Guitarra
+PessoaFisica "1" --> "*" Telefone
+Usuario "1" --> "1" PessoaFisica
+PessoaFisica "*" --> "1" Sexo
+PessoaFisica "1" --> "1" Conta
+Conta "1" --> "*" PERFIL
+
+CartaoCredito "*" --> "1" BandeiraCartao
+Pagamento <|-- CartaoCredito
+Pagamento <|-- Boleto
+Endereco "*" --> "1" Cidade
+EnderecoEntrega "1" --> "1" Cidade
+EnderecoEntrega "1" --> "1" Estado
+Cidade "*" --> "1" Estado
+@enduml

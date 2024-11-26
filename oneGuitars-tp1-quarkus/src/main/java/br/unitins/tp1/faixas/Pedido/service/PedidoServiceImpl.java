@@ -19,8 +19,8 @@ import br.unitins.tp1.faixas.Pagamento.model.CartaoCredito;
 import br.unitins.tp1.faixas.Pagamento.repository.PagamentoRepository;
 import br.unitins.tp1.faixas.Pedido.ItemPedido.dto.ItemPedidoDTORequest;
 import br.unitins.tp1.faixas.Pedido.ItemPedido.model.ItemPedido;
+import br.unitins.tp1.faixas.Pedido.ItemPedido.model.Pedido;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
-import br.unitins.tp1.faixas.Pedido.model.Pedido;
 import br.unitins.tp1.faixas.Pedido.repository.PedidoRepository;
 import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
@@ -87,7 +87,7 @@ public class PedidoServiceImpl implements PedidoService {
   
 
     pedido.setDataCompra(LocalDateTime.now());
-    pedido.setCliente(usuarioRepository.findById(dto.idCliente()));
+    pedido.setUsuario(usuarioRepository.findById(dto.idCliente()));
     //caclc valor total
     //todos os itens estão nessa variável
     pedido.setValorTotal(0d); // valor vai ser calculado 

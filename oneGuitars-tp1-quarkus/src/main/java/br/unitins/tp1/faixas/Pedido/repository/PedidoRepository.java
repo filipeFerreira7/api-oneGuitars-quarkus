@@ -4,7 +4,7 @@ package br.unitins.tp1.faixas.Pedido.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.unitins.tp1.faixas.Pedido.model.Pedido;
+import br.unitins.tp1.faixas.Pedido.ItemPedido.model.Pedido;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped

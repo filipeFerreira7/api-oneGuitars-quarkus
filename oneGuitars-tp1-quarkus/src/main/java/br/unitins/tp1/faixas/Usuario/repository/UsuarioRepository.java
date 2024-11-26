@@ -20,10 +20,10 @@ public class UsuarioRepository implements PanacheRepository<Usuario>{
 
     }
     public Usuario findByIdUsuario(Long idUsuario){
-        return find("SELECT u FROM Usuario u WHERE u.pessoaFisica.usuario.id = ?1", idUsuario).firstResult();
+        return find("SELECT u FROM Usuario u WHERE pessoaFisica.conta.id = ?1", idUsuario).firstResult();
     }
         public Usuario findByUsernameAndSenha(String username, String senha){
-            return find("SELECT u FROM Usuario u WHERE u.pessoaFisica.usuario.username = ?1 AND pessoaFisica.usuario.senha = ?2", username, senha).firstResult();
+            return find("SELECT u FROM Usuario u WHERE pessoaFisica.conta.username = ?1 AND pessoaFisica.conta.senha = ?2", username, senha).firstResult();
     }
 
 }

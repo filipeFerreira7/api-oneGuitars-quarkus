@@ -55,9 +55,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
   @Override
   public UsuarioDTOResponse findById(Long id) throws NotFoundException {
-    Usuario c = repository.findById(id);
+    Usuario u = repository.findById(id);
 
-    if (c != null)
+    if (u != null)
       return UsuarioDTOResponse.valueOf(repository.findById(id));
 
     return null;
@@ -97,7 +97,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     // logica de perfis
     List<Perfil> perfis = new ArrayList<>();
     Perfil perfil = Perfil.valueOf(dto.idPerfil());
+    Perfil perfil2 = Perfil.valueOf(dto.idPerfil());
     perfis.add(perfil);
+    perfis.add(perfil2);
 
     conta.setPerfis(perfis);
 

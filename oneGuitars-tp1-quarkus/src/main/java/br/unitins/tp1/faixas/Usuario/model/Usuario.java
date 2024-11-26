@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
-@Entity
+@Entity(name = "Usuario")
 public class Usuario extends DefaultEntity {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

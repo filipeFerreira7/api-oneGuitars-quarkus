@@ -1,8 +1,9 @@
 package br.unitins.tp1.faixas.Auth.resource;
+import java.util.List;
 
-import br.unitins.tp1.faixas.Administrador.service.AdministradorService;
 import br.unitins.tp1.faixas.Auth.dto.AuthDTORequest;
 import br.unitins.tp1.faixas.Conta.dto.ContaDTOResponse;
+import br.unitins.tp1.faixas.Conta.model.Perfil;
 import br.unitins.tp1.faixas.Hash.service.HashService;
 import br.unitins.tp1.faixas.Jwt.service.JwtService;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
@@ -21,10 +22,9 @@ import jakarta.ws.rs.core.Response.Status;
 public class AuthUsuarioResource {
     
     @Inject
-    public UsuarioService clienteService;
+    public UsuarioService usuarioService;
 
-    @Inject
-    public AdministradorService admService;
+
 
     @Inject
     public HashService hashService;
@@ -36,25 +36,33 @@ public class AuthUsuarioResource {
     public Response login(AuthDTORequest dto){
         String hashSenha = hashService.getHashSenha(dto.senha());
 
-        ContaDTOResponse usuario = null;
+        ContaDTOResponse usuario = usuarioService.login(dto.username(), hashSenha);
 
-        if(dto.perfil() == 1){
-            // cliente
-            usuario = clienteService.login(dto.username(), hashSenha);
-        } else if (dto.perfil() == 2){
-            // funcionario
-            usuario = admService.login(dto.username(), hashSenha);
-        } else {
-            return Response.status(Status.NOT_FOUND).header("Perfil", "perfis existentes: 1-cliente | 2-funcionario").build();
+        if(usuario==null){
+            return Response.status(Status.NOT_FOUND).entity("Usuário ou senha inválidos").build();
         }
 
-        if(usuario != null){
-            return Response.ok(usuario).header("Authorization", jwtService.generateJwt(dto, usuario))
-                            .status(Status.CREATED)
+        List<Perfil> perfisDoUsuario = usuario.perfis();
+        if(perfisDoUsuario == null || perfisDoUsuario.isEmpty()){
+            return Response.status(Status.FORBIDDEN)
+                            .entity("Usuáio não possui perfis atribuídos")
                             .build();
-        } else {
-            return Response.status(Status.NOT_FOUND).build();
         }
-        
+
+        boolean temPerfil = perfisDoUsuario.stream().anyMatch(perfil -> dto.perfis().contains(perfil));
+
+
+        if(!temPerfil){
+            return Response.status(Status.FORBIDDEN)
+                            .entity("Usuário não possui os perfis necessários")
+                            .build();
+        }
+
+        String token = jwtService.generateJwt(dto, usuario);
+
+        return Response.ok(usuario)
+                        .header("Authorization", token)
+                        .status(Status.NO_CONTENT)
+                        .build();
     }
 }

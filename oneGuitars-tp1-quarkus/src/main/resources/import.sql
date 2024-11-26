@@ -49,31 +49,7 @@ insert into telefone(dd,numero) values ('55','87382');
 insert into telefone(dd,numero) values ('43','8227382');
 insert into telefone(dd,numero) values ('63','883982');
 insert into telefone(dd,numero) values ('12','167832');
-insert into telefone(dd,numero) values ('33','90090');;
+insert into telefone(dd,numero) values ('33','90090');
 
-insert into usuario(password, username)
-	VALUES ('12345', 'goale1');
-
-insert into usuario(password, username)
-	VALUES ('12346', 'isabela123');
-
-insert into usuario(password, username)
-	VALUES ('1234', 'filipe31');
-
-insert into pessoa(datanascimento,id_telefone, nome)
-	VALUES ('2005-10-10',1, 'Filipe Ferreira');
-
-    insert into pessoa(datanascimento,id_telefone, nome)
-	VALUES ('2005-11-11',3, 'Goale');
-
-      insert into pessoa(datanascimento,id_telefone, nome)
-	VALUES ('2004-11-12',2, 'Isabela');
-
-insert into pessoafisica(sexo,id,id_usuario, cpf)
-	VALUES (1,3, 3, '4556');
-
-    
-insert into pessoafisica(sexo,id,id_usuario, cpf)
-	VALUES (1,2, 1, '2223');
 
 

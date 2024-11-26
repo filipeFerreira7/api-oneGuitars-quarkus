@@ -1,6 +1,7 @@
 package br.unitins.tp1.faixas.Usuario.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.unitins.tp1.faixas.Conta.model.Perfil;
 import br.unitins.tp1.faixas.PessoaFisica.model.Sexo;
@@ -14,7 +15,7 @@ public record UsuarioDTOResponse(
     String sexo,
     String username,
     String senha,
-    List<Perfil> perfis,
+   List<String> perfis,
     TelefoneDTOResponse telefone
 ) {
     public static UsuarioDTOResponse valueOf(Usuario usuario) {
@@ -25,7 +26,7 @@ public record UsuarioDTOResponse(
             Sexo.valueOf(usuario.getPessoaFisica().getSexo().getId()).getDescricao(),
             usuario.getPessoaFisica().getConta().getUsername(),
             usuario.getPessoaFisica().getConta().getSenha(),
-            usuario.getPessoaFisica().getConta().getPerfis(),
+            usuario.getPessoaFisica().getConta().getPerfis().stream().map(Perfil::getDescricao).collect(Collectors.toList()), 
             TelefoneDTOResponse.valueOf(usuario.getPessoaFisica().getTelefone()
         ));
     }
