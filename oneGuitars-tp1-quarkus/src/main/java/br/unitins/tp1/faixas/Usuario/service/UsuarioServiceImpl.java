@@ -1,9 +1,9 @@
 package br.unitins.tp1.faixas.Usuario.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 // 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -18,10 +18,10 @@ import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
 import br.unitins.tp1.faixas.PessoaFisica.model.Sexo;
 import br.unitins.tp1.faixas.PessoaFisica.repository.PessoaFisicaRepository;
 import br.unitins.tp1.faixas.Telefone.service.TelefoneService;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
 import br.unitins.tp1.faixas.Usuario.dto.PasswordUpdateDTO;
 import br.unitins.tp1.faixas.Usuario.dto.UsernameUpdateDTO;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
 import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -60,7 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     if (u != null)
       return UsuarioDTOResponse.valueOf(repository.findById(id));
 
-    return null;
+    throw new NotFoundException("Usuario não encontrado");
   }
 
   @Override
@@ -95,12 +95,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     conta.setUsername(dto.username());
     conta.setSenha(hash.getHashSenha(dto.senha()));
     // logica de perfis
-    List<Perfil> perfis = new ArrayList<>();
-    Perfil perfil = Perfil.valueOf(dto.idPerfil());
-    Perfil perfil2 = Perfil.valueOf(dto.idPerfil());
-    perfis.add(perfil);
-    perfis.add(perfil2);
-
+    List<Perfil> perfis = dto.idPerfis().stream().map(Perfil::valueOf).collect(Collectors.toList());
     conta.setPerfis(perfis);
 
     contaRepository.persist(conta);
@@ -148,10 +143,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     if (conta != null) {
       conta.setUsername(dto.username());
       conta.setSenha(hash.getHashSenha(dto.senha()));
-
-      List<Perfil> perfis = new ArrayList<>();
-      Perfil perfil = Perfil.valueOf(dto.idPerfil());
-      perfis.add(perfil);
+     List<Perfil> perfis = dto.idPerfis().stream().map(Perfil::valueOf).collect(Collectors.toList());
       conta.setPerfis(perfis);
 
     } else {

@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.Pedido.ItemPedido.model;
+package br.unitins.tp1.faixas.Pedido.model;
 
 import java.time.LocalDateTime;
 import java.util.List;

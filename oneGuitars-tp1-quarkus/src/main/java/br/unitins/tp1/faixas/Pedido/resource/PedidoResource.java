@@ -61,14 +61,14 @@ public class PedidoResource {
     }
 
     @POST
-    @Path("/{id}/pagamento/info/pix")
+    @Path("/{id}/pagamento/info/boleto")
     @RolesAllowed("User")
     public Response gerarInfoBoleto(@PathParam("id") Long id){
         return Response.status(201).entity(pedidoService.gerarInfoBoleto(id)).build();
     }
     
     @POST
-    @Path("/{id}/pagamento-")
+    @Path("/{id}/pagamento-boleto")
     @RolesAllowed("User")
     public Response pagamentoBoleto(@PathParam("id") Long idPedido, @PathParam("id-boleto") Long idBoleto) {
        pedidoService.pagamentoBoleto(idPedido, idBoleto);

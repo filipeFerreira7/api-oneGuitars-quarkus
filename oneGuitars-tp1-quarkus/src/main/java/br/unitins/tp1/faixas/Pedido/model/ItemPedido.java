@@ -1,4 +1,4 @@
-package br.unitins.tp1.faixas.Pedido.ItemPedido.model;
+package br.unitins.tp1.faixas.Pedido.model;
 
 import br.unitins.tp1.faixas.Lote.model.Lote;
 import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;

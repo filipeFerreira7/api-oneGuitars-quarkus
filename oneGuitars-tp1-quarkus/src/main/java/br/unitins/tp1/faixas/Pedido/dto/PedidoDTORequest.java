@@ -8,7 +8,7 @@ import br.unitins.tp1.faixas.Pedido.ItemPedido.dto.ItemPedidoDTORequest;
 
 public record PedidoDTORequest (
 
-      Long idCliente,
+      Long idUsuario,
 
       EnderecoEntregaDTORequest endereco,
 

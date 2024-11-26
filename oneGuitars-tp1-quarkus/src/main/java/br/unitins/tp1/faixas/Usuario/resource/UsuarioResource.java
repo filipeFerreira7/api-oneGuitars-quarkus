@@ -73,7 +73,7 @@ public class UsuarioResource {
     @POST
     public Response create(@Valid UsuarioDTORequest dto) {
         usuarioService.create(dto);
-        return Response.status(Response.Status.CREATED).entity(dto).build();
+        return Response.status(Status.fromStatusCode(201)).entity(dto).build();
     }
 
     @PUT

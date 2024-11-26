@@ -1,5 +1,7 @@
 package br.unitins.tp1.faixas.Usuario.dto;
 
+import java.util.List;
+
 import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTORequest;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.Min;
@@ -18,7 +20,7 @@ public record UsuarioDTORequest(
                 @NotNull int mesNasc,
                 @NotNull int anoNasc,
                 
-                @NotNull @Min(1) Integer idPerfil,
+                List<Integer> idPerfis,
 
                 @NotBlank (message = "O campo cpf deve ser preenchido")
                 String cpf,

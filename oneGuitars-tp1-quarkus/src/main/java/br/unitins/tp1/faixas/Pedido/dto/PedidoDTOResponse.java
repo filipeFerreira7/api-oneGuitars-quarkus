@@ -6,10 +6,10 @@ import java.util.List;
 import br.unitins.tp1.faixas.EnderecoEntrega.dto.EnderecoEntregaDTOResponse;
 import br.unitins.tp1.faixas.Pagamento.model.Pagamento;
 import br.unitins.tp1.faixas.Pedido.ItemPedido.dto.ItemPedidoDTOResponse;
-import br.unitins.tp1.faixas.Pedido.ItemPedido.model.Pedido;
+import br.unitins.tp1.faixas.Pedido.model.Pedido;
 public record PedidoDTOResponse(
     Long id,
-    String nomeCliente,
+    String nomeUsuario,
     LocalDateTime dataCompra,
     Double valorTotal,
     List<ItemPedidoDTOResponse> listaItemPedido,
