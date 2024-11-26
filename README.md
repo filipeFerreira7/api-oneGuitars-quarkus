@@ -1,4 +1,4 @@
-# OneGuitars - E-commerce de Guitarras
+![uml_v4_OneGuitars](https://github.com/user-attachments/assets/522e4eab-8ba6-4ed7-81a6-f7be0d8397ca)# OneGuitars - E-commerce de Guitarras
 
 
 <img src="https://github.com/user-attachments/assets/58d825a9-437a-4ebe-b2e5-6831aa537a3a" alt="OneGuitars" width="400"/>
@@ -15,7 +15,7 @@ Project: eCommerce OneGuitars - Guitar Store
 All the concepts of OOP were implemented.
 
 ## 📝 UML
-![uml_v1_oneGuitars](https://github.com/user-attachments/assets/e0544ab2-b7c1-45ca-81f7-20403e6efbc3)
+![uml_v4_OneGuitars](https://github.com/user-attachments/assets/79b6e11b-f7ea-42c2-8985-f95d57adfbb5)
 
 
 
