@@ -2,6 +2,7 @@ package br.unitins.tp1.faixas.Usuario.resource;
 
 import java.io.IOException;
 
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
@@ -34,6 +35,8 @@ import jakarta.ws.rs.core.Response.Status;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsuarioResource {
 
+    private static final Logger LOG = Logger.getLogger(UsuarioResource.class);
+
     @Inject
     UsuarioService usuarioService;
 
@@ -49,6 +52,7 @@ public class UsuarioResource {
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
+        LOG.info("Execução do método findById, id: "+ id);
         return Response.ok(usuarioService.findById(id)).build();
     }
 

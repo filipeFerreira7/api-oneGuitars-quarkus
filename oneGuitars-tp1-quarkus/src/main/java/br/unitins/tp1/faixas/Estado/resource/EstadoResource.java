@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.faixas.Estado.dto.EstadoDTORequest;
 import br.unitins.tp1.faixas.Estado.dto.EstadoDTOResponse;
 import br.unitins.tp1.faixas.Estado.service.EstadoService;
+import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -28,6 +29,8 @@ public class EstadoResource {
     @Path("/{id}")
     @RolesAllowed({"Adm", "User"})
     public Response findById(@PathParam("id") Long id){
+        Log.info("Execucao do metodo findById. Id: "+ id);
+        Log.debug("DEBUG EXEMPLO");
         return Response.ok(EstadoDTOResponse.valueOf(estadoService.findById(id))).build();
     }
 
