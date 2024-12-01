@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
+import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
@@ -23,6 +24,13 @@ public class PedidoRepository implements PanacheRepository<Pedido> {
 
   public List<Pedido> findPedidosExpirados(LocalDateTime data){
     return find ("WHERE ?1 > tempoPagamento AND pagamento is NULL",data).list();
+  }
+
+  public Pedido findByUsuarioSemPagamento (Usuario usuario){
+    if(usuario != null){
+      return find(" SELECT p FROM Pedido p WHERE p.usuario = ?1 AND p.pagamento is NULL",usuario).firstResult();
+    }
+    return null;
   }
 
 }

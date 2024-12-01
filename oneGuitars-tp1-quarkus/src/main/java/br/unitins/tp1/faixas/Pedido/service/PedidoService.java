@@ -27,4 +27,5 @@ public interface PedidoService {
     //implementar os patchs
 
    //pensar no cancelar
+   void cancelarPedidosExpirados();
 }

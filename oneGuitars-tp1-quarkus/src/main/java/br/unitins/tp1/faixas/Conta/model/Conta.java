@@ -9,6 +9,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 
 @Entity
@@ -18,7 +19,7 @@ public class Conta extends DefaultEntity {
     @Column(name = "password")
     private String senha;
     
-   @ElementCollection(targetClass = Perfil.class)
+   @ElementCollection(targetClass = Perfil.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "conta_perfis", joinColumns = @JoinColumn(name = "conta_id"))
     @Column(name = "perfil")

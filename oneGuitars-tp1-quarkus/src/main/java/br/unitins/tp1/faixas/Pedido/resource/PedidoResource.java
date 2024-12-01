@@ -74,8 +74,7 @@ public class PedidoResource {
        pedidoService.pagamentoBoleto(idPedido, idBoleto);
        return Response.status(Status.NO_CONTENT).build();
     }
-
-    
+ 
 }
 
 // Views = Swagger and Browser
