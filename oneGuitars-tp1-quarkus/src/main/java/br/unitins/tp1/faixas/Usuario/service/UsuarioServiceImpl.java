@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import br.unitins.tp1.faixas.Cidade.service.CidadeService;
 import br.unitins.tp1.faixas.Conta.dto.ContaDTOResponse;
 import br.unitins.tp1.faixas.Conta.model.Conta;
 import br.unitins.tp1.faixas.Conta.model.Perfil;
 import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
 import br.unitins.tp1.faixas.Conta.service.ContaService;
+import br.unitins.tp1.faixas.Endereco.repository.EnderecoRepository;
 import br.unitins.tp1.faixas.Hash.service.HashService;
 import br.unitins.tp1.faixas.Hash.service.HashServiceImpl;
 import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
@@ -53,7 +55,11 @@ public class UsuarioServiceImpl implements UsuarioService {
   public ContaRepository contaRepository;
   @Inject
   public ContaService contaService;
+  @Inject
+  public EnderecoRepository enderecoRepository;
 
+  @Inject
+  public CidadeService cidadeService;
 
   @Override
   public UsuarioDTOResponse findById(Long id) throws NotFoundException {
@@ -112,6 +118,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     pF.setConta(conta);
     
     pessoaFisicaRepository.persist(pF);
+
+    //criando instancia de endereco
 
     Usuario usuario = new Usuario();
     usuario.setPessoaFisica(pF);

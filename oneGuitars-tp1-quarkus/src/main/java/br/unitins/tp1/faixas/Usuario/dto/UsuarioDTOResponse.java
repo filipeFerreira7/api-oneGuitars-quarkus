@@ -23,7 +23,7 @@ public record UsuarioDTOResponse(
             usuario.getId(),
             usuario.getPessoaFisica().getNome(),
             usuario.getPessoaFisica().getCpf(),
-            Sexo.valueOf(usuario.getPessoaFisica().getSexo().getId()).getDescricao(),
+            Sexo.valueOf(usuario.getPessoaFisica().getSexo().getId()).getDescricao(), 
             usuario.getPessoaFisica().getConta().getUsername(),
             usuario.getPessoaFisica().getConta().getSenha(),
             usuario.getPessoaFisica().getConta().getPerfis().stream().map(Perfil::getDescricao).collect(Collectors.toList()), 

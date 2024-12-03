@@ -15,7 +15,6 @@ import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class EnderecoServiceImpl implements EnderecoService {
-    
 
     @Inject
     EnderecoRepository repository;
@@ -27,71 +26,69 @@ public class EnderecoServiceImpl implements EnderecoService {
     CidadeService cidadeService;
 
     @Override
-    public Endereco findyById(Long id) throws NotFoundException{
+    public Endereco findById(Long id) throws NotFoundException{
         Endereco e = repository.findById(id);
-
-        if(e==null)
-            throw new NotFoundException("Endereço não encontrado!");
-
+        
+        if(e == null)
+            throw new NotFoundException("Endereco Entrega não encontrado");
         return repository.findById(id);
     }
 
     @Override
-    public Endereco findByCep(String cep) throws NotFoundException
-     {
-         Endereco e = repository.findByCep(cep);
+    public Endereco findByCep(String cep) throws NotFoundException{
+        Endereco e = repository.findByCep(cep);
 
-         if(e==null)
-         throw new NotFoundException("CEP não pode ser encontrado");
+        if(e==null)
+        throw new NotFoundException("Cep do endereco não encontrado");
+    
+        return repository.findByCep(cep);
+    }
 
-         return repository.findByCep(cep);
-  }
-        
     @Transactional
     @Override
-    public List<EnderecoDTOResponse> findAll() {
+    public List<EnderecoDTOResponse> findAll(){
         return repository.findAll().stream().map(e -> EnderecoDTOResponse.valueOf(e)).toList();
     }
 
     @Override
     @Transactional
-    public EnderecoDTOResponse create(EnderecoDTORequest dto) {
-       Endereco endereco = new Endereco();
-       endereco.setBairro(dto.bairro());
-       endereco.setCep(dto.cep());
-       endereco.setLogradouro(dto.logradouro());
-       endereco.setCidade(cidadeService.findById(dto.idCidade()));
+    public EnderecoDTOResponse create(EnderecoDTORequest dto){
+        Endereco eE = new Endereco();
+        eE.setLogradouro(dto.logradouro());
+        eE.setBairro(dto.bairro());
+        eE.setCep(dto.cep());
+        eE.setCidade(cidadeService.findById(dto.idCidade()));
 
-       repository.persist(endereco);
+        repository.persist(eE);
 
-       return EnderecoDTOResponse.valueOf(endereco);
+        return EnderecoDTOResponse.valueOf(eE);
     }
-       
-  
 
     @Override
-    @Transactional
     public EnderecoDTOResponse update(Long id, EnderecoDTORequest dto) throws NotFoundException {
-      Endereco e = repository.findById(id);
+        Endereco eE = repository.findById(id);
 
-      if(e==null)
-        throw new NotFoundException("Endereço não encontrado!");
+        if(eE==null)
+        throw new NotFoundException("usuario não encontrado para ser atualizado");
 
-        Endereco endereco = new Endereco();
-       endereco.setBairro(dto.bairro());
-       endereco.setCep(dto.cep());
-       endereco.setLogradouro(dto.logradouro());
-       endereco.setCidade(cidadeService.findById(dto.idCidade()));
+        Endereco e = new Endereco();
 
-       repository.persist(endereco);
+        e.setLogradouro(dto.logradouro());
+        e.setBairro(dto.bairro());
+        e.setCep(dto.cep());
+        e.setCidade(cidadeService.findById(dto.idCidade()));
 
-       return EnderecoDTOResponse.valueOf(endereco);
+        repository.persist(e);
+
+        return EnderecoDTOResponse.valueOf(e);
+
+
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
-         repository.deleteById(id);
+        repository.deleteById(id);
     }
-}
 
+
+}

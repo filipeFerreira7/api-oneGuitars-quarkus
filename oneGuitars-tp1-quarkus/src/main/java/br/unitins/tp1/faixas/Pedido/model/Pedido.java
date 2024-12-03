@@ -3,7 +3,7 @@ package br.unitins.tp1.faixas.Pedido.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.unitins.tp1.faixas.EnderecoEntrega.model.EnderecoEntrega;
+import br.unitins.tp1.faixas.Endereco.model.Endereco;
 import br.unitins.tp1.faixas.Pagamento.model.Pagamento;
 import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
@@ -28,7 +28,7 @@ public class Pedido extends DefaultEntity {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_endereco_entrega", nullable = false)
-    private EnderecoEntrega endereco;
+    private Endereco endereco;
 
     @Column(name = "tempo_pagamento", nullable = false)
     private LocalDateTime tempoPagamento;
@@ -76,11 +76,11 @@ public class Pedido extends DefaultEntity {
         this.usuario = usuario;
     }
 
-    public EnderecoEntrega getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(EnderecoEntrega endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 

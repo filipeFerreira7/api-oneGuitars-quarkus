@@ -3,7 +3,7 @@ package br.unitins.tp1.faixas.Pedido.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.unitins.tp1.faixas.EnderecoEntrega.dto.EnderecoEntregaDTOResponse;
+import br.unitins.tp1.faixas.Endereco.dto.EnderecoDTOResponse;
 import br.unitins.tp1.faixas.Pagamento.model.Pagamento;
 import br.unitins.tp1.faixas.Pedido.ItemPedido.dto.ItemPedidoDTOResponse;
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
@@ -15,7 +15,7 @@ public record PedidoDTOResponse(
     List<ItemPedidoDTOResponse> listaItemPedido,
     LocalDateTime tempoPagamento,
     Pagamento pagamento,
-    EnderecoEntregaDTOResponse endereco
+    EnderecoDTOResponse endereco
 ) {
  public static PedidoDTOResponse valueOf(Pedido pedido){
         return new PedidoDTOResponse(pedido.getId(),
@@ -25,7 +25,7 @@ public record PedidoDTOResponse(
                                        pedido.getListaItemPedido().stream().map(i -> ItemPedidoDTOResponse.valueOf(i)).toList(),
                                        pedido.getTempoPagamento(),
                                        pedido.getPagamento(),
-                                       EnderecoEntregaDTOResponse.valueOf(pedido.getEndereco())
+                                       EnderecoDTOResponse.valueOf(pedido.getEndereco())
                                       );
     }
 }

@@ -9,10 +9,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public interface EnderecoService {
-   
-    Endereco findyById(Long id);
 
-    Endereco findByCep(String cep);
+    Endereco findById(Long id);
+
+     Endereco findByCep(String cep);
 
     List<EnderecoDTOResponse> findAll();
 

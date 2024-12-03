@@ -9,8 +9,8 @@ import java.util.UUID;
 import org.jboss.logging.Logger;
 
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
-import br.unitins.tp1.faixas.EnderecoEntrega.model.EnderecoEntrega;
-import br.unitins.tp1.faixas.EnderecoEntrega.service.EnderecoEntregaService;
+import br.unitins.tp1.faixas.Endereco.model.Endereco;
+import br.unitins.tp1.faixas.Endereco.service.EnderecoService;
 import br.unitins.tp1.faixas.Guitarra.repository.GuitarraRepository;
 import br.unitins.tp1.faixas.Lote.repository.LoteRepository;
 import br.unitins.tp1.faixas.Lote.service.LoteService;
@@ -55,7 +55,7 @@ public class PedidoServiceImpl implements PedidoService {
   public UsuarioService usuarioService;
 
   @Inject
-  public EnderecoEntregaService enderecoEntregaService;
+  public EnderecoService enderecoEntregaService;
 
   @Inject
   public LoteRepository loteRepository;
@@ -89,7 +89,7 @@ public class PedidoServiceImpl implements PedidoService {
   @Transactional
   public Pedido create(PedidoDTORequest dto) {
     //criando endereço
-    EnderecoEntrega end = new EnderecoEntrega();
+    Endereco end = new Endereco();
     end.setBairro(dto.endereco().bairro());
     end.setCep(dto.endereco().cep());
     end.setCidade(cidadeService.findById(dto.endereco().idCidade()));
@@ -221,7 +221,7 @@ public void pagamentoBoleto(Long idPedido, Long idBoleto) {
         c.setSaldoCartao(c.getSaldoCartao()-p.getValorTotal());
 
           c.setEstaPago(true);
-          
+          LOG.info("Pagamento realizado com sucesso!");
           LocalDateTime now = LocalDateTime.now();
           c.setDataPagamento(now);
       //verificando se o tempo não foi ultrapassado

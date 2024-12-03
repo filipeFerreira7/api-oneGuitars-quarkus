@@ -1,20 +1,15 @@
 package br.unitins.tp1.faixas.Pedido.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import br.unitins.tp1.faixas.EnderecoEntrega.dto.EnderecoEntregaDTORequest;
+import br.unitins.tp1.faixas.Endereco.dto.EnderecoDTORequest;
 import br.unitins.tp1.faixas.Pedido.ItemPedido.dto.ItemPedidoDTORequest;
 
 public record PedidoDTORequest (
 
       Long idUsuario,
 
-      EnderecoEntregaDTORequest endereco,
-
-      LocalDateTime data,
-
-      LocalDateTime tempoPagamento,
+      EnderecoDTORequest endereco,
      
      List<ItemPedidoDTORequest> listaItemPedido
     

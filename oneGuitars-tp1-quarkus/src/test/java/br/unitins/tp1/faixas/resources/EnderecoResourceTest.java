@@ -92,11 +92,11 @@ public class EnderecoResourceTest {
                 .statusCode(204);
 
         
-        Endereco endereco = service.findyById(id);
+        Endereco endereco = service.findById(id);
 
         assertEquals(endereco.getCep(), ("770001"));
 
-        service.delete(service.findyById(id).getId());
+        service.delete(service.findById(id).getId());
         
 
     }
@@ -116,7 +116,7 @@ public class EnderecoResourceTest {
         CidadeDTOResponse cidadeResponse = null;
 
         try {
-            service.findyById(id);
+            service.findById(id);
         } catch (Exception e) {
 
         } finally {
