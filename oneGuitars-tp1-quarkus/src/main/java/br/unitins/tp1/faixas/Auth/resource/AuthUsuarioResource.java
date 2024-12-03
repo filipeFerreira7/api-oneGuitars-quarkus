@@ -24,8 +24,6 @@ public class AuthUsuarioResource {
     @Inject
     public UsuarioService usuarioService;
 
-
-
     @Inject
     public HashService hashService;
 
@@ -34,8 +32,8 @@ public class AuthUsuarioResource {
 
     @POST
     public Response login(AuthDTORequest dto){
-        String hashSenha = hashService.getHashSenha(dto.senha());
 
+        String hashSenha = hashService.getHashSenha(dto.senha());
         ContaDTOResponse usuario = usuarioService.login(dto.username(), hashSenha);
 
         if(usuario==null){
@@ -51,7 +49,6 @@ public class AuthUsuarioResource {
 
         boolean temPerfil = perfisDoUsuario.stream().anyMatch(perfil -> dto.perfis().contains(perfil));
 
-
         if(!temPerfil){
             return Response.status(Status.FORBIDDEN)
                             .entity("Usuário não possui os perfis necessários")
@@ -62,7 +59,7 @@ public class AuthUsuarioResource {
 
         return Response.ok(usuario)
                         .header("Authorization", token)
-                        .status(Status.NO_CONTENT)
+                        .status(Status.OK)
                         .build();
     }
 }

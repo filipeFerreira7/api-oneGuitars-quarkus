@@ -29,8 +29,7 @@ public class EstadoResource {
     @Path("/{id}")
     @RolesAllowed({"Adm", "User"})
     public Response findById(@PathParam("id") Long id){
-        Log.info("Execucao do metodo findById. Id: "+ id);
-        Log.debug("DEBUG EXEMPLO");
+        Log.info("Procurando estado pelo id: "+ id);
         return Response.ok(EstadoDTOResponse.valueOf(estadoService.findById(id))).build();
     }
 

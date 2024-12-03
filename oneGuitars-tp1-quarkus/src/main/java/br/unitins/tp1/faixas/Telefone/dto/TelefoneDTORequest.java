@@ -5,11 +5,11 @@ import jakarta.validation.constraints.Size;
 
 public record TelefoneDTORequest(
 
-    @NotBlank(message="The field name must be filled")
+    @NotBlank(message="o dd é obrigatório")
     @Size(max=60)
     String dd,
 
-    @NotBlank(message="The field CPF must be filled")
+    @NotBlank(message="o número é obrigatório")
     @Size(max=11)
     String numero
     

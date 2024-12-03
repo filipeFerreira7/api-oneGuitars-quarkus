@@ -1,4 +1,5 @@
 package br.unitins.tp1.faixas.Pedido.service;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 // 
@@ -81,12 +82,7 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Override
   public List<Pedido> findByUsername(String username) {
-    Usuario usuario = usuarioRepository.findByUsername(username);
-    if(usuario!=null){
    return pedidoRepository.findByUsername(username);
-    }
-    Response.status(Status.NOT_FOUND).entity("Não foi encontrado o usuário");
-    return null;
   }
 
   @Override
@@ -116,7 +112,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     pedido.setEndereco(end);
     // prazo para efetuar o pagamento
-    pedido.setTempoPagamento(LocalDateTime.now().plusMinutes(1)); // mudar para 5
+    pedido.setTempoPagamento(LocalDateTime.now().plusMinutes(5)); // mudar para 5
   
     
     List<ItemPedido> item = new ArrayList<ItemPedido>();
@@ -153,26 +149,60 @@ public class PedidoServiceImpl implements PedidoService {
   public BoletoDTOResponse gerarInfoBoleto(Long idPedido) {
     Pedido pedido = pedidoRepository.findById(idPedido);
     Double value = pedido.getValorTotal();
-
     Boleto boleto = new Boleto();
+    
     boleto.setValor(value);
     boleto.setCodigo(UUID.randomUUID().toString());
+    boleto.setDataFabricacao(LocalDate.now());
+    boleto.setDataValidade(LocalDate.now().plusDays(7)); // validade de 7 dias
+    
     pagamentoRepository.persist(boleto);
 
+    LOG.info("informações do boleto geradas.");
     return BoletoDTOResponse.valueOf(boleto);
     
   }
 
-  @Override
-  @Transactional
-  public void pagamentoBoleto(Long idPedido, Long idBoleto) {
-      Pedido p = pedidoRepository.findById(idPedido);
-      
-      if(p ==null)
-        throw new IllegalArgumentException("Não foi encontrado o pedido");
-      
-     p.setPagamento(pagamentoRepository.findById(idBoleto));
-  }
+ @Override
+@Transactional
+public void pagamentoBoleto(Long idPedido, Long idBoleto) {
+    // Verifica se o idPedido e idBoleto foram fornecidos
+    if (idPedido == null || idBoleto == null) {
+        throw new IllegalArgumentException("Os IDs do pedido e do boleto devem ser fornecidos.");
+    }
+
+    // Busca o pedido pelo ID
+    Pedido pedido = pedidoRepository.findById(idPedido);
+    if (pedido == null) {
+        throw new IllegalArgumentException("Não foi encontrado o pedido para o ID fornecido: " + idPedido);
+    }
+
+    // Busca o boleto pelo ID
+    Boleto boleto = (Boleto) pagamentoRepository.findById(idBoleto);
+    if (boleto == null) {
+        throw new IllegalArgumentException("Não foi encontrado o boleto para o ID fornecido: " + idBoleto);
+    }
+
+    // Simula o tempo de processamento do pagamento
+    try {
+        Thread.sleep(5000); // Simula 5 segundos de processamento
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new RuntimeException("Erro durante o processamento do pagamento.", e);
+    }
+
+    // Configura o pagamento como concluído
+    boleto.setEstaPago(true);
+    boleto.setDataPagamento(LocalDateTime.now());
+    pedido.setPagamento(boleto);
+
+    // Atualiza as informações no banco
+    pagamentoRepository.persist(boleto);
+    pedidoRepository.persist(pedido);
+
+    LOG.info("Pagamento do boleto ID " + idBoleto + " para o pedido ID " + idPedido + " concluído com sucesso.");
+}
+
 
   @Override
   @Transactional
@@ -209,7 +239,7 @@ public class PedidoServiceImpl implements PedidoService {
       p.setPagamento(c);  
   }
   @Override
-  @Scheduled(every ="1m") //mudar para 5
+  @Scheduled(every ="5m") 
   @Transactional
   public void cancelarPedidosExpirados(){
     List<Pedido> pedidos = pedidoRepository.find("pagamento is NULL").list();
@@ -220,6 +250,5 @@ public class PedidoServiceImpl implements PedidoService {
                 LOG.warn("Pedido ID: " + pedido.getId() + " foi cancelado porque o prazo de pagamento expirou.");
    }
    });
-
   }
 }

@@ -5,16 +5,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record EspecificacaoDTORequest(
-    @NotBlank(message = "The field sku must be filled")
+    @NotBlank(message = "O campo SKU é obrigatório")
     @Size(max=16)
     String sku,
     @NotNull()
     Double comprimento,
-    @NotBlank(message = "The field tipo madeira must be filled")
+    @NotBlank(message = "O tipo de madeira deve ser informado.")
     String tipoMadeira,
-    @NotBlank(message="The field tipo captador must be filled")
+    @NotBlank(message="O tipo de captador deve ser informado.")
     String tipoCaptador,
-    @NotBlank(message = "The field tipo chave must be filled")
+    @NotBlank(message = "O tipo de chave deve ser informado")
     String tipoChave
 ) 
 {}

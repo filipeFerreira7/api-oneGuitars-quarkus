@@ -30,8 +30,5 @@ public class Cidade extends DefaultEntity {
 
         public void setEstado(Estado estado) {
             this.estado = estado;
-        }
-
-        
-    
+        } 
 }

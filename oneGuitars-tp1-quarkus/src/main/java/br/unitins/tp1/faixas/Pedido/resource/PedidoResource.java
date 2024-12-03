@@ -16,6 +16,7 @@ import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 // controlador
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -67,12 +68,13 @@ public class PedidoResource {
         return Response.status(201).entity(pedidoService.gerarInfoBoleto(id)).build();
     }
     
-    @POST
+    @PATCH
     @Path("/{id}/pagamento-boleto")
     @RolesAllowed("User")
-    public Response pagamentoBoleto(@PathParam("id") Long idPedido, @PathParam("id-boleto") Long idBoleto) {
+    public Response pagamentoBoleto( @QueryParam("idPedido") Long idPedido, 
+    @QueryParam("idBoleto") Long idBoleto) {
        pedidoService.pagamentoBoleto(idPedido, idBoleto);
-       return Response.status(Status.NO_CONTENT).build();
+       return Response.status(Status.CREATED).build();
     }
  
 }

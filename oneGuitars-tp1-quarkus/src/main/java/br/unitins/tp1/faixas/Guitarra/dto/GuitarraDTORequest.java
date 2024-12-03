@@ -5,18 +5,18 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record GuitarraDTORequest(
-     @NotBlank(message= "The field name must be filled")
+     @NotBlank(message= "O nome da guitarra deve ser informado")
     @Size(max=60)
     String nome,
-    @NotNull (message= "numero de serie not must be null")
+    @NotNull (message= "o numero de série deve ser informado")
     String numeroSerie,
-    @NotBlank(message="The field cor must be filled")
+    @NotBlank(message="A cor da guitarra deve ser informada")
     String cor,
-    @NotNull(message = "The field preco must be filled")
+    @NotNull(message = "O preço da guitarra deve ser informado")
     Double preco,
-    @NotNull (message = "idEspecificacao not must be null")
+    @NotNull (message = "a especificação deve ser informada")
     Long idEspecificacao,
-    @NotNull(message = "idMarca not must be null")
+    @NotNull(message = "a marca deve ser informada")
     Long idMarca
     
 ){

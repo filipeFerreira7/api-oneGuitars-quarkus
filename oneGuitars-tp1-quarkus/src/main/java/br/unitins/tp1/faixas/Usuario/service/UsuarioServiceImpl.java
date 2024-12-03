@@ -185,6 +185,7 @@ public class UsuarioServiceImpl implements UsuarioService {
   }
 
   @Override
+  @Transactional
   public void updatePassword(PasswordUpdateDTO passwordUpdateDTO) {
     Conta conta = contaRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
     Usuario usuario = repository.findByIdUsuario(conta.getId());
