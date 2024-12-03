@@ -12,7 +12,6 @@ public record CidadeDTOResponse (
             return new CidadeDTOResponse(
                         cidade.getId(),
                          cidade.getNome(),
-                         EstadoDTOResponse.valueOf(cidade.getEstado())
-            );
+                         EstadoDTOResponse.valueOf(cidade.getEstado()));
     }
 }

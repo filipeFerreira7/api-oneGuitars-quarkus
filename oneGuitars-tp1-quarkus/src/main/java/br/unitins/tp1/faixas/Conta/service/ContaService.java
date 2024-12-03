@@ -16,9 +16,7 @@ public interface ContaService {
 
     List<Conta> findByNome(String nome);
 
-    List<Conta> findByCpf(String cpf);
+    Conta findByCpf(String cpf);
 
     List<Conta> findAll();
-
-    void delete(Long id);
 }

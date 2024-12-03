@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.Conta.model.Conta;
 import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
+import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -17,31 +18,36 @@ public class ContaServiceImpl implements ContaService {
   @Inject
   ContaRepository repository;
 
-  
+// nao existe resource para esse serviço  
   @Override
   public Conta findByUsernameAndSenha(String username, String senha) {
-      return repository.findByUsernameAndSenha(username, senha);
-  }
+    Conta conta = repository.findByUsernameAndSenha(username, senha);
+    if(conta ==null)
+      throw new EntidadeNotFoundException("username e senha", "usuario e senha não encontrados.");
 
- 
+      return conta;
+  }
 
   @Override
   public Conta findById(Long id) {
    return repository.findById(id);
   }
 
-
-
   @Override
   public List<Conta> findByNome(String nome) {
-      return null;
+      return repository.findByNome(nome);
   }
 
 
 
   @Override
-  public List<Conta> findByCpf(String cpf) {
-   return null;
+  public Conta findByCpf(String cpf) {
+   Conta conta = repository.findByCpf(cpf);
+
+   if(conta ==null)
+      throw new EntidadeNotFoundException("cpf", "cpf não encontrado.");
+   
+   return conta;
   }
 
 
@@ -51,15 +57,6 @@ public class ContaServiceImpl implements ContaService {
    
    return repository.findAll().list();
   }
-
-
-
-  @Override
-  public void delete(Long id) {
-  
-  }
-
-
 
   @Override
   public void update(Conta conta) {

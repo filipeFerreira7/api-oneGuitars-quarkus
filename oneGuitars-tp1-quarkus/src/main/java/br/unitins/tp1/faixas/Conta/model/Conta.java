@@ -23,8 +23,10 @@ public class Conta extends DefaultEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "conta_perfis", joinColumns = @JoinColumn(name = "conta_id"))
     @Column(name = "perfil")
-
+    
     private List<Perfil> perfis;
+
+
 
     public String getSenha() {
         return senha;

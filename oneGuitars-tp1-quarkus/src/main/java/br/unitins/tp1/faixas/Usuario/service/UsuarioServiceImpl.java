@@ -24,6 +24,7 @@ import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
 import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
 import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
+import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -53,6 +54,7 @@ public class UsuarioServiceImpl implements UsuarioService {
   @Inject
   public ContaService contaService;
 
+
   @Override
   public UsuarioDTOResponse findById(Long id) throws NotFoundException {
     Usuario u = repository.findById(id);
@@ -60,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     if (u != null)
       return UsuarioDTOResponse.valueOf(repository.findById(id));
 
-    throw new NotFoundException("Usuario não encontrado");
+    throw new EntidadeNotFoundException("id", "usuario não encontrado");
   }
 
   @Override
@@ -68,10 +70,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     Usuario usuario = repository.findByCpf(cpf);
 
     if (usuario == null)
-      return null;
+      throw new EntidadeNotFoundException("cpf", "cpf não encontrado.");
 
     return UsuarioDTOResponse.valueOf(usuario);
   }
+  
 
   @Override
   public List<UsuarioDTOResponse> findByNome(String nome) {
@@ -99,7 +102,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     conta.setPerfis(perfis);
 
     contaRepository.persist(conta);
-
+    //criando instancia de pessoaFisica
     PessoaFisica pF = new PessoaFisica();
     pF.setNome(dto.nome());
     pF.setTelefone(telefoneService.create(dto.telefone()));
@@ -107,7 +110,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     pF.setSexo(Sexo.valueOf(dto.idSexo()));
     pF.setCpf(dto.cpf());
     pF.setConta(conta);
-
+    
     pessoaFisicaRepository.persist(pF);
 
     Usuario usuario = new Usuario();
@@ -128,7 +131,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     Usuario usuario = repository.findById(id);
 
     if (usuario == null)
-      throw new NotFoundException("Nenhum usuário encontrado!");
+      throw new EntidadeNotFoundException("id", "usuário referenciado não foi encontrado");
 
     repository.delete(usuario);
 
@@ -147,7 +150,7 @@ public class UsuarioServiceImpl implements UsuarioService {
       conta.setPerfis(perfis);
 
     } else {
-      throw new ValidationException("Usuario inexistente");
+      throw new ValidationException("conta inexistente");
     }
 
     PessoaFisica pF = repository.findById(id).getPessoaFisica();
@@ -158,7 +161,7 @@ public class UsuarioServiceImpl implements UsuarioService {
       pF.setCpf(dto.cpf());
       pF.setConta(conta);
     } else {
-      throw new ValidationException("Usuario inexistente");
+      throw new ValidationException("pessoa fisica inexistente");
     }
 
     Usuario usuario = repository.findById(id);
@@ -166,7 +169,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     if (usuario != null)
       usuario.setPessoaFisica(pF);
     else {
-      throw new ValidationException("Usuario inexistente");
+      throw new ValidationException("usuario inexistente");
     }
 
     repository.persist(usuario);

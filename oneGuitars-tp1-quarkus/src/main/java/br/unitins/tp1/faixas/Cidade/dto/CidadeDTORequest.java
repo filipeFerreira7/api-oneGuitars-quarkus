@@ -6,10 +6,8 @@ import jakarta.validation.constraints.Size;
 
 public record CidadeDTORequest(
         @NotBlank(message = "O nome da cidade precisa ser preenchido")
-         @Size(max = 60, message = "O nome deve conter no máximo 60 caracteres") 
-         String nome,
+        @Size(max = 60, message = "O nome deve conter no máximo 60 caracteres") 
+        String nome,
 
-        @NotNull(message = "o Estado precisa ser referenciado") 
-        Long idEstado) {
-
-}
+        @NotNull(message = "o Estado precisa ser referenciado")
+         Long idEstado){}

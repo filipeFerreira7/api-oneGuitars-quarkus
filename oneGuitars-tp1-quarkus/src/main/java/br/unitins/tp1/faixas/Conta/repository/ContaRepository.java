@@ -12,12 +12,11 @@ public class ContaRepository implements PanacheRepository<Conta>{
 
     public List<Conta> findByNome(String nomePessoaFisica) {
         if (nomePessoaFisica == null || nomePessoaFisica.isEmpty()) {
-            return Collections.emptyList(); // Retorna uma lista vazia se o nome for nulo ou vazio
+            return Collections.emptyList();
         }
         return find("FROM Conta WHERE UPPER(pessoaFisica.nome) LIKE ?1",
             "%" + nomePessoaFisica.toUpperCase() + "%").list();
     }
-
     
     public Conta findByCpf(String cpf){
     return find("pessoaFisica.cpf = ?1",cpf).firstResult();

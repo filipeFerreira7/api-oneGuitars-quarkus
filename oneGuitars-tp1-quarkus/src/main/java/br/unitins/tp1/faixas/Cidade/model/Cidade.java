@@ -16,6 +16,7 @@ public class Cidade extends DefaultEntity {
         private Estado estado;
 
 
+        
         public String getNome() {
             return nome;
         }
