@@ -8,9 +8,9 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import br.unitins.tp1.faixas.Conta.repository.ContaRepository;
 import br.unitins.tp1.faixas.Conta.service.ContaService;
 import br.unitins.tp1.faixas.File.service.FileService;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
 import br.unitins.tp1.faixas.Usuario.dto.PasswordUpdateDTO;
 import br.unitins.tp1.faixas.Usuario.dto.UsernameUpdateDTO;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import br.unitins.tp1.faixas.form.PessoaFisicaImageForm;
 import jakarta.annotation.security.RolesAllowed;
@@ -52,7 +52,7 @@ public class UsuarioResource {
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
-        LOG.info("Execução do método findById, id: "+ id);
+        LOG.info("Execução do método findById, id: " + id);
         return Response.ok(usuarioService.findById(id)).build();
     }
 
@@ -87,10 +87,10 @@ public class UsuarioResource {
         return Response.noContent().build();
     }
 
-     @PATCH
+    @PATCH
     @RolesAllowed("User")
     @Path("/update-password")
-    public Response updateContaPassword(PasswordUpdateDTO passwordUpdateDTO){
+    public Response updateContaPassword(@Valid PasswordUpdateDTO passwordUpdateDTO) {
         usuarioService.updatePassword(passwordUpdateDTO);
         return Response.status(Status.NO_CONTENT).build();
     }
@@ -98,14 +98,14 @@ public class UsuarioResource {
     @PATCH
     @RolesAllowed("User")
     @Path("/update-username")
-    public Response updateContaUsername(UsernameUpdateDTO usernameUpdateDTO){
+    public Response updateContaUsername(@Valid UsernameUpdateDTO usernameUpdateDTO) {
         usuarioService.updateUsername(usernameUpdateDTO);
         return Response.status(Status.NO_CONTENT).build();
     }
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
+    public Response delete(@Valid @PathParam("id") Long id) {
         usuarioService.delete(id);
         return Response.noContent().build();
     }
@@ -113,15 +113,24 @@ public class UsuarioResource {
     @PATCH
     @Path("{id}/upload/imagem")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadImage(@PathParam("id") Long id, @MultipartForm PessoaFisicaImageForm form) {
+    public Response uploadImage(@Valid @PathParam("id") Long id, @MultipartForm PessoaFisicaImageForm form) {
+        LOG.info("Recebendo upload: Nome imagem = " + form.getNomeImagem());
         try {
-            String nomeImagem = pessoafisicaFileService.save(form.getNomeImagem(), form.getImagem());
+            if (form == null || form.getImagem() == null || form.getNomeImagem() == null) {
+                LOG.error("Dados inválidos enviados no formulário.");
+                return Response.status(Status.BAD_REQUEST).entity("Dados do formulário estão ausentes ou inválidos.")
+                        .build();
+            }
 
+            String nomeImagem = pessoafisicaFileService.save(form.getNomeImagem(), form.getImagem());
             usuarioService.updateNomeImagem(id, nomeImagem);
 
         } catch (IOException e) {
-            Response.status(Status.INTERNAL_SERVER_ERROR).build();
+            LOG.error("Erro ao salvar a imagem: " + e.getMessage(), e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Não foi possível salvar a imagem.").build();
         }
+
+        LOG.info("Tamanho do arquivo: " + (form.getImagem() != null ? form.getImagem().length : "null"));
         return Response.noContent().build();
     }
 
@@ -129,7 +138,14 @@ public class UsuarioResource {
     @Path("/download/imagem/{nomeImagem}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadImage(@PathParam("nomeImagem") String nomeImagem) {
-        ResponseBuilder response = Response.ok(pessoafisicaFileService.find(nomeImagem));
+        LOG.info("Baixando a imagem" + nomeImagem);
+        ResponseBuilder response;
+        try {
+            response = Response.ok(pessoafisicaFileService.find(nomeImagem));
+        } catch (RuntimeException e) {
+            LOG.error("Erro ao baixar imagem :" + e.getMessage());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Não foi possível baixar img").build();
+        }
         response.header("Content-Disposition", "attachment; filename= " + nomeImagem);
         return response.build();
 

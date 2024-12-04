@@ -201,7 +201,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     Conta conta = contaRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
     Usuario usuario = repository.findByIdUsuario(conta.getId());
     if (conta == null || usuario == null) {
-      throw new InternalError();
+      throw new EntidadeNotFoundException("conta ou usuário", "conta ou usuário não encontrado!");
     }
     if (conta.getSenha().equals(hashService.getHashSenha(passwordUpdateDTO.senhaAntiga()))) {
       conta.setSenha(hashService.getHashSenha(passwordUpdateDTO.senhaNova()));
@@ -215,7 +215,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     Conta conta = contaRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
     Usuario usuario = repository.findByIdUsuario(conta.getId());
     if (conta == null || usuario == null) {
-      throw new InternalError();
+      throw new EntidadeNotFoundException("conta ou usuário", "conta ou usuário não encontrado!");
     }
 
     usuario.getPessoaFisica().getConta().setUsername(usernameUpdateDTO.novoUsername());
@@ -229,6 +229,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     // verificar se existe ou não
     if (usuario != null)
       return ContaDTOResponse.valueOf(usuario.getPessoaFisica().getConta());
-    return null;
+      throw new EntidadeNotFoundException("usuário ou senha", "Usuário ou senha inválidos!");
   }
 }
