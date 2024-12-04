@@ -25,9 +25,9 @@ import br.unitins.tp1.faixas.Pedido.model.ItemPedido;
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
 import br.unitins.tp1.faixas.Pedido.repository.ItemPedidoRepository;
 import br.unitins.tp1.faixas.Pedido.repository.PedidoRepository;
+import br.unitins.tp1.faixas.Pedido.resource.PedidoResource;
 import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
-import br.unitins.tp1.faixas.Usuario.resource.UsuarioResource;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
 import io.quarkus.scheduler.Scheduled;
@@ -39,7 +39,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @ApplicationScoped
 public class PedidoServiceImpl implements PedidoService {
-   private static final Logger LOG = Logger.getLogger(UsuarioResource.class);
+   private static final Logger LOG = Logger.getLogger(PedidoResource.class);
   @Inject
   public PagamentoRepository pagamentoRepository;
 

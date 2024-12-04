@@ -10,7 +10,7 @@ public class LoteRepository implements PanacheRepository<Lote> {
 // Tudo que tem haver com bd
 
 public Lote findByCodigo(String cod){
-    return find("SELECT l FROM Lote l WHERE l.codigo = ?1","%"+cod+"%").firstResult();
+    return find("SELECT l FROM Lote l WHERE l.codigo = ?1",cod).firstResult();
 }
 
 /**

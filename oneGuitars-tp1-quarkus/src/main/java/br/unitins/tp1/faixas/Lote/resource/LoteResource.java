@@ -6,6 +6,7 @@ import br.unitins.tp1.faixas.Lote.dto.LoteDTORequest;
 import br.unitins.tp1.faixas.Lote.dto.LoteDTOResponse;
 import br.unitins.tp1.faixas.Lote.model.Lote;
 import br.unitins.tp1.faixas.Lote.service.LoteService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -39,6 +40,7 @@ public class LoteResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Adm"})
     public Response findById(@PathParam("id") Long id){
       
         return Response.ok(LoteDTOResponse.valueOf(loteService.findById(id))).build();
@@ -46,24 +48,28 @@ public class LoteResource {
 
     @GET
     @Path("/search/{codigo}")
+    @RolesAllowed({"Adm"})
         public Response findByCodigo(@QueryParam("codigo")String codigo){
             return Response.ok(LoteDTOResponse.valueOf(loteService.findByCodigo(codigo))).build();
         }
     
 
      @POST
+     @RolesAllowed("Adm")
     public Response create(@Valid LoteDTORequest dto){
         Lote lote = loteService.create(dto);
         return Response.status(Status.CREATED).entity(LoteDTOResponse.valueOf(lote)).build();
     }
 
     @PUT
+    @RolesAllowed("Adm")
     @Path("/{id}")
     public Response update(@Valid @PathParam("id") Long id , LoteDTORequest dto){
          loteService.update(id, dto);
        return Response.noContent().build();
     }
     @DELETE
+    @RolesAllowed("Adm")
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id){
         loteService.delete(id);

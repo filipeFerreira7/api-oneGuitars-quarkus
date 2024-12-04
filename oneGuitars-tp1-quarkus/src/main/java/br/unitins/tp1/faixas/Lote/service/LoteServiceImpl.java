@@ -6,6 +6,7 @@ import br.unitins.tp1.faixas.Guitarra.service.GuitarraService;
 import br.unitins.tp1.faixas.Lote.dto.LoteDTORequest;
 import br.unitins.tp1.faixas.Lote.model.Lote;
 import br.unitins.tp1.faixas.Lote.repository.LoteRepository;
+import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -13,7 +14,6 @@ import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class LoteServiceImpl implements LoteService{
-
   
   @Inject
   public LoteRepository loteRepository;
@@ -82,7 +82,13 @@ public class LoteServiceImpl implements LoteService{
 
   @Override
   public Lote findByCodigo(String codigo){
-      return loteRepository.findByCodigo(codigo);
+      Lote lote = loteRepository.findByCodigo(codigo);
+
+      if(lote ==null)
+        throw new EntidadeNotFoundException("codigo","o lote não foi encontrado");
+        
+
+    return lote;
   }
 
 
