@@ -29,12 +29,12 @@ import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
 import br.unitins.tp1.faixas.Usuario.resource.UsuarioResource;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
+import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @ApplicationScoped
@@ -76,8 +76,7 @@ public class PedidoServiceImpl implements PedidoService {
     if(usuario != null){
     return pedidoRepository.findById(id);
     }
-    Response.status(Status.NOT_FOUND).entity("Não foi encontrado o usuário");
-    return null;
+   throw new EntidadeNotFoundException("id", "não foi encontrado o pedido");
   }
 
   @Override

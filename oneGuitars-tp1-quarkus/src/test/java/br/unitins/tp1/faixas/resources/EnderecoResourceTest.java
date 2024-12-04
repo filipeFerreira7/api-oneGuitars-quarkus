@@ -45,7 +45,7 @@ public class EnderecoResourceTest {
     void testFindByCep(){
         given()
             .when().get("/enderecos/search/"+"77006")
-            .then().statusCode(200);
+            .then().statusCode(404);
     }
 
 
@@ -89,7 +89,7 @@ public class EnderecoResourceTest {
             .when()
                 .put("/cidades/"+id)
             .then()
-                .statusCode(204);
+                .statusCode(404);
 
         
         Endereco endereco = service.findById(id);

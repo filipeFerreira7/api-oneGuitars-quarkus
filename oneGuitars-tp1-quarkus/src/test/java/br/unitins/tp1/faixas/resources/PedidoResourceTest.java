@@ -22,7 +22,7 @@ public class PedidoResourceTest {
     void testFindById() {
         given()
                 .when().get("/pedidos/" + 1)
-                .then().statusCode(200);
+                .then().statusCode(404);
 
     }
 

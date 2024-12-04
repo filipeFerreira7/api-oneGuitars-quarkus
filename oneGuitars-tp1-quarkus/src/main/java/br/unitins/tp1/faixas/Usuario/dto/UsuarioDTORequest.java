@@ -2,7 +2,6 @@ package br.unitins.tp1.faixas.Usuario.dto;
 
 import java.util.List;
 
-import br.unitins.tp1.faixas.Endereco.dto.EnderecoDTORequest;
 import br.unitins.tp1.faixas.Telefone.dto.TelefoneDTORequest;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.Min;
@@ -21,9 +20,7 @@ public record UsuarioDTORequest(
                 @NotNull int diaNasc,
                 @NotNull int mesNasc,
                 @NotNull int anoNasc,
-                
-                List<EnderecoDTORequest> listaEnderecos,
-                
+       
                 List<Integer> idPerfis,
 
                 @NotBlank (message = "O campo cpf deve ser preenchido")
