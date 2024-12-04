@@ -1,10 +1,9 @@
 package br.unitins.tp1.faixas.Marca.resource;
 
-import java.util.List;
-
 import br.unitins.tp1.faixas.Marca.dto.MarcaDTORequest;
 import br.unitins.tp1.faixas.Marca.dto.MarcaDTOResponse;
 import br.unitins.tp1.faixas.Marca.service.MarcaService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
@@ -31,10 +30,8 @@ public class MarcaResource {
 
     @GET
     @Path("/search/{nome}")
-    public List<MarcaDTOResponse> findByNome(@PathParam("nome") String nome){
-        return marcaService.findByNome(nome).stream()
-        .map(o -> MarcaDTOResponse.valueOf(o))
-        .toList();
+    public MarcaDTOResponse findByNome(@PathParam("nome") String nome){
+        return MarcaDTOResponse.valueOf(marcaService.findByNome(nome));
     }
 
     @GET
@@ -47,6 +44,7 @@ public class MarcaResource {
     }
 
      @POST
+     @RolesAllowed("Adm")
     public Response create(@Valid MarcaDTORequest dto){
         return  Response.status(Status.CREATED).entity(
             MarcaDTOResponse.valueOf(marcaService.create(dto))
@@ -55,12 +53,14 @@ public class MarcaResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response update(@Valid @PathParam("id") Long id ,@Valid MarcaDTORequest dto){
          marcaService.update(id, dto);
        return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response delete(@PathParam("id") Long id){
         marcaService.delete(id);
         return Response.noContent().build();

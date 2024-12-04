@@ -7,6 +7,8 @@ import br.unitins.tp1.faixas.Especificacao.service.EspecificacaoService;
 import br.unitins.tp1.faixas.Marca.dto.MarcaDTORequest;
 import br.unitins.tp1.faixas.Marca.model.Marca;
 import br.unitins.tp1.faixas.Marca.repository.MarcaRepository;
+import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
+import br.unitins.tp1.faixas.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -27,14 +29,23 @@ public class MarcaServiceImpl implements MarcaService{
 
   @Override
   public Marca findById(Long id) {
-      return marcaRepository.findById(id);
+      Marca marca = marcaRepository.findById(id);
+      if(marca ==null)
+        throw new EntidadeNotFoundException("id", "não foi possivel achar a marca");
+        
+    return marca;
   }
 
 
   @Override
-  public List<Marca> findByNome(String nome) {
-    return marcaRepository.findByNome(nome);
-  }
+  public Marca findByNome(String nome) {
+    Marca marca =  marcaRepository.findByNome(nome);
+
+    if(marca == null)
+      throw new EntidadeNotFoundException("nome", "não foi possível encontrar a marca");
+    return marca;
+   }
+
 
   
   @Override
@@ -45,6 +56,9 @@ public class MarcaServiceImpl implements MarcaService{
   @Override
   @Transactional
   public Marca create(MarcaDTORequest dto) {
+    Marca marcaNome = marcaRepository.findByNome(dto.nome());
+    if(marcaNome !=null)
+      throw new ValidationException("nome", "Uma marca com este nome já existe");
     Marca marca = new Marca();
     marca.setNome(dto.nome());
      marcaRepository.persist(marca);
@@ -54,10 +68,18 @@ public class MarcaServiceImpl implements MarcaService{
   @Override
   @Transactional
   public Marca update(Long id, MarcaDTORequest dto) {
-        Marca marca = marcaRepository.findById(id);
-        marca.setNome(dto.nome());
-         marcaRepository.persist(marca);
-         return marca;
+        Marca marcaNome = marcaRepository.findByNome(dto.nome());
+        if(marcaNome!=null && marcaNome.getId() != id){
+          throw new ValidationException("id","Essa marca já existe.");
+        }
+
+      Marca marca = marcaRepository.findById(id);
+      if(marca==null)
+        throw new EntidadeNotFoundException("id", "marca não encontrada");
+      
+      marca.setNome(dto.nome());
+      marcaRepository.persist(marca);
+      return marca;
     }
   
 

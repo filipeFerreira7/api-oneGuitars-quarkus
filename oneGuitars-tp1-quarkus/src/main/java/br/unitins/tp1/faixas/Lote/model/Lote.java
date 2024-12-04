@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
 import br.unitins.tp1.faixas.Usuario.service.DefaultEntity.model.DefaultEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,11 +16,11 @@ public class Lote extends DefaultEntity {
     @ManyToOne
     @JoinColumn(name = "id_guitarra")
     private Guitarra guitarra;
-
+    @Column(nullable = false)
     private LocalDate data;
-
+    @Column(length = 20, nullable = false, unique = true)
     private String codigo;
-    
+    @Column(nullable = false)
     private Integer estoque;
 
     public Guitarra getGuitarra() {

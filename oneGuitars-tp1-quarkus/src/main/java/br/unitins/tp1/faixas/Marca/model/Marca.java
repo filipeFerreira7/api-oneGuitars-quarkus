@@ -8,7 +8,7 @@ import jakarta.persistence.Entity;
 @Entity 
 public class Marca extends DefaultEntity {
 
-    @Column(name = "nome")
+    @Column(name = "marca_nome", nullable = false,unique = true)
     private String nome;
 
     public String getNome() {

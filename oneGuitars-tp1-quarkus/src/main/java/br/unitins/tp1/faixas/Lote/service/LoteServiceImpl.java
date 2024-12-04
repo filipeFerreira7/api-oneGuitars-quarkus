@@ -7,6 +7,7 @@ import br.unitins.tp1.faixas.Lote.dto.LoteDTORequest;
 import br.unitins.tp1.faixas.Lote.model.Lote;
 import br.unitins.tp1.faixas.Lote.repository.LoteRepository;
 import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
+import br.unitins.tp1.faixas.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -39,6 +40,10 @@ public class LoteServiceImpl implements LoteService{
   @Override
   @Transactional
   public Lote create(LoteDTORequest dto) {
+    Lote verificaExistente = loteRepository.findByCodigo(dto.codigo());
+    if(verificaExistente !=null)
+      throw new ValidationException("codigo", "Um lote com este codigo já existe");
+
     Lote lote = new Lote();
   
    lote.setCodigo(dto.codigo());
@@ -53,8 +58,13 @@ public class LoteServiceImpl implements LoteService{
   @Override
   @Transactional
   public Lote update(Long id, LoteDTORequest dto) {
-    Lote lote = loteRepository.findById(id);
+    Lote verificaExistente = loteRepository.findByCodigo(dto.codigo());
+    if(verificaExistente != null && verificaExistente.getId() ==id){
+      throw new ValidationException("id","Essa lote já existe.");
+    }
 
+
+    Lote lote = loteRepository.findById(id);
     if(lote == null)
         throw new IllegalArgumentException("Lote não encontrado");
 

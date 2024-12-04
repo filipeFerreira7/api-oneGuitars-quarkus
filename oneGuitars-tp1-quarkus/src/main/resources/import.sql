@@ -14,9 +14,9 @@ insert into cidade (nome, id_estado) values('Palmas',1);
 insert into cidade (nome, id_estado) values('Paraíso',1);  
 insert into cidade (nome, id_estado) values('Gurupi',1);  
 
-insert into marca(nome) values ('Tagima');
-insert into marca(nome) values ('Fender');
-insert into marca(nome) values ('Gibson');
+insert into marca(marca_nome) values ('Tagima');
+insert into marca(marca_nome) values ('Fender');
+insert into marca(marca_nome) values ('Gibson');
 
 insert into especificacao(sku,comprimento,tipoMadeira,tipoCaptador,tipoChave) values
                          ('GTR01',1.20,'Mahogany','P90','3 posições');

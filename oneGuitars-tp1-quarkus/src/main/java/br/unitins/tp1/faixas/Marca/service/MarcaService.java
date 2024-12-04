@@ -12,7 +12,7 @@ public interface MarcaService {
 
     Marca findById(Long id);
 
-    List<Marca> findByNome(String nome);
+    Marca findByNome(String nome);
 
     List<Marca> findAll();
 
