@@ -8,6 +8,8 @@ import br.unitins.tp1.faixas.Guitarra.dto.GuitarraDTORequest;
 import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
 import br.unitins.tp1.faixas.Guitarra.repository.GuitarraRepository;
 import br.unitins.tp1.faixas.Marca.service.MarcaService;
+import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
+import br.unitins.tp1.faixas.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -36,7 +38,12 @@ public class GuitarraServiceImpl implements GuitarraService{
 
   @Override
   public Guitarra findById(Long id) {
-      return guitarraRepository.findById(id);
+      Guitarra guitarra =  guitarraRepository.findById(id);
+
+      if(guitarra == null)
+        throw new EntidadeNotFoundException("id", "não foi possivel encontrar a guitarra");
+ 
+    return guitarra;
   }
 
 
@@ -54,7 +61,11 @@ public class GuitarraServiceImpl implements GuitarraService{
   @Override
   @Transactional
   public Guitarra create(GuitarraDTORequest dto) {
-  
+   Guitarra guitarraNumeroSerie = guitarraRepository.findByNumeroSerie(dto.numeroSerie());
+      if (guitarraNumeroSerie != null) {
+          throw new ValidationException("numeroSerie","Já existe uma guitara com esse Numero de Série: " + dto.numeroSerie());
+      }
+
     Guitarra guitarra = new Guitarra();
     guitarra.setNome(dto.nome());
     guitarra.setNumeroSerie(dto.numeroSerie());
@@ -69,7 +80,10 @@ public class GuitarraServiceImpl implements GuitarraService{
   @Override
   @Transactional
   public Guitarra update(Long id, GuitarraDTORequest dto) {
-      
+    Guitarra guitarraNumeroSerie = guitarraRepository.findByNumeroSerie(dto.numeroSerie());
+    if (guitarraNumeroSerie != null) {
+      throw new ValidationException("numeroSerie","Já existe uma guitara com esse Numero de Série: " + dto.numeroSerie());
+     }
 
         Guitarra guitarra = guitarraRepository.findById(id);
         guitarra.setNome(dto.nome());
@@ -82,6 +96,21 @@ public class GuitarraServiceImpl implements GuitarraService{
 
         return guitarra;
     }
+
+    @Override
+    @Transactional
+    public Guitarra updatePreco(Long idGuitarra, Double novoPreco){
+      if(novoPreco == null || novoPreco <= 0)
+        throw new ValidationException("preco", "O preço deve ser maior que zero");
+      
+      Guitarra guitarra = guitarraRepository.findById(idGuitarra);
+      if(guitarra == null)
+        throw new EntidadeNotFoundException("idGuitarra", "não foi possível encontrar a guitarra");
+      guitarra.setPreco(novoPreco);
+      guitarraRepository.persist(guitarra);
+
+      return guitarra;
+      }
   
 
   @Override

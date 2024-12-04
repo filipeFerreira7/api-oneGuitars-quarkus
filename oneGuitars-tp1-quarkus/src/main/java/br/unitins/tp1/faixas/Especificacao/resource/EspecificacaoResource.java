@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.faixas.Especificacao.dto.EspecificacaoDTORequest;
 import br.unitins.tp1.faixas.Especificacao.dto.EspecificacaoDTOResponse;
 import br.unitins.tp1.faixas.Especificacao.service.EspecificacaoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
@@ -50,6 +51,7 @@ public class EspecificacaoResource {
     }
 
     @POST
+    @RolesAllowed("Adm")
     public Response create(@Valid EspecificacaoDTORequest dto){
         return  Response.status(Status.CREATED).entity(
             EspecificacaoDTOResponse.valueOf(especificacaoService.create(dto))
@@ -58,12 +60,14 @@ public class EspecificacaoResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response update(@Valid @PathParam("id") Long id, @Valid EspecificacaoDTORequest dto){
         especificacaoService.update(id, dto);
        return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response delete(@PathParam("id") Long id){
         especificacaoService.delete(id);
         return Response.noContent().build();

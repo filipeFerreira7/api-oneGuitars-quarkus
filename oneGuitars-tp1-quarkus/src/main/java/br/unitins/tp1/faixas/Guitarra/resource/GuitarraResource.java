@@ -4,15 +4,18 @@ import java.util.List;
 import br.unitins.tp1.faixas.Guitarra.dto.GuitarraDTORequest;
 import br.unitins.tp1.faixas.Guitarra.dto.GuitarraDTOResponse;
 import br.unitins.tp1.faixas.Guitarra.service.GuitarraService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 // controlador
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -51,6 +54,7 @@ public class GuitarraResource {
     }
 
      @POST
+     @RolesAllowed("Adm")
     public Response create(@Valid GuitarraDTORequest dto){
         return Response
                     .status(Status.CREATED)
@@ -59,12 +63,21 @@ public class GuitarraResource {
     }
     @PUT
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response update(@Valid @PathParam("id") Long id ,@Valid GuitarraDTORequest dto){
          guitarraService.update(id, dto);
        return Response.noContent().build();
     }
+    @PATCH
+    @Path("/{id}/atualizar-preco")
+    @RolesAllowed("Adm")
+    public Response updatePreco(@Valid @PathParam("id") Long idGuitarra, @QueryParam("novoPreco") Double novoPreco){
+        guitarraService.updatePreco(idGuitarra, novoPreco);
+        return Response.noContent().build();
+    }
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public void delete(@PathParam("id") Long id){
         guitarraService.delete(id);
     }

@@ -20,5 +20,7 @@ public interface GuitarraService {
 
     Guitarra update(Long id, GuitarraDTORequest dto);
 
+    Guitarra updatePreco(Long id, Double novoPreco);
+
     void delete(Long id);
 }

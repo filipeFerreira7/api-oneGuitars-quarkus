@@ -35,7 +35,6 @@ public class EstadoResource {
 
       @GET
     @Path("/search/{nome}")
-    @RolesAllowed("Adm")
     public List<EstadoDTOResponse> findByNome(@PathParam("nome")String nome){
 
         return estadoService.findByNome(nome).
@@ -50,6 +49,7 @@ public class EstadoResource {
     }
 
     @POST
+    @RolesAllowed("Adm")
     public Response create(@Valid EstadoDTORequest estado){
         return Response.status(Status.CREATED)
         .entity(EstadoDTOResponse.valueOf(estadoService.create(estado))).build();
@@ -57,12 +57,14 @@ public class EstadoResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response update(@Valid @PathParam("id") Long id,@Valid EstadoDTORequest dto){
         estadoService.update(id,dto);
         return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response delete(@PathParam("id") Long id){
         estadoService.delete(id);
         return Response.noContent().build();

@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.faixas.Cidade.dto.CidadeDTORequest;
 import br.unitins.tp1.faixas.Cidade.dto.CidadeDTOResponse;
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DELETE;
@@ -25,6 +26,7 @@ public class CidadeResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Adm","User"})
     public Response findById(@PathParam("id") Long id){
         
         return Response.ok(CidadeDTOResponse.valueOf(cidadeService.findById(id))).build();
@@ -50,6 +52,7 @@ public class CidadeResource {
     }
 
     @POST
+    @RolesAllowed("Adm")
     public Response create(@Valid CidadeDTORequest dto){
         return  Response.status(Status.CREATED).entity(
             CidadeDTOResponse.valueOf(cidadeService.create(dto))
@@ -58,12 +61,14 @@ public class CidadeResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response update(@Valid @PathParam("id") Long id, @Valid CidadeDTORequest dto){
         cidadeService.update(id, dto);
        return Response.noContent().build();
     }
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response delete(@PathParam("id") Long id){
         cidadeService.delete(id);
         return Response.noContent().build();
