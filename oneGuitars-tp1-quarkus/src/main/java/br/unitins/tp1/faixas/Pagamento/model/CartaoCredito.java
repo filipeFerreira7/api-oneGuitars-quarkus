@@ -2,7 +2,9 @@ package br.unitins.tp1.faixas.Pagamento.model;
 
 import java.time.LocalDate;
 
+import br.unitins.tp1.faixas.PessoaFisica.converterjpa.BandeiraCartaoConverter;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 
 @Entity
@@ -25,6 +27,7 @@ public class CartaoCredito extends Pagamento {
     @Column(name = "saldo_cartao", nullable = false)
     private Double saldoCartao;
 
+     @Convert(converter = BandeiraCartaoConverter.class) 
     private BandeiraCartao bandeiraCartao;
 
     public String getNomeTitular() {

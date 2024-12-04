@@ -3,10 +3,11 @@ import java.util.List;
 
 import br.unitins.tp1.faixas.Conta.dto.ContaDTOResponse;
 import br.unitins.tp1.faixas.PessoaFisica.model.PessoaFisica;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
-import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
 import br.unitins.tp1.faixas.Usuario.dto.PasswordUpdateDTO;
 import br.unitins.tp1.faixas.Usuario.dto.UsernameUpdateDTO;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTORequest;
+import br.unitins.tp1.faixas.Usuario.dto.UsuarioDTOResponse;
+import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -19,6 +20,8 @@ public interface UsuarioService {
     List<UsuarioDTOResponse> findByNome(String nome);
 
     List<UsuarioDTOResponse> findAll();
+    
+    Usuario findByUsername(String username);
 
     UsuarioDTOResponse create(UsuarioDTORequest dto);
 

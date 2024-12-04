@@ -21,11 +21,16 @@ public interface PedidoService {
 
     BoletoDTOResponse gerarInfoBoleto(Long idPedido);
 
+    //pensar nos patchs
     void pagamentoBoleto(Long idPedido, Long idBoleto);
     void pagamentoCartao(Long id, CartaoCreditoDTORequest cartao);
     
-    //implementar os patchs
+    
 
    //pensar no cancelar
    void cancelarPedidosExpirados();
+
+   void cancelarPedido(String username, Long id);
+
+   void devolucao(Pedido pedido);
 }

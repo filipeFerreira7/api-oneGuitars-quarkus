@@ -89,6 +89,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         .map(o -> UsuarioDTOResponse.valueOf(o)).toList();
   }
 
+  @Override
+  public Usuario findByUsername(String username)throws NotFoundException {
+    Usuario u = repository.findByUsername(username);
+
+    if (u != null)
+      return repository.findByUsername(username);
+
+    throw new EntidadeNotFoundException("username", "usuario não encontrado");
+  }
+
   @Transactional
   @Override
   public List<UsuarioDTOResponse> findAll() {

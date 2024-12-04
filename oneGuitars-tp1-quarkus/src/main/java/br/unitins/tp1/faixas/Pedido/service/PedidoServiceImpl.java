@@ -8,10 +8,13 @@ import java.util.UUID;
 
 import org.jboss.logging.Logger;
 
+import br.unitins.tp1.faixas.Cancelados.model.PedidoCancelado;
+import br.unitins.tp1.faixas.Cancelados.repository.PedidoCanceladoRepository;
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
 import br.unitins.tp1.faixas.Endereco.model.Endereco;
 import br.unitins.tp1.faixas.Endereco.service.EnderecoService;
 import br.unitins.tp1.faixas.Guitarra.repository.GuitarraRepository;
+import br.unitins.tp1.faixas.Lote.model.Lote;
 import br.unitins.tp1.faixas.Lote.repository.LoteRepository;
 import br.unitins.tp1.faixas.Lote.service.LoteService;
 import br.unitins.tp1.faixas.Pagamento.dto.BoletoDTOResponse;
@@ -30,11 +33,14 @@ import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import br.unitins.tp1.faixas.Usuario.repository.UsuarioRepository;
 import br.unitins.tp1.faixas.Usuario.service.UsuarioService;
 import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
+import br.unitins.tp1.faixas.validation.ValidationException;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @ApplicationScoped
@@ -68,6 +74,12 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Inject
   public CidadeService cidadeService;
+
+  @Inject
+  public PedidoCanceladoRepository pedidoCanceladoRepository;
+
+   @Inject
+    EntityManager entityManager;
 
 
   @Override
@@ -173,18 +185,18 @@ public void pagamentoBoleto(Long idPedido, Long idBoleto) {
     // Busca o pedido pelo ID
     Pedido pedido = pedidoRepository.findById(idPedido);
     if (pedido == null) {
-        throw new IllegalArgumentException("Não foi encontrado o pedido para o ID fornecido: " + idPedido);
+        throw new EntidadeNotFoundException("id","Não foi encontrado o pedido para o ID fornecido: " + idPedido);
     }
 
     // Busca o boleto pelo ID
     Boleto boleto = (Boleto) pagamentoRepository.findById(idBoleto);
     if (boleto == null) {
-        throw new IllegalArgumentException("Não foi encontrado o boleto para o ID fornecido: " + idBoleto);
+        throw new EntidadeNotFoundException("id","Não foi encontrado o boleto para o ID fornecido: " + idBoleto);
     }
 
     // Simula o tempo de processamento do pagamento
     try {
-        Thread.sleep(5000); // Simula 5 segundos de processamento
+        Thread.sleep(10000); // simula 10 segundos de processamento
     } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
         throw new RuntimeException("Erro durante o processamento do pagamento.", e);
@@ -212,7 +224,7 @@ public void pagamentoBoleto(Long idPedido, Long idBoleto) {
       Pedido p = pedidoRepository.findById(idPedido);
 
       if(p == null)
-        throw new IllegalArgumentException("Não foi encontrado o pedido");
+        throw new EntidadeNotFoundException("id","Não foi encontrado o pedido");
 
     CartaoCredito c = CartaoCreditoDTORequest.converteCartaoCredito(cartaoDTO);
   
@@ -221,20 +233,25 @@ public void pagamentoBoleto(Long idPedido, Long idBoleto) {
 
       if(c.getSaldoCartao()>= p.getValorTotal()){
         c.setSaldoCartao(c.getSaldoCartao()-p.getValorTotal());
-
+        try {
+          Thread.sleep(10000); // simula 10 segundos de processamento
+      } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+          throw new RuntimeException("Erro durante o processamento do pagamento.", e);
+      }
           c.setEstaPago(true);
           LOG.info("Pagamento realizado com sucesso!");
           LocalDateTime now = LocalDateTime.now();
           c.setDataPagamento(now);
       //verificando se o tempo não foi ultrapassado
           if(now.isAfter(p.getTempoPagamento())){
-            throw new IllegalArgumentException("Tempo esgotado. Tente novamente");
+            Response.status(Status.REQUEST_TIMEOUT);
       }
       p.setPagamento(c);
     }
     else{
       c.setEstaPago(false);
-      throw new IllegalArgumentException("Saldo insuficiente no cartão");
+      throw new ValidationException("saldo","Saldo insuficiente no cartão");
     }
  
       pagamentoRepository.persist(c);
@@ -253,4 +270,55 @@ public void pagamentoBoleto(Long idPedido, Long idBoleto) {
    }
    });
   }
+  @Override
+@Transactional
+public void cancelarPedido(String username, Long id) {
+
+    Pedido pedido = pedidoRepository.findById(id);
+    if (pedido == null) {
+        throw new EntidadeNotFoundException("id","Pedido não encontrado.");
+    }
+
+    Usuario user = usuarioService.findByUsername(username);
+    if (!pedido.getUsuario().equals(user)) {
+        throw new EntidadeNotFoundException("user", "Pedido não encontrado ou não pertence ao usuário.");
+    }
+
+    if (pedido.getPagamento() != null && pedido.getPagamento().estaPago()) {
+        throw new ValidationException("estaPago", "Não é possível cancelar um pedido já pago.");
+    }
+
+    if (pedido.getTempoPagamento().isBefore(LocalDateTime.now())) {
+        throw new ValidationException("prazoPagamento", "Não é possível cancelar um pedido com prazo de pagamento expirado.");
+    }
+
+    // Devolver itens ao estoque
+    devolucao(pedido);
+
+    // Certifique-se de que o pedido está gerenciado
+    pedido = entityManager.merge(pedido);
+
+    // Persistir na tabela de pedidos cancelados
+    PedidoCancelado pedidoCancelado = new PedidoCancelado();
+    pedidoCancelado.setPedidoCancelado(pedido);
+    pedidoCancelado.setDataCancelamento(LocalDateTime.now());
+    pedidoCanceladoRepository.persist(pedidoCancelado);
+
+    // Remover o pedido original
+    pedidoRepository.delete(pedido);
+
+    LOG.infof("Pedido com ID %d foi cancelado com sucesso pelo usuário %s", id, username);
+    
+}
+
+@Override
+@Transactional
+   public void devolucao(Pedido pedido) {
+        for (ItemPedido item: pedido.getListaItemPedido()) {
+            Lote lote = item.getLote();
+            Integer estoque = lote.getEstoque();
+            lote.setEstoque(estoque + item.getQuantidade());
+        }
+    }
+
 }

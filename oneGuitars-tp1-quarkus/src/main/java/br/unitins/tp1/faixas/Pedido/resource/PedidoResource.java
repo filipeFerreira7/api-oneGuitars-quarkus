@@ -3,6 +3,7 @@ package br.unitins.tp1.faixas.Pedido.resource;
 import java.util.List;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.jboss.logging.Logger;
 
 import br.unitins.tp1.faixas.Pagamento.dto.CartaoCreditoDTORequest;
 import br.unitins.tp1.faixas.Pedido.dto.PedidoDTORequest;
@@ -23,6 +24,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Path("/pedidos")
 public class PedidoResource {
+    private static final Logger LOG = Logger.getLogger(PedidoResource.class);
     
     @Inject
     public PedidoService pedidoService;
@@ -31,6 +33,7 @@ public class PedidoResource {
     public JsonWebToken jsonWebToken;
     @GET
     @Path("/{id}")
+    @RolesAllowed("Adm")
     public Response findById(@PathParam("id") Long id){
       
         return Response.ok(PedidoDTOResponse.valueOf(pedidoService.findById(id))).build();
@@ -77,6 +80,15 @@ public class PedidoResource {
        return Response.status(Status.CREATED).build();
     }
  
+    @PATCH
+    @Path("/cancelamento/{id}")
+    @RolesAllowed({ "Adm", "User" })
+    public Response cancel(@PathParam("id") Long id) {
+        String username = jsonWebToken.getSubject();
+        LOG.infof("aplicando o método cancelar. Usuário: %s.O id do pedido para cancelamento é o: %d", username, id);
+        pedidoService.cancelarPedido(username, id);
+        return Response.noContent().build();
+    }
 }
 
 // Views = Swagger and Browser
