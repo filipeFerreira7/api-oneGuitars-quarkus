@@ -52,7 +52,6 @@ public class UsuarioResource {
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
-        LOG.info("Execução do método findById, id: " + id);
         return Response.ok(usuarioService.findById(id)).build();
     }
 
@@ -138,7 +137,7 @@ public class UsuarioResource {
     @Path("/download/imagem/{nomeImagem}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadImage(@PathParam("nomeImagem") String nomeImagem) {
-        LOG.info("Baixando a imagem" + nomeImagem);
+        LOG.info("Baixando a imagem: " + nomeImagem);
         ResponseBuilder response;
         try {
             response = Response.ok(pessoafisicaFileService.find(nomeImagem));

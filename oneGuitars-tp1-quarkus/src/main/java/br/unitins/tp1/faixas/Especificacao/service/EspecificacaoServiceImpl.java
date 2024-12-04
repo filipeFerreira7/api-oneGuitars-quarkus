@@ -6,6 +6,8 @@ import br.unitins.tp1.faixas.Especificacao.dto.EspecificacaoDTORequest;
 import br.unitins.tp1.faixas.Especificacao.model.Especificacao;
 import br.unitins.tp1.faixas.Especificacao.repository.EspecificacaoRepository;
 import br.unitins.tp1.faixas.Estado.repository.EstadoRepository;
+import br.unitins.tp1.faixas.validation.EntidadeNotFoundException;
+import br.unitins.tp1.faixas.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,7 +26,13 @@ public class EspecificacaoServiceImpl implements EspecificacaoService {
 
     @Override
     public Especificacao findById(Long id) {
-        return especificacaoRepository.findById(id);
+        Especificacao especificacao =  especificacaoRepository.findById(id);
+
+        if(especificacao == null){
+          throw new EntidadeNotFoundException("id", "não foi encontrado o produto pelo id");
+        }
+
+        return especificacao;
     }
 
     @Override
@@ -41,6 +49,11 @@ public class EspecificacaoServiceImpl implements EspecificacaoService {
     @Override
     @Transactional
     public Especificacao create(EspecificacaoDTORequest dto) {
+      List<Especificacao> especificacoes = especificacaoRepository.findBySku(dto.sku());
+      if (!especificacoes.isEmpty()) {
+          throw new ValidationException("sku","Já existe uma especificação com o SKU informado: " + dto.sku());
+      }
+
       Especificacao especificacao = new Especificacao();
       especificacao.setSku(dto.sku());
       especificacao.setComprimento(dto.comprimento());
@@ -49,6 +62,7 @@ public class EspecificacaoServiceImpl implements EspecificacaoService {
       especificacao.setTipoChave(dto.tipoChave());
 
       especificacaoRepository.persist(especificacao);
+      
        return especificacao;
     }
 

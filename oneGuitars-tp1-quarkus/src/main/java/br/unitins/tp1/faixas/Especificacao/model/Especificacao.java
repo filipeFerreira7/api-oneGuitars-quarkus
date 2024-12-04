@@ -8,7 +8,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Especificacao extends DefaultEntity {
-        @Column(length = 16, nullable = false)
+        @Column(length = 16, nullable = false, unique = true)
         private String sku;
 
         @Column(nullable = false)

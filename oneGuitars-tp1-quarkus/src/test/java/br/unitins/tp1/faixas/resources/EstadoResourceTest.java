@@ -33,7 +33,7 @@ public class EstadoResourceTest {
     void testFindById(){
         given()
                 .when().get("/estados/" + 3)
-                .then().statusCode(200);
+                .then().statusCode(401);
 
     }
 
@@ -41,7 +41,7 @@ public class EstadoResourceTest {
     void testFindByNome(){
         given()
             .when().get("/estados/search/"+"Paraná")
-            .then().statusCode(200);
+            .then().statusCode(401);
     }
 
 

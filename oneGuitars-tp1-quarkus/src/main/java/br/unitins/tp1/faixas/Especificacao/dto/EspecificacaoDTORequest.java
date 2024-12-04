@@ -1,6 +1,7 @@
 package br.unitins.tp1.faixas.Especificacao.dto;
 
 import io.smallrye.common.constraint.NotNull;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -9,6 +10,7 @@ public record EspecificacaoDTORequest(
     @Size(max=16)
     String sku,
     @NotNull()
+   @DecimalMin(value = "0.5", inclusive = false, message = "O comprimento deve ser maior que 0.5.")
     Double comprimento,
     @NotBlank(message = "O tipo de madeira deve ser informado.")
     String tipoMadeira,

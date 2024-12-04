@@ -195,6 +195,9 @@ public void pagamentoBoleto(Long idPedido, Long idBoleto) {
     boleto.setDataPagamento(LocalDateTime.now());
     pedido.setPagamento(boleto);
 
+  
+  
+
     // Atualiza as informações no banco
     pagamentoRepository.persist(boleto);
     pedidoRepository.persist(pedido);
