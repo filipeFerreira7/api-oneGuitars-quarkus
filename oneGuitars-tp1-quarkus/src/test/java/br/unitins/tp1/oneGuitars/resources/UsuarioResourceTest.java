@@ -13,6 +13,7 @@ import br.unitins.tp1.oneGuitars.Usuario.dto.UsuarioDTORequest;
 import br.unitins.tp1.oneGuitars.Usuario.dto.UsuarioDTOResponse;
 import br.unitins.tp1.oneGuitars.Usuario.service.UsuarioService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 
@@ -48,6 +49,7 @@ public class UsuarioResourceTest {
 
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testCreate() {
         TelefoneDTORequest telefone = new TelefoneDTORequest("62", "9998844");
         String username = "fGije" + System.currentTimeMillis();
@@ -83,6 +85,7 @@ public class UsuarioResourceTest {
     }
     
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testUpdate() {
         TelefoneDTORequest telefone = new TelefoneDTORequest("62", "9998843");
         UsuarioDTORequest dto = new UsuarioDTORequest(
@@ -107,6 +110,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
 void testDelete() {
     TelefoneDTORequest telefone = new TelefoneDTORequest("62", "9998843");
     UsuarioDTORequest dto = new UsuarioDTORequest(

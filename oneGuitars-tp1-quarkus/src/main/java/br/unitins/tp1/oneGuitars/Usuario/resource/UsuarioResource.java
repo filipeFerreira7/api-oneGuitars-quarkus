@@ -68,6 +68,7 @@ public class UsuarioResource {
     }
 
     @GET
+    @RolesAllowed("Adm")
     public Response findAll() {
         return Response.ok(usuarioService.findAll()).build();
 
@@ -80,6 +81,7 @@ public class UsuarioResource {
     }
 
     @PUT
+    @RolesAllowed("Adm")
     @Path("/{id}")
     public Response update(@Valid @PathParam("id") Long id, @Valid UsuarioDTORequest dto) {
         usuarioService.update(id, dto);
@@ -104,6 +106,7 @@ public class UsuarioResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("User")
     public Response delete(@Valid @PathParam("id") Long id) {
         usuarioService.delete(id);
         return Response.noContent().build();
