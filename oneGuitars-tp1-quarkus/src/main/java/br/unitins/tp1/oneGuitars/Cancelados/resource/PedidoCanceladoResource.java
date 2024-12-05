@@ -5,6 +5,7 @@ import java.util.List;
 import br.unitins.tp1.oneGuitars.Cancelados.dto.PedidoCanceladoDTOResponse;
 import br.unitins.tp1.oneGuitars.Cancelados.model.PedidoCancelado;
 import br.unitins.tp1.oneGuitars.Cancelados.service.PedidoCanceladoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -40,6 +41,7 @@ public class PedidoCanceladoResource {
         }
 
     @GET
+    @RolesAllowed("Adm")
     public List<PedidoCanceladoDTOResponse> findAll() {
         List<PedidoCancelado> pedidosCancelados = pedidoCanceladoService.findAll();
         return pedidosCancelados.stream()

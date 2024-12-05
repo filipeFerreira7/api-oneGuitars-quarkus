@@ -224,6 +224,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     if (conta == null || usuario == null) {
       throw new EntidadeNotFoundException("conta ou usuário", "conta ou usuário não encontrado!");
     }
+
+    String hashSenhaAntiga = hashService.getHashSenha(passwordUpdateDTO.senhaAntiga());
+    if (!hashSenhaAntiga.equals(conta.getSenha())) {
+        throw new ValidationException("senha","A senha antiga não coincide com a senha cadastrada.");
+    }
+
+
     if (conta.getSenha().equals(hashService.getHashSenha(passwordUpdateDTO.senhaAntiga()))) {
       conta.setSenha(hashService.getHashSenha(passwordUpdateDTO.senhaNova()));
       contaService.update(conta);
