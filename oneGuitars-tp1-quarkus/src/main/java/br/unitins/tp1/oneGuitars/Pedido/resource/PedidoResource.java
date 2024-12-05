@@ -34,7 +34,6 @@ public class PedidoResource {
     public JsonWebToken jsonWebToken;
     @GET
     @Path("/{id}")
-    @RolesAllowed("Adm")
     public Response findById(@PathParam("id") Long id){
       
         return Response.ok(PedidoDTOResponse.valueOf(pedidoService.findById(id))).build();
