@@ -12,6 +12,7 @@ import br.unitins.tp1.faixas.Cidade.dto.CidadeDTOResponse;
 import br.unitins.tp1.faixas.Cidade.model.Cidade;
 import br.unitins.tp1.faixas.Cidade.service.CidadeService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 
@@ -22,6 +23,7 @@ public class CidadeResourceTest {
     CidadeService cidadeService;
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testFindAll(){
         given()
             .when().get("/cidades")
@@ -30,6 +32,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testFindById(){
         given()
                 .when().get("/cidades/" + 2)
@@ -40,13 +43,14 @@ public class CidadeResourceTest {
     @Test
     void testFindByNome(){
         given()
-            .when().get("/cidades/search/"+"Fender")
+            .when().get("/cidades/search/"+"Palmas")
             .then().statusCode(200);
     }
 
 
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testCreate(){
        CidadeDTORequest dto = new CidadeDTORequest("São Paulo",4L);
 
@@ -67,6 +71,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testUpdate(){
         
         CidadeDTORequest cidadeDTO = 
@@ -101,6 +106,7 @@ public class CidadeResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testDelete() {
         CidadeDTORequest cidade = new CidadeDTORequest("Presidente Kennedy",1L);
 

@@ -12,6 +12,7 @@ import br.unitins.tp1.faixas.Guitarra.dto.GuitarraDTOResponse;
 import br.unitins.tp1.faixas.Guitarra.model.Guitarra;
 import br.unitins.tp1.faixas.Guitarra.service.GuitarraService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 
@@ -47,6 +48,7 @@ public class GuitarraResourceTest {
 
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testCreate(){
        GuitarraDTORequest dto = new GuitarraDTORequest("TW51","01428","Fuschia",1900.9,1L,1L);
 
@@ -67,8 +69,9 @@ public class GuitarraResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testUpdate(){
-        GuitarraDTORequest guitarraDTO = new GuitarraDTORequest("TW51","01428","Fuschia",1900.9,1L,1L);
+        GuitarraDTORequest guitarraDTO = new GuitarraDTORequest("GRESTCH 99","0991234","Fuschia",1900.9,1L,1L);
 
         Long id = guitarraService.create(guitarraDTO).getId();
 
@@ -95,8 +98,9 @@ public class GuitarraResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testDelete() {
-        GuitarraDTORequest guitarra = new GuitarraDTORequest("TW51","01428","Fuschia",1900.9,1L,1L);
+        GuitarraDTORequest guitarra = new GuitarraDTORequest("TG530","014228","Fuschia",1900.9,1L,1L);
 
         Long id = guitarraService.create( guitarra).getId();
         given()

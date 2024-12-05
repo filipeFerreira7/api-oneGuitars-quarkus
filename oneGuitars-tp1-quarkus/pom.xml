@@ -109,6 +109,13 @@
             <artifactId>tika-core</artifactId>
              <version>2.9.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-test-security</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

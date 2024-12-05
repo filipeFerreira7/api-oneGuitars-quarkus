@@ -12,6 +12,7 @@ import br.unitins.tp1.faixas.Especificacao.dto.EspecificacaoDTOResponse;
 import br.unitins.tp1.faixas.Especificacao.model.Especificacao;
 import br.unitins.tp1.faixas.Especificacao.service.EspecificacaoService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 
@@ -47,6 +48,7 @@ public class EspecificacaoResourceTest {
 
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testCreate(){
        EspecificacaoDTORequest dto = new EspecificacaoDTORequest("GTR07",1.20,
        "Rosewood","P90","3 posições");
@@ -69,6 +71,7 @@ public class EspecificacaoResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testUpdate(){
         
         EspecificacaoDTORequest especificacaoDTO = 
@@ -104,6 +107,7 @@ public class EspecificacaoResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testDelete() {
         EspecificacaoDTORequest especificacao =new EspecificacaoDTORequest("GTR09",1.20,
         "Rosewood","P90","5 posições");

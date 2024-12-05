@@ -12,6 +12,7 @@ import br.unitins.tp1.faixas.Marca.dto.MarcaDTOResponse;
 import br.unitins.tp1.faixas.Marca.model.Marca;
 import br.unitins.tp1.faixas.Marca.service.MarcaService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 
@@ -22,6 +23,7 @@ public class MarcaResourceTest {
     MarcaService marcaService;
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testFindAll(){
         given()
             .when().get("/marcas")
@@ -47,8 +49,9 @@ public class MarcaResourceTest {
 
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testCreate(){
-       MarcaDTORequest dto = new MarcaDTORequest("Tagima");
+       MarcaDTORequest dto = new MarcaDTORequest("Grestch");
 
         given()
         .contentType(ContentType.JSON)
@@ -59,7 +62,7 @@ public class MarcaResourceTest {
         .log().all()
         .statusCode(201)
          .body(
-        "nome", is("Tagima")
+        "nome", is("Grestch")
          );       
 
          
@@ -67,6 +70,7 @@ public class MarcaResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testUpdate(){
         
         MarcaDTORequest marcaDTO = 
@@ -78,7 +82,7 @@ public class MarcaResourceTest {
 
         MarcaDTORequest newMarca = 
         new MarcaDTORequest(
-            "Fender"
+            "testinhooo"
            );
 
          given()
@@ -92,7 +96,7 @@ public class MarcaResourceTest {
         
         Marca marca = marcaService.findById(id);
 
-        assertEquals(marca.getNome(), ("Fender"));
+        assertEquals(marca.getNome(), ("testinhooo"));
 
         marcaService.delete(marcaService.findById(id).getId());
 
@@ -101,8 +105,9 @@ public class MarcaResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testDelete() {
-        MarcaDTORequest marca = new MarcaDTORequest("Fender");
+        MarcaDTORequest marca = new MarcaDTORequest("Phx");
 
         Long id = marcaService.create( marca).getId();
         given()

@@ -12,6 +12,7 @@ import br.unitins.tp1.faixas.Estado.dto.EstadoDTOResponse;
 import br.unitins.tp1.faixas.Estado.model.Estado;
 import br.unitins.tp1.faixas.Estado.service.EstadoService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 
@@ -38,15 +39,17 @@ public class EstadoResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testFindByNome(){
         given()
             .when().get("/estados/search/"+"Paraná")
-            .then().statusCode(401);
+            .then().statusCode(200);
     }
 
 
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testCreate(){
        EstadoDTORequest dto = new EstadoDTORequest("Bahia","BA");
 
@@ -67,6 +70,7 @@ public class EstadoResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testUpdate(){
         
         EstadoDTORequest estadoDTO = 
@@ -101,6 +105,7 @@ public class EstadoResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     void testDelete() {
         EstadoDTORequest estado =  new EstadoDTORequest(
             "California","CA"
