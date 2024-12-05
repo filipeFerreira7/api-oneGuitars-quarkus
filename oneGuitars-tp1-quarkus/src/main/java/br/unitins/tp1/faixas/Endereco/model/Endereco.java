@@ -13,7 +13,7 @@ public class Endereco extends DefaultEntity {
     private String logradouro;
     @Column
     private String bairro;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String cep;
 
     @ManyToOne

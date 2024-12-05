@@ -14,5 +14,5 @@ public interface PedidoCanceladoService {
 
     List<PedidoCancelado> findAll();
 
-    void cancelarPedido(Long idPedido);
+    
 }

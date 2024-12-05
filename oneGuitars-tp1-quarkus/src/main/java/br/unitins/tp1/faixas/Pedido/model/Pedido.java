@@ -33,10 +33,15 @@ public class Pedido extends DefaultEntity {
     @Column(name = "tempo_pagamento", nullable = false)
     private LocalDateTime tempoPagamento;
 
+    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
+    @JoinColumn(name = "id_pedido",nullable = false)
+    private List<StatusPedido> listaStatus;
+
     @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
             CascadeType.REMOVE }, orphanRemoval = true)
     @JoinColumn(name = "id_pagamento")
     private Pagamento pagamento;
+    
 
     @Column
     private LocalDateTime dataCompra;
@@ -98,6 +103,14 @@ public class Pedido extends DefaultEntity {
 
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
+    }
+
+    public List<StatusPedido> getListaStatus() {
+        return listaStatus;
+    }
+
+    public void setListaStatus(List<StatusPedido> listaStatus) {
+        this.listaStatus = listaStatus;
     }
 
 }

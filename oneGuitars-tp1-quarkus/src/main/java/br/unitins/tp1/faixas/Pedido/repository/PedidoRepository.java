@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import br.unitins.tp1.faixas.Pedido.model.Pedido;
+import br.unitins.tp1.faixas.Pedido.model.Status;
 import br.unitins.tp1.faixas.Usuario.model.Usuario;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -32,6 +33,11 @@ public class PedidoRepository implements PanacheRepository<Pedido> {
     }
     return null;
   }
+
+  public List<Pedido> findByStatus(Integer idStatus){
+    return find("JOIN listaStatus l WHERE l.status = ?1", Status.valueOf(idStatus)).list();
+}
+
 
 }
 

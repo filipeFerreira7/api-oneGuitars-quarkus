@@ -13,6 +13,7 @@ public record PedidoDTOResponse(
     LocalDateTime dataCompra,
     Double valorTotal,
     List<ItemPedidoDTOResponse> listaItemPedido,
+    List<StatusPedidoDTOResponse> status,
     LocalDateTime tempoPagamento,
     Pagamento pagamento,
     EnderecoDTOResponse endereco
@@ -23,6 +24,7 @@ public record PedidoDTOResponse(
                                        pedido.getDataCompra(),
                                        pedido.getValorTotal(),
                                        pedido.getListaItemPedido().stream().map(i -> ItemPedidoDTOResponse.valueOf(i)).toList(),
+                                       pedido.getListaStatus().stream().map(StatusPedidoDTOResponse::valueOf).toList(),
                                        pedido.getTempoPagamento(),
                                        pedido.getPagamento(),
                                        EnderecoDTOResponse.valueOf(pedido.getEndereco())

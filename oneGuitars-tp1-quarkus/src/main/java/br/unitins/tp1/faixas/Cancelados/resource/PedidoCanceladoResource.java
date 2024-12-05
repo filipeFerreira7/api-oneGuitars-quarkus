@@ -6,15 +6,12 @@ import br.unitins.tp1.faixas.Cancelados.dto.PedidoCanceladoDTOResponse;
 import br.unitins.tp1.faixas.Cancelados.model.PedidoCancelado;
 import br.unitins.tp1.faixas.Cancelados.service.PedidoCanceladoService;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @Path("/pedidos-cancelados")
 @Produces(MediaType.APPLICATION_JSON)
@@ -48,13 +45,5 @@ public class PedidoCanceladoResource {
         return pedidosCancelados.stream()
                 .map(PedidoCanceladoDTOResponse::valueOf)
                 .toList();
-    }
-
-    @POST
-    @Path("/{idPedido}")
-    @Transactional
-    public Response cancelarPedido(@PathParam("idPedido") Long idPedido) {
-            pedidoCanceladoService.cancelarPedido(idPedido);
-            return Response.status(Response.Status.NO_CONTENT).build();
     }
 }

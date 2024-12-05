@@ -2,6 +2,8 @@ package br.unitins.tp1.faixas.Pedido.dto;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import br.unitins.tp1.faixas.Endereco.dto.EnderecoDTORequest;
 import br.unitins.tp1.faixas.Pedido.ItemPedido.dto.ItemPedidoDTORequest;
 import jakarta.validation.Valid;
@@ -14,7 +16,9 @@ public record PedidoDTORequest (
       Long idUsuario,
       @Valid()
       EnderecoDTORequest endereco,
+     @NotNull(message = "A lista de itens não pode ser nula")
      @Valid()
+     @UniqueElements(message = "A lista de itens não deve conter itens repetidos")
      List<ItemPedidoDTORequest> listaItemPedido
     
 )
