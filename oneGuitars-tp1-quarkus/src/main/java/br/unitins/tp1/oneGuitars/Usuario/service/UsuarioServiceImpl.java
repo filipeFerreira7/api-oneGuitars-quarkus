@@ -27,10 +27,10 @@ import br.unitins.tp1.oneGuitars.Usuario.dto.UsuarioDTOResponse;
 import br.unitins.tp1.oneGuitars.Usuario.model.Usuario;
 import br.unitins.tp1.oneGuitars.Usuario.repository.UsuarioRepository;
 import br.unitins.tp1.oneGuitars.validation.EntidadeNotFoundException;
+import br.unitins.tp1.oneGuitars.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.validation.ValidationException;
 import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
@@ -108,6 +108,11 @@ public class UsuarioServiceImpl implements UsuarioService {
   @Override
   @Transactional
   public UsuarioDTOResponse create(UsuarioDTORequest dto) {
+
+    if (repository.findByUsername(dto.username()) != null) {
+      throw new ValidationException("username","O username já está em uso");
+    }
+
     Conta conta = new Conta();
     HashService hash = new HashServiceImpl();
 
@@ -124,6 +129,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     pF.setTelefone(telefoneService.create(dto.telefone()));
     pF.setDataNascimento(LocalDate.of(dto.anoNasc(), dto.mesNasc(), dto.diaNasc()));
     pF.setSexo(Sexo.valueOf(dto.idSexo()));
+    
+    Usuario verificaCpf = repository.findByCpf(dto.cpf());
+    if(verificaCpf !=null)
+      throw new ValidationException("cpf","Um usuário com este cpf já existe");
+
+
     pF.setCpf(dto.cpf());
     pF.setConta(conta);
     
@@ -157,7 +168,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
   @Override
   @Transactional
-  public UsuarioDTOResponse update(Long id, UsuarioDTORequest dto) throws ValidationException {
+  public UsuarioDTOResponse update(Long id, UsuarioDTORequest dto) {
     Conta conta = repository.findById(id).getPessoaFisica().getConta();
     HashService hash = new HashServiceImpl();
 
@@ -168,7 +179,7 @@ public class UsuarioServiceImpl implements UsuarioService {
       conta.setPerfis(perfis);
 
     } else {
-      throw new ValidationException("conta inexistente");
+      throw new ValidationException("id","usuario inexistente");
     }
 
     PessoaFisica pF = repository.findById(id).getPessoaFisica();
@@ -179,7 +190,7 @@ public class UsuarioServiceImpl implements UsuarioService {
       pF.setCpf(dto.cpf());
       pF.setConta(conta);
     } else {
-      throw new ValidationException("pessoa fisica inexistente");
+      throw new ValidationException("pessoaFisica","pessoa fisica inexistente");
     }
 
     Usuario usuario = repository.findById(id);
@@ -187,7 +198,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     if (usuario != null)
       usuario.setPessoaFisica(pF);
     else {
-      throw new ValidationException("usuario inexistente");
+      throw new ValidationException("id","usuario inexistente");
     }
 
     repository.persist(usuario);

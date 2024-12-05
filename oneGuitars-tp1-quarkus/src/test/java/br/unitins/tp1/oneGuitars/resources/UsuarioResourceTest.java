@@ -24,6 +24,7 @@ public class UsuarioResourceTest {
     UsuarioService usuarioService;
 
     @Test
+    @TestSecurity(user = "test", roles ={"Adm","User"})
     public void testFindAll(){
         given()
             .when().get("/usuarios")

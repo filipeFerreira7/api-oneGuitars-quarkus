@@ -55,6 +55,14 @@ public class AuthUsuarioResource {
                             .build();
         }
 
+        for (Perfil perfilSolicitado : dto.perfis()) {
+            if (!perfisDoUsuario.contains(perfilSolicitado)) {
+                return Response.status(Status.FORBIDDEN)
+                                .entity("Usuário não possui acesso ao perfil solicitado: " + perfilSolicitado)
+                                .build();
+            }
+        }
+
         String token = jwtService.generateJwt(dto, usuario);
 
         return Response.ok(usuario)
