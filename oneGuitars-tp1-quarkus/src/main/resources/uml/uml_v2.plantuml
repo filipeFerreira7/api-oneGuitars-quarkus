@@ -1,4 +1,4 @@
-@startuml
+@startuml oneGuitars
 class Telefone {
     id: Long
     dd: String
@@ -44,14 +44,8 @@ enum Sexo {
     FEMININO: int
 }
 
-class Endereco {
-    id: Long
-    logradouro: String
-    bairro: String
-    cep: String
-}
 
-class EnderecoEntrega {
+class Endereco {
     id: Long
     logradouro: String
     bairro: String
@@ -61,7 +55,7 @@ class EnderecoEntrega {
 class Cidade {
     id: Long
     nome: String
-    estado: Estado
+    
 }
 
 class Estado {
@@ -130,14 +124,21 @@ enum PERFIL {
     ADMIN: int
 }
 
+enum StatusPedido{
+ AGURDANDO_PAGAMENTO: int
+ PAGAMENTO_EXPIRADO: int
+ PAGAMENTO_CONFIRMADO: int
+ EM_TRANSITO: int
+ ENTREGUE: int
+ CANCELADO: int
+ DEVOLVIDO: int 
+}
+Pedido "1" --> "*" StatusPedido
 Pedido "*" --> "1" Usuario
 Pedido "*" --> "1" Pagamento
-Pedido "1" --> "1" EnderecoEntrega
+Pedido "1" --> "1" Endereco
 Pedido "1" o--> "*" ItemPedido
 ItemPedido "*" --> "1" Lote
-
-Usuario "1" --> "*" Endereco
-
 Guitarra "*" --> "1" Especificacao
 Guitarra "*" --> "1" Marca
 Lote "*" --> "1" Guitarra
@@ -150,8 +151,6 @@ Conta "1" --> "*" PERFIL
 CartaoCredito "*" --> "1" BandeiraCartao
 Pagamento <|-- CartaoCredito
 Pagamento <|-- Boleto
-Endereco "*" --> "1" Cidade
-EnderecoEntrega "1" --> "1" Cidade
-EnderecoEntrega "1" --> "1" Estado
+Endereco "1" --> "1" Cidade
 Cidade "*" --> "1" Estado
 @enduml
